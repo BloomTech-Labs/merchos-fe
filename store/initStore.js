@@ -1,5 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
+import logger from 'redux-logger';
 
 import { rootReducer } from './reducers';
 
@@ -15,7 +16,7 @@ export default (initialState, { isServer, req, debug, storeKey }) => {
   }
 
   // Redux middlewares
-  const middlewares = [thunk];
+  const middlewares = [thunk, logger];
   const enhancers = [applyMiddleware(...middlewares)];
 
   // initialize store creation

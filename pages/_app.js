@@ -6,10 +6,6 @@ import initStore from '../store/initStore';
 import { PersistGate } from 'redux-persist/integration/react';
 
 class MyApp extends App {
-  state = {
-    errorModal: false
-  };
-
   static async getInitialProps({ Component, ctx }) {
     const pageProps = Component.getInitialProps
       ? await Component.getInitialProps(ctx)
