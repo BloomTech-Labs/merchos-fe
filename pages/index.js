@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import styled from 'styled-components';
@@ -77,8 +77,8 @@ const Index = () => {
         <Heading>Welcome to the World's Easiest Online-Shop Builder</Heading>
         <ButtonWrapper>
           {authButtons.map((link, i) => (
-            <Link href={link.href} name={link.title} key={i}>
-              <Anchor>{link.title}</Anchor>
+            <Link href={link.href} key={i}>
+              <Anchor title={link.title}>{link.title}</Anchor>
             </Link>
           ))}
         </ButtonWrapper>

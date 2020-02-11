@@ -1,4 +1,4 @@
-import Document, { Head, Main, NextScript } from 'next/document';
+import Document, { Html, Head, Main, NextScript } from 'next/document';
 // Import styled components ServerStyleSheet
 import { ServerStyleSheet } from 'styled-components';
 
@@ -22,20 +22,20 @@ export default class MyDocument extends Document {
   render() {
     const { styleTags } = this.props;
     return (
-      <html>
+      <Html>
         <Head>
           <link
             href='https://fonts.googleapis.com/css?family=Nunito&display=swap'
             rel='stylesheet'
           />
-          >{/* Output the styles in the head  */}
+          {/* Output the styles in the head  */}
           {styleTags}
         </Head>
         <body>
           <Main />
           <NextScript />
         </body>
-      </html>
+      </Html>
     );
   }
 }
