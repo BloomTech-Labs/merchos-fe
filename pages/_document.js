@@ -24,7 +24,11 @@ export default class MyDocument extends Document {
     return (
       <html>
         <Head>
-          {/* Output the styles in the head  */}
+          <link
+            href='https://fonts.googleapis.com/css?family=Nunito&display=swap'
+            rel='stylesheet'
+          />
+          >{/* Output the styles in the head  */}
           {styleTags}
         </Head>
         <body>

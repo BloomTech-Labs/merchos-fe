@@ -9,7 +9,58 @@ const IndexWrapper = styled.div`
   justify-content: center;
 `;
 
-const ContentWrapper = styled.div``;
+const ContentWrapper = styled.div`
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 65px;
+  width: 75.5%;
+`;
+
+const Heading = styled.h1`
+  font-family: 'Nunito', sans-serif;
+  font-size: 3.4rem;
+  line-height: 42px;
+  width: 45%;
+`;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding-top: 80px;
+`;
+
+const Anchor = styled.a`
+  font-family: 'Nunito', sans-serif;
+  font-size: 2.75rem;
+  text-decoration: none;
+  padding: 22px 65px;
+  margin: 24px;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &:first-child {
+    color: white;
+    background: #6dd3ff;
+  }
+  &:nth-child(2) {
+    color: #6dd3ff;
+    background: white;
+    padding: 21px 64px;
+    border: 1px solid #6dd3ff;
+  }
+`;
+
+const ListInfo = styled.ul`
+  padding-top: 55px;
+
+  li {
+    font-size: 2.4rem;
+    font-family: 'Nunito', sans-serif;
+    line-height: 148%;
+  }
+`;
 
 const Index = () => {
   return (
@@ -23,20 +74,19 @@ const Index = () => {
         />
       </Head>
       <ContentWrapper>
-        <h1>Welcome to the World's Easiest Online-Shop Builder</h1>
-        <div>
-          <Link href='/'>
-            <a>Start</a>
-          </Link>
-          <Link href='/'>
-            <a>Sign In</a>
-          </Link>
-        </div>
-        <ul>
+        <Heading>Welcome to the World's Easiest Online-Shop Builder</Heading>
+        <ButtonWrapper>
+          {authButtons.map((link, i) => (
+            <Link href={link.href} name={link.title} key={i}>
+              <Anchor>{link.title}</Anchor>
+            </Link>
+          ))}
+        </ButtonWrapper>
+        <ListInfo>
           {listData.map((item, i) => (
             <li key={i}>{item}</li>
           ))}
-        </ul>
+        </ListInfo>
       </ContentWrapper>
     </IndexWrapper>
   );
@@ -44,10 +94,21 @@ const Index = () => {
 
 export default Index;
 
+const authButtons = [
+  {
+    href: '/',
+    title: 'Start!'
+  },
+  {
+    href: '/',
+    title: 'Sign In'
+  }
+];
+
 const listData = [
-  'Easiest Drag and Drop',
-  'Create Products & Auto-shipment',
-  'Built in Paypal & Credit Card Options',
-  'Automatically Share to Social Media',
-  "It's Free for Life!"
+  '- Easiest Drag and Drop',
+  '- Create Products & Auto-shipment',
+  '- Built in Paypal & Credit Card Options',
+  '- Automatically Share to Social Media',
+  "- It's Free for Life!"
 ];
