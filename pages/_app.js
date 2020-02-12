@@ -5,6 +5,8 @@ import withRedux from 'next-redux-wrapper';
 import initStore from '../store/initStore';
 import { PersistGate } from 'redux-persist/integration/react';
 
+import { GlobalStyle } from '../styles/GlobalStyles';
+
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
     const pageProps = Component.getInitialProps
@@ -18,6 +20,7 @@ class MyApp extends App {
     return (
       <Provider store={store}>
         <PersistGate persistor={store.__persistor} loading={null}>
+          <GlobalStyle />
           <Component {...pageProps} />
         </PersistGate>
       </Provider>
