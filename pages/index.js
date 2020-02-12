@@ -105,7 +105,7 @@ const authButtons = [
   }
 ];
 
-const listData = [
+export const listData = [
   '- Easiest Drag and Drop',
   '- Create Products & Auto-shipment',
   '- Built in Paypal & Credit Card Options',
