@@ -11,27 +11,44 @@ const UnderForm = styled.div`
   display: flex;
 `;
 
-const AuthForm = ({ activeTab }) => {
+const AuthForm = ({ activeTab, submitHandler }) => {
+
+  // handles state for current form data
   const [formData, setFormData] = useState({
     email: '',
     password: ''
   });
+
+  // handles any changes to the form below
   const changeHandler = e => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.checked
     });
   };
 
+  // set current for data based on current tab the user is on
   useEffect(() => {
-    setFormData({
-      email: '',
-      password: ''
-    });
+    // if the active tab is Sign In
+    if (activeTab === 'Sign In') {
+      // set form data for sign in page back to empty strings
+      setFormData({
+        email: '',
+        password: '',
+        rememberBox: false
+      });
+    } else {
+      // if not, set the registration form data to empty strings
+      setFormData({
+        email: '',
+        password: ''
+      });
+    }
   }, [activeTab]);
 
   return (
-    <Form>
+    <Form onSubmit={e => submitHandler(e, formData)}>
       <label htmlFor='email'>Email:</label>
       <input
         type='text'
@@ -46,15 +63,23 @@ const AuthForm = ({ activeTab }) => {
         onChange={changeHandler}
         value={formData.password}
       />
-      <UnderForm>
-        <div>
-          <label htmlFor='remember'>Remember Me?</label>
-          <input type='checkbox' name='remember' />
-        </div>
-        <Link href=''>
-          <a>Forgot Password?</a>
-        </Link>
-      </UnderForm>
+      {/* check for the active tab, if it's Sign In, render the following components */}
+      {activeTab === 'Sign In' ? (
+        <UnderForm>
+          <div>
+            <label htmlFor='rememberBox'>Remember Me?</label>
+            <input
+              type='checkbox'
+              name='rememberBox'
+              value={formData.rememberBox}
+              onChange={changeHandler}
+            />
+          </div>
+          <Link href=''>
+            <a>Forgot Password?</a>
+          </Link>
+        </UnderForm>
+      ) : null}
       <button type='submit'>Sign In</button>
     </Form>
   );

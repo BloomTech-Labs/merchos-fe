@@ -26,22 +26,37 @@ const TabBar = styled.ul`
 `;
 
 const AuthModal = () => {
-  const [activeTab, setActiveTab] = useState('');
+  const [activeTab, setActiveTab] = useState('Sign In');
 
   const tabHandler = data => {
     setActiveTab(data);
   };
 
-  console.log(activeTab);
+  const submitHandler = (e, data) => {
+    e.preventDefault();
+    if (activeTab === 'Sign In') {
+      console.log('sign in', data);
+    } else if (activeTab === 'Sign Up') {
+      console.log('sign up', data);
+    }
+  };
   return (
     <ModalContainer>
       <Modal>
         <TabBar>
-          <Tab tabHandler={tabHandler}>Sign Up</Tab>
-          <Tab tabHandler={tabHandler}>Sign In</Tab>
+          <Tab tabHandler={tabHandler} isActive={activeTab}>
+            Sign In
+          </Tab>
+          <Tab tabHandler={tabHandler} isActive={activeTab}>
+            Sign Up
+          </Tab>
         </TabBar>
-        <Form activeTab={activeTab} />
-        <button type='button'>Need an account?</button>
+        <Form activeTab={activeTab} submitHandler={submitHandler} />
+        {activeTab === 'Sign In' ? (
+          <button type='button'>Need an account?</button>
+        ) : (
+          <button type='button'>Have an account?</button>
+        )}
       </Modal>
     </ModalContainer>
   );
