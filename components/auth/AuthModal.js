@@ -1,50 +1,49 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import Link from 'next/link';
+
+import Form from './Form';
+import Tab from './Tab';
+
+const ModalContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+`;
 
 const Modal = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  background: gray;
+  width: 40%;
 `;
 
-const TabBar = styled.ul``;
-const Form = styled.form`
+const TabBar = styled.ul`
   display: flex;
-  flex-direction: column;
-`;
-
-const UnderForm = styled.div`
-  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
 `;
 
 const AuthModal = () => {
+  const [activeTab, setActiveTab] = useState('');
+
+  const tabHandler = data => {
+    setActiveTab(data);
+  };
+
+  console.log(activeTab);
   return (
-    <div>
+    <ModalContainer>
       <Modal>
         <TabBar>
-          <li>Sign In</li>
-          <li>Sign Up</li>
+          <Tab tabHandler={tabHandler}>Sign Up</Tab>
+          <Tab tabHandler={tabHandler}>Sign In</Tab>
         </TabBar>
-        <Form>
-          <label htmlFor='email'>Email:</label>
-          <input type='text' name='email' />
-          <label htmlFor='password'>Password:</label>
-          <input type='password' name='password' />
-          <UnderForm>
-            <div>
-              <label htmlFor='remember'>Remember Me?</label>
-              <input type='checkbox' name='remember' />
-            </div>
-            <Link href=''>
-              <a>Forgot Password?</a>
-            </Link>
-          </UnderForm>
-          <button type='submit'>Sign In</button>
-        </Form>
-        <button>Need an account?</button>
+        <Form activeTab={activeTab} />
+        <button type='button'>Need an account?</button>
       </Modal>
-    </div>
+    </ModalContainer>
   );
 };
 
