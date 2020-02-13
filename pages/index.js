@@ -3,6 +3,9 @@ import Head from 'next/head';
 import Link from 'next/link';
 import styled from 'styled-components';
 
+// components
+import AuthModal from '../components/auth/AuthModal';
+
 const IndexWrapper = styled.div`
   width: 100%;
   display: flex;
