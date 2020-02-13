@@ -3,26 +3,23 @@ import styled from 'styled-components';
 
 const ActiveTab = styled.li`
   cursor: pointer;
-  padding: 10px;
-  background: red;
-`;
-
-const TabStyle = styled.li`
-  cursor: pointer;
-  padding: 10px;
+  background: ${({ isActive, current }) =>
+    isActive === current ? 'red' : null};
+  width: 100%;
+  text-align: center;
+  padding: 20px 0px;
 `;
 
 const Tab = ({ children, tabHandler, isActive }) => {
-  // if the active tab is equal to the child passed in
-  if (isActive === children) {
-    // render the following component, which is considered the 'active' tab
-    return (
-      <ActiveTab onClick={() => tabHandler(children)}>{children}</ActiveTab>
-    );
-  } else {
-    // else, render the non-active component
-    return <TabStyle onClick={() => tabHandler(children)}>{children}</TabStyle>;
-  }
+  return (
+    <ActiveTab
+      isActive={isActive}
+      current={children}
+      onClick={() => tabHandler(children)}
+    >
+      {children}
+    </ActiveTab>
+  );
 };
 
 export default Tab;

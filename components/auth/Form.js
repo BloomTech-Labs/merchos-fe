@@ -12,19 +12,20 @@ const UnderForm = styled.div`
 `;
 
 const AuthForm = ({ activeTab, submitHandler }) => {
-
   // handles state for current form data
   const [formData, setFormData] = useState({
     email: '',
-    password: ''
+    password: '',
+    rememberBox: false
   });
 
   // handles any changes to the form below
   const changeHandler = e => {
+    const value =
+      e.target.type === 'checkbox' ? e.target.checked : e.target.value;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
-      [e.target.name]: e.target.checked
+      [e.target.name]: value
     });
   };
 
