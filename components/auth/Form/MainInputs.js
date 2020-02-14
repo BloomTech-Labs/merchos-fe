@@ -13,9 +13,10 @@ const InputLabel = styled.label`
 `;
 
 const Input = styled.input`
-  padding: 10px;
+  padding: 10px 15px 7.5px;
   border-radius: 10px;
-  border: 1.75px solid #9BE1FF;
+  border: 1.75px solid #9be1ff;
+  font-size: 2.5rem;
 `;
 
 const MainInputs = ({ changeHandler, formData: { email, password } }) => {
