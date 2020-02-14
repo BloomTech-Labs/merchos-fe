@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-import Form from './Form';
+import Form from './Form/Form';
 import Tab from './Tab';
+import BottomButton from './BottomButton';
 
 const ModalContainer = styled.div`
   display: flex;
@@ -52,11 +53,7 @@ const AuthModal = () => {
           </Tab>
         </TabBar>
         <Form activeTab={activeTab} submitHandler={submitHandler} />
-        {activeTab === 'Sign In' ? (
-          <button type='button'>Need an account?</button>
-        ) : (
-          <button type='button'>Have an account?</button>
-        )}
+        <BottomButton activeTab={activeTab} />
       </Modal>
     </ModalContainer>
   );
