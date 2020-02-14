@@ -16,13 +16,19 @@ const Modal = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: gray;
-  width: 40%;
+  background: #ffffff;
+  width: 35%;
+  border-radius: 15px;
+  font-family: 'Roboto', sans-serif;
+  box-shadow: 0px 0px 76.1254px rgba(0, 0, 0, 0.12);
+  color: #82daff;
+  min-height: 400px;
+  position: relative;
 `;
 
 const TabBar = styled.ul`
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   width: 100%;
 `;
 
@@ -53,7 +59,7 @@ const AuthModal = () => {
           </Tab>
         </TabBar>
         <Form activeTab={activeTab} submitHandler={submitHandler} />
-        <BottomButton activeTab={activeTab} />
+        <BottomButton activeTab={activeTab} tabHandler={tabHandler} />
       </Modal>
     </ModalContainer>
   );

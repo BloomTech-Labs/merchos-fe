@@ -4,10 +4,17 @@ import styled from 'styled-components';
 const ActiveTab = styled.li`
   cursor: pointer;
   background: ${({ isActive, current }) =>
-    isActive === current ? 'red' : null};
+    isActive === current ? '#82DAFF' : '#FFFFFF'};
+  color: ${({ isActive, current }) =>
+    isActive === current ? '#FFFFFF' : '#82DAFF'};
   width: 100%;
   text-align: center;
-  padding: 20px 0px;
+  padding: 15px 0px;
+  margin: 20px;
+  border-radius: 15px;
+  font-size: 2.5rem;
+  font-weight: bold;
+  transition: 0.2s;
 `;
 
 const Tab = ({ children, tabHandler, isActive }) => {

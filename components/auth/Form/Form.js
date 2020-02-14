@@ -8,6 +8,8 @@ import UnderForm from './UnderForm';
 const Form = styled.form`
   display: flex;
   flex-direction: column;
+  width: 100%;
+  padding: 10px 20px 0px;
 `;
 
 const AuthForm = ({ activeTab, submitHandler }) => {
