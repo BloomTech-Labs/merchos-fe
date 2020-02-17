@@ -1,4 +1,5 @@
-import { combineReducers } from 'redux';
+import { combineReducers } from "redux";
+import workspaceReducer from "./workspaceReducer";
 
 export const placeholder = (state = {}, action) => {
   switch (action.type) {
@@ -8,5 +9,5 @@ export const placeholder = (state = {}, action) => {
 };
 
 export const rootReducer = combineReducers({
-  placeholder
+  workspace: workspaceReducer
 });
