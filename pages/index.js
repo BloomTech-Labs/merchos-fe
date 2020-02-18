@@ -74,8 +74,9 @@ const AuthButton = styled.button`
 `;
 
 const Index = () => {
+  // holds the active state of the authentication modal
   const [modalActive, setModalActive] = useState(false);
-
+  // changes the modals active state
   const modalHandler = () => {
     setModalActive(!modalActive);
   };
@@ -87,7 +88,7 @@ const Index = () => {
         <Heading>Welcome to the World's Easiest Online-Shop Builder</Heading>
         <ButtonWrapper>
           <Link href=''>
-            <Anchor>Start!</Anchor>
+            <Anchor title='Start!'>Start!</Anchor>
           </Link>
           <AuthButton typbe='button' onClick={modalHandler}>
             Sign In
