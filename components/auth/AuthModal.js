@@ -10,7 +10,11 @@ const ModalContainer = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
-  // background: gray;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  overflow: hidden;
+  position: fixed;
+  z-index: 10;
 `;
 
 const Modal = styled.div`
@@ -33,7 +37,26 @@ const TabBar = styled.ul`
   width: 100%;
 `;
 
-const AuthModal = () => {
+const XButton = styled.button`
+  border: 1px solid #82daff;
+  background: transparent;
+  position: absolute;
+  border-radius: 50%;
+  color: #82daff;
+  font-size: 1.5rem;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
+  transition: 0.2s;
+
+  // testing hover animation
+  &:hover {
+    color: blue;
+    border: 1px solid blue;
+  }
+`;
+
+const AuthModal = ({ modalHandler }) => {
   const [activeTab, setActiveTab] = useState('Sign In');
 
   const tabHandler = data => {
@@ -51,6 +74,9 @@ const AuthModal = () => {
   return (
     <ModalContainer>
       <Modal>
+        <XButton type='button' onClick={modalHandler}>
+          x
+        </XButton>
         <TabBar>
           <Tab tabHandler={tabHandler} isActive={activeTab}>
             Sign In

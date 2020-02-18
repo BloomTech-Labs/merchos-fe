@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import styled from 'styled-components';
@@ -10,6 +10,8 @@ const IndexWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
+  position: relative;
+  z-index: 0;
 `;
 
 const ContentWrapper = styled.div`
@@ -47,12 +49,6 @@ const Anchor = styled.a`
     color: white;
     background: #6dd3ff;
   }
-  &:nth-child(2) {
-    color: #6dd3ff;
-    background: white;
-    padding: 21px 64px;
-    border: 1px solid #6dd3ff;
-  }
 `;
 
 const ListInfo = styled.ul`
@@ -65,25 +61,37 @@ const ListInfo = styled.ul`
   }
 `;
 
+const AuthButton = styled.button`
+  font-family: 'Nunito', sans-serif;
+  font-size: 2.75rem;
+  margin: 24px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #6dd3ff;
+  background: white;
+  padding: 16px 64px;
+  border: 1px solid #6dd3ff;
+`;
+
 const Index = () => {
+  const [modalActive, setModalActive] = useState(false);
+
+  const modalHandler = () => {
+    setModalActive(!modalActive);
+  };
+
   return (
     <IndexWrapper>
-      <Head>
-        <meta charSet='utf-8' />
-        <title>MerchOS</title>
-        <meta
-          name='description'
-          content='A simple, personalized, drag and drop store builder.'
-        />
-      </Head>
+      {modalActive ? <AuthModal modalHandler={modalHandler} /> : null}
       <ContentWrapper>
         <Heading>Welcome to the World's Easiest Online-Shop Builder</Heading>
         <ButtonWrapper>
-          {authButtons.map((link, i) => (
-            <Link href={link.href} key={i}>
-              <Anchor title={link.title}>{link.title}</Anchor>
-            </Link>
-          ))}
+          <Link href=''>
+            <Anchor>Start!</Anchor>
+          </Link>
+          <AuthButton typbe='button' onClick={modalHandler}>
+            Sign In
+          </AuthButton>
         </ButtonWrapper>
         <ListInfo>
           {listData.map((item, i) => (
@@ -96,17 +104,6 @@ const Index = () => {
 };
 
 export default Index;
-
-const authButtons = [
-  {
-    href: '/',
-    title: 'Start!'
-  },
-  {
-    href: '/',
-    title: 'Sign In'
-  }
-];
 
 export const listData = [
   '- Easiest Drag and Drop',

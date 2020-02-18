@@ -20,6 +20,7 @@ const SubmitButton = styled.button`
   border: none;
   padding: 15px;
   color: white;
+  cursor: pointer;
 `;
 
 const AuthForm = ({ activeTab, submitHandler }) => {
