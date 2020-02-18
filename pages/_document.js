@@ -25,7 +25,7 @@ export default class MyDocument extends Document {
       <Html>
         <Head>
           <link
-            href='https://fonts.googleapis.com/css?family=Nunito&display=swap'
+            href='https://fonts.googleapis.com/css?family=Nunito&Roboto&display=swap'
             rel='stylesheet'
           />
           {/* Output the styles in the head  */}
