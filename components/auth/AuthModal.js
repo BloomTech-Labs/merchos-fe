@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-import Form from './Form/Form';
+// Components
+import Form from './AuthForm/Form';
 import Tab from './Tab';
 import BottomButton from './BottomButton';
+
+// Redux actions
+import { closeAuthModal } from '../../store/actions/userInterfaceActions';
+import { useDispatch } from 'react-redux';
 
 const ModalContainer = styled.div`
   display: flex;
@@ -56,9 +61,10 @@ const XButton = styled.button`
   }
 `;
 
-const AuthModal = ({ modalHandler }) => {
-  const [activeTab, setActiveTab] = useState('Sign In');
+const AuthModal = () => {
+  const dispatch = useDispatch();
 
+  const [activeTab, setActiveTab] = useState('Sign In');
   const tabHandler = data => {
     setActiveTab(data);
   };
@@ -74,7 +80,7 @@ const AuthModal = ({ modalHandler }) => {
   return (
     <ModalContainer>
       <Modal>
-        <XButton type='button' onClick={modalHandler}>
+        <XButton type='button' onClick={() => dispatch(closeAuthModal())}>
           x
         </XButton>
         <TabBar>

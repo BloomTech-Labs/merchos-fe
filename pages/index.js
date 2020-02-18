@@ -2,9 +2,13 @@ import React, { useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import styled from 'styled-components';
+import { useSelector, useDispatch } from 'react-redux';
 
 // components
 import AuthModal from '../components/auth/AuthModal';
+
+// Redux actions
+import { openAuthModal } from '../store/actions/userInterfaceActions';
 
 const IndexWrapper = styled.div`
   width: 100%;
@@ -74,23 +78,19 @@ const AuthButton = styled.button`
 `;
 
 const Index = () => {
-  // holds the active state of the authentication modal
-  const [modalActive, setModalActive] = useState(false);
-  // changes the modals active state
-  const modalHandler = () => {
-    setModalActive(!modalActive);
-  };
+  const { authModalActive } = useSelector(state => state.userInterfaceReducer);
+  const dispatch = useDispatch();
 
   return (
     <IndexWrapper>
-      {modalActive ? <AuthModal modalHandler={modalHandler} /> : null}
+      {authModalActive ? <AuthModal /> : null}
       <ContentWrapper>
         <Heading>Welcome to the World's Easiest Online-Shop Builder</Heading>
         <ButtonWrapper>
           <Link href=''>
             <Anchor title='Start!'>Start!</Anchor>
           </Link>
-          <AuthButton typbe='button' onClick={modalHandler}>
+          <AuthButton type='button' onClick={() => dispatch(openAuthModal())}>
             Sign In
           </AuthButton>
         </ButtonWrapper>

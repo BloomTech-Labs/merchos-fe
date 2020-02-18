@@ -1,5 +1,9 @@
 import { combineReducers } from 'redux';
 
+// reducers
+import { userInterfaceReducer } from './userInterfaceReducer';
+import { userDataReducer } from './userDataReducer';
+
 export const placeholder = (state = {}, action) => {
   switch (action.type) {
     default:
@@ -8,5 +12,6 @@ export const placeholder = (state = {}, action) => {
 };
 
 export const rootReducer = combineReducers({
-  placeholder
+  userInterfaceReducer,
+  userDataReducer
 });
