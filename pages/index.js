@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
-import Head from 'next/head';
-import Link from 'next/link';
-import styled from 'styled-components';
+import React, { useState } from "react";
+import Head from "next/head";
+import Link from "next/link";
+import styled from "styled-components";
+import Layout from "../components/Layout";
 
 // components
-import AuthModal from '../components/auth/AuthModal';
+import AuthModal from "../components/auth/AuthModal";
 
 const IndexWrapper = styled.div`
   width: 100%;
@@ -24,7 +25,7 @@ const ContentWrapper = styled.div`
 `;
 
 const Heading = styled.h1`
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   font-size: 3.4rem;
   line-height: 42px;
   width: 45%;
@@ -37,7 +38,7 @@ const ButtonWrapper = styled.div`
 `;
 
 const Anchor = styled.a`
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   font-size: 2.75rem;
   text-decoration: none;
   padding: 22px 65px;
@@ -56,13 +57,13 @@ const ListInfo = styled.ul`
 
   li {
     font-size: 2.4rem;
-    font-family: 'Nunito', sans-serif;
+    font-family: "Nunito", sans-serif;
     line-height: 148%;
   }
 `;
 
 const AuthButton = styled.button`
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   font-size: 2.75rem;
   margin: 24px;
   border-radius: 5px;
@@ -82,34 +83,36 @@ const Index = () => {
   };
 
   return (
-    <IndexWrapper>
-      {modalActive ? <AuthModal modalHandler={modalHandler} /> : null}
-      <ContentWrapper>
-        <Heading>Welcome to the World's Easiest Online-Shop Builder</Heading>
-        <ButtonWrapper>
-          <Link href=''>
-            <Anchor title='Start!'>Start!</Anchor>
-          </Link>
-          <AuthButton typbe='button' onClick={modalHandler}>
-            Sign In
-          </AuthButton>
-        </ButtonWrapper>
-        <ListInfo>
-          {listData.map((item, i) => (
-            <li key={i}>{item}</li>
-          ))}
-        </ListInfo>
-      </ContentWrapper>
-    </IndexWrapper>
+    <Layout>
+      <IndexWrapper>
+        {modalActive ? <AuthModal modalHandler={modalHandler} /> : null}
+        <ContentWrapper>
+          <Heading>Welcome to the World's Easiest Online-Shop Builder</Heading>
+          <ButtonWrapper>
+            <Link href="">
+              <Anchor title="Start!">Start!</Anchor>
+            </Link>
+            <AuthButton typbe="button" onClick={modalHandler}>
+              Sign In
+            </AuthButton>
+          </ButtonWrapper>
+          <ListInfo>
+            {listData.map((item, i) => (
+              <li key={i}>{item}</li>
+            ))}
+          </ListInfo>
+        </ContentWrapper>
+      </IndexWrapper>
+    </Layout>
   );
 };
 
 export default Index;
 
 export const listData = [
-  '- Easiest Drag and Drop',
-  '- Create Products & Auto-shipment',
-  '- Built in Paypal & Credit Card Options',
-  '- Automatically Share to Social Media',
+  "- Easiest Drag and Drop",
+  "- Create Products & Auto-shipment",
+  "- Built in Paypal & Credit Card Options",
+  "- Automatically Share to Social Media",
   "- It's Free for Life!"
 ];
