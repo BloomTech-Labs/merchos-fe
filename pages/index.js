@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import AuthModal from '../components/auth/AuthModal';
 
 // Redux actions
-import { authModalController } from '../store/actions/userInterfaceActions';
+import { authModalController } from '../store/actions/userInterface/authModalController';
 
 const IndexWrapper = styled.div`
   width: 100%;
@@ -78,7 +78,7 @@ const AuthButton = styled.button`
 `;
 
 const Index = () => {
-  const { authModalActive } = useSelector(state => state.userInterfaceReducer);
+  const { authModalActive } = useSelector(state => state.authInterface);
   const dispatch = useDispatch();
 
   return (

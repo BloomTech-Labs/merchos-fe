@@ -7,8 +7,8 @@ import Tab from './Tab';
 import BottomButton from './BottomButton';
 
 // Redux actions
-import { authModalController } from '../../store/actions/userInterfaceActions';
-import { authorizeUser } from '../../store/actions/userAuthActions';
+import { authModalController } from '../../store/actions/userInterface/authModalController';
+import { authorizeUser } from '../../store/actions/userAuth/userAuthActions';
 import { useDispatch } from 'react-redux';
 
 const ModalContainer = styled.div`
