@@ -4,7 +4,9 @@ import {
 } from '../actions/userInterfaceActions';
 
 const initialState = {
-  authModalActive: false
+  authModalActive: false,
+  authLoading: false,
+  authErr: false
 };
 
 export const userInterfaceReducer = (state = initialState, action) => {

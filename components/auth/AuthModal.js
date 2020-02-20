@@ -7,7 +7,8 @@ import Tab from './Tab';
 import BottomButton from './BottomButton';
 
 // Redux actions
-import { closeAuthModal } from '../../store/actions/userInterfaceActions';
+import { authModalController } from '../../store/actions/userInterfaceActions';
+import { authorizeUser } from '../../store/actions/userAuthActions';
 import { useDispatch } from 'react-redux';
 
 const ModalContainer = styled.div`
@@ -71,16 +72,15 @@ const AuthModal = () => {
 
   const submitHandler = (e, data) => {
     e.preventDefault();
-    if (activeTab === 'Sign In') {
-      console.log('sign in', data);
-    } else if (activeTab === 'Sign Up') {
-      console.log('sign up', data);
-    }
+    dispatch(authorizeUser(activeTab, data));
   };
   return (
     <ModalContainer>
       <Modal>
-        <XButton type='button' onClick={() => dispatch(closeAuthModal())}>
+        <XButton
+          type='button'
+          onClick={() => dispatch(authModalController('close'))}
+        >
           x
         </XButton>
         <TabBar>

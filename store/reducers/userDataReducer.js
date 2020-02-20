@@ -1,5 +1,6 @@
 const initialState = {
-  userIsAuthed: false
+  userIsAuthed: false,
+  userID: null
 };
 
 export const userDataReducer = (state = initialState, action) => {

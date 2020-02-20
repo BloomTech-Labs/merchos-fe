@@ -23,10 +23,10 @@ const MainInputs = ({ changeHandler, formData: { email, password } }) => {
   return (
     <Fragment>
       <InputWrapper>
-        <InputLabel htmlFor='email'>Email:</InputLabel>
+        <InputLabel htmlFor='username'>Email:</InputLabel>
         <Input
           type='text'
-          name='email'
+          name='username'
           onChange={changeHandler}
           value={email}
         />

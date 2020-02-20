@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import AuthModal from '../components/auth/AuthModal';
 
 // Redux actions
-import { openAuthModal } from '../store/actions/userInterfaceActions';
+import { authModalController } from '../store/actions/userInterfaceActions';
 
 const IndexWrapper = styled.div`
   width: 100%;
@@ -90,7 +90,10 @@ const Index = () => {
           <Link href=''>
             <Anchor title='Start!'>Start!</Anchor>
           </Link>
-          <AuthButton type='button' onClick={() => dispatch(openAuthModal())}>
+          <AuthButton
+            type='button'
+            onClick={() => dispatch(authModalController('open'))}
+          >
             Sign In
           </AuthButton>
         </ButtonWrapper>
