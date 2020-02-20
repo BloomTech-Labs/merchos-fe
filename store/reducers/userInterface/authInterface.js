@@ -17,6 +17,12 @@ const initialState = {
   authErr: false
 };
 
+/**
+ * Auth interface describes what the UI looks like on the authentication modal
+ * ranging from active state, loading errors, and authErrors
+ *
+ */
+
 export const authInterface = (state = initialState, action) => {
   switch (action.type) {
     case OPEN_AUTH_MODAL:

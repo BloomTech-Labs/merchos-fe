@@ -8,6 +8,11 @@ const initialState = {
   userID: null
 };
 
+/**
+ * userData will contain the user's authenticated state as well as the user ID
+ * 
+ */
+
 export const userData = (state = initialState, action) => {
   switch (action.type) {
     case USER_LOGIN_SUCCESS:
