@@ -9,7 +9,9 @@ const Container = styled.div`
 `;
 
 const Element = props => {
-  return <Container>{props.dragElement.content}</Container>;
+  return props.dragElement.map(element => {
+    return <Container>{element.content}</Container>;
+  });
 };
 
 export default Element;

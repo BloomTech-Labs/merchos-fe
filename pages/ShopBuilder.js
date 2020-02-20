@@ -5,7 +5,8 @@ import styled from "styled-components";
 import PageDroppable from "../components/ShopBuilder/PageDroppable";
 import ColumnDrop from "../components/ShopBuilder/ColumnDrop";
 import ColumnDrag from "../components/ShopBuilder/ColumnDrag";
-import Element from "../components/ShopBuilder/Element";
+import { Item } from "merch_components";
+import { onDragEnd } from "../store/actions/ShopBuilderActions";
 
 // This is an example of state, just to help me remember what it looks like, delete later
 // const initialState = {
@@ -20,18 +21,26 @@ import Element from "../components/ShopBuilder/Element";
 // };
 
 const ShopBuilder = props => {
-  const columnArrVal = Object.values(props.state.Page.columns);
-  const columnArrKey = Object.keys(props.state.Page.columns);
+  const columnArr = Object.entries(props.state.Page.columns);
   return (
-    <DragDropContext>
+    <DragDropContext onDragEnd={props.onDragEnd}>
       <PageDroppable>
-        {columnArrKey.map((key, index) => {
-          const dragElement = columnArrVal[index][0];
+        {columnArr.map((entry, index) => {
+          const droppableContainer = entry[0];
+          const dndContainer = entry[1].id;
+          const dragElement = entry[1].items;
           return (
-            <ColumnDrop key={key} columnId={key} dragElement={dragElement}>
-              <ColumnDrag columnId={dragElement.id}>
-                <Element dragElement={dragElement} />
-              </ColumnDrag>
+            <ColumnDrop
+              key={droppableContainer}
+              columnId={droppableContainer}
+              dragElement={dragElement[0]}
+            >
+              <ColumnDrag
+                columnId={dndContainer}
+                dragElement={dragElement}
+                index={index}
+                dndContainer={dndContainer}
+              />
             </ColumnDrop>
           );
         })}
@@ -40,14 +49,10 @@ const ShopBuilder = props => {
   );
 };
 
-ShopBuilder.getInitialProps = ({ store }) => {
-  return { store };
-};
-
 const mapStateToProps = state => {
   return {
     state: state.workspace
   };
 };
 
-export default connect(mapStateToProps)(ShopBuilder);
+export default connect(mapStateToProps, { onDragEnd })(ShopBuilder);
