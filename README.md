@@ -116,13 +116,9 @@ Volunteering your time; it pays you and your whole community fantastic dividends
 
 # 3️⃣ Environment Variables
 
-In order for the app to function correctly, the user must set up their own environment variables. There should be a next.config.js file containing the following:
+In order for the app to function correctly, the user must set up their own environment variables. There should be a env file containing the following:
 
-    *  module.exports = {
-    *       env: {
-    *           BACKEND_URL: 'URL GOES HERE'
-    *       }
-    *   };
+    *   BACKEND_URL: 'URL GOES HERE'
 
 # 5️⃣ Content Licenses
 
