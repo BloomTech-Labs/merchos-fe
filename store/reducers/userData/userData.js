@@ -11,9 +11,17 @@ const initialState = {
 export const userData = (state = initialState, action) => {
   switch (action.type) {
     case USER_LOGIN_SUCCESS:
-      break;
+      return {
+        ...state,
+        userIsAuthed: true,
+        userID: action.payload.user
+      };
     case USER_REGISTER_SUCCESS:
-      break;
+      return {
+        ...state,
+        userIsAuthed: true,
+        userID: action.payload.user
+      };
     default:
       return state;
   }

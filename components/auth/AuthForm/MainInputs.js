@@ -19,7 +19,7 @@ const Input = styled.input`
   font-size: 2.5rem;
 `;
 
-const MainInputs = ({ changeHandler, formData: { email, password } }) => {
+const MainInputs = ({ changeHandler, formData: { username, password } }) => {
   return (
     <Fragment>
       <InputWrapper>
@@ -28,7 +28,7 @@ const MainInputs = ({ changeHandler, formData: { email, password } }) => {
           type='text'
           name='username'
           onChange={changeHandler}
-          value={email}
+          value={username}
         />
       </InputWrapper>
       <InputWrapper>
