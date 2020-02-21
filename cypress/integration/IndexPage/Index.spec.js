@@ -1,6 +1,7 @@
 describe('Index Page', () => {
   // before each test, visit the base url
   beforeEach(() => {
+    cy.server();
     cy.visit('/');
   });
 
@@ -40,8 +41,8 @@ describe('Index Page', () => {
       .first()
       .should('have.css', 'background-color', 'rgb(130, 218, 255)');
     // from there, check for the following values on screen
-    cy.get('.UnderForm__SignInValues-r5yma5-0').contains('Remember Me');
-    cy.get('.UnderForm__SignInValues-r5yma5-0').contains('Forgot Password');
+    cy.get('.UnderForm__SignInValues-y2a0jj-0').contains('Remember Me');
+    cy.get('.UnderForm__SignInValues-y2a0jj-0').contains('Forgot Password');
 
     // now, we'll switch tabs to the 'sign up' button
     cy.get('.AuthModal__TabBar-sc-11eqpdc-2 > li')
@@ -52,7 +53,73 @@ describe('Index Page', () => {
       .eq(1)
       .should('have.css', 'background-color', 'rgb(130, 218, 255)');
     // then check that the signup form does not have the login related items
-    cy.get('.UnderForm__SignInValues-r5yma5-0').should('not.exist');
+    cy.get('.UnderForm__SignInValues-y2a0jj-0').should('not.exist');
+  });
+
+  // Submits login form
+  it('Submits a login', () => {
+    // opens the modal
+    cy.get('div > button').click();
+    // grabs the first input field and enter crendential
+    cy.get(':nth-child(1) > .MainInputs__Input-sc-1hnwefb-2').type('admin');
+    // grab the second input and enter credential
+    cy.get(':nth-child(2) > .MainInputs__Input-sc-1hnwefb-2').type('password');
+    // set up route monitoring
+    cy.route({
+      url: '/user/**',
+      method: 'POST'
+    }).as('login');
+    // click on the submit button
+    cy.get('.Form__SubmitButton-u4p01-1').click();
+
+    // await the response and expect the status to equal 200
+    cy.wait('@login').then(data => {
+      assert.equal(200, data.status);
+    });
+  });
+
+  // submits a register
+  it('Registers a user', () => {
+    // generate a random string for registration
+    function randomString() {
+      return (
+        Math.random()
+          .toString(36)
+          .substring(2, 15) +
+        Math.random()
+          .toString(36)
+          .substring(2, 15)
+      );
+    }
+    // open the modal
+    cy.get('div > button').click();
+    // change to the second tab (registration)
+    cy.get('.AuthModal__TabBar-sc-11eqpdc-2 > li')
+      .eq(1)
+      .click();
+
+    // grab the first input field and type the random string
+    cy.get(':nth-child(1) > .MainInputs__Input-sc-1hnwefb-2').type(
+      randomString()
+    );
+    // grab the second input field and type the random string
+    cy.get(':nth-child(2) > .MainInputs__Input-sc-1hnwefb-2').type(
+      randomString()
+    );
+
+    // set up monitoring for the registration route
+    cy.route({
+      url: '/user/**',
+      method: 'POST'
+    }).as('register');
+    
+    // click the submit button on the page
+    cy.get('.Form__SubmitButton-u4p01-1').click();
+
+    // await the regsitration response and check the status to equal 201
+    cy.wait('@register').then(data => {
+      assert.equal(201, data.status);
+    });
   });
 
   // Check for list of items

@@ -19,16 +19,16 @@ const Input = styled.input`
   font-size: 2.5rem;
 `;
 
-const MainInputs = ({ changeHandler, formData: { email, password } }) => {
+const MainInputs = ({ changeHandler, formData: { username, password } }) => {
   return (
     <Fragment>
       <InputWrapper>
-        <InputLabel htmlFor='email'>Email:</InputLabel>
+        <InputLabel htmlFor='username'>Email:</InputLabel>
         <Input
           type='text'
-          name='email'
+          name='username'
           onChange={changeHandler}
-          value={email}
+          value={username}
         />
       </InputWrapper>
       <InputWrapper>
