@@ -11,7 +11,7 @@ const Container = styled.div`
 
 const ColumnDrop = props => {
   return (
-    <Droppable droppableId={props.columnId}>
+    <Droppable droppableId={props.columnId} type={props.type}>
       {(provided, snapshot) => (
         <Container
           ref={provided.innerRef}

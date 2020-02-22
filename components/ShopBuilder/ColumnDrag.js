@@ -21,13 +21,17 @@ const Container = styled.div`
 `;
 
 const DragPart = styled.div`
-  position: absolute;
   z-index: 1;
   height: 20px;
   background: blue;
   width: 100%;
 `;
 
+const ProductContainer = styled.div`
+  margin: 0 auto;
+`;
+
+//this function is not useful right now
 const dragEnd = function(...dragVal) {
   console.log("DRAG_VAL: ", dragVal);
 };
@@ -47,13 +51,15 @@ const ColumnDrag = props => {
           {props.dndContainer !== "Products" ? (
             <Element dragElement={props.dragElement} />
           ) : (
-            <ListManager
-              items={props.dragElement}
-              direction="horizontal"
-              maxItems={3}
-              render={item => <ProductList item={item} />}
-              onDragEnd={dragEnd}
-            />
+            <ProductContainer>
+              <ListManager
+                items={props.dragElement}
+                direction="horizontal"
+                maxItems={3}
+                render={item => <ProductList item={item} />}
+                onDragEnd={dragEnd}
+              />
+            </ProductContainer>
           )}
         </Container>
       )}

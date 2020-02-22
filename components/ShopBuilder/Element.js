@@ -6,6 +6,7 @@ const Container = styled.div`
   height: 100%;
   text-align: center;
   font-size: 2rem;
+  margin-top: 1px;
 `;
 
 const Element = props => {

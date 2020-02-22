@@ -7,22 +7,33 @@ const initialState = {
     columns: {
       //This is where the page columns are held which is the layout of the page
       asdfdsafd: {
-        id: "firstColumn",
-        items: [{ id: "box1", content: "A", height: "150px", order: 1 }]
+        id: "Monster Image",
+        items: [{ id: "box1", content: "Monster Image", height: "750px" }],
+        order: 1,
+        type: "Monster"
       },
       hlksdfdf: {
         id: "secondColumn",
-        items: [{ id: "box2", content: "B", height: "50px", order: 2 }]
+        items: [
+          { id: "box2", content: "Double Size", height: "150px", order: 2 }
+        ],
+        type: "Double"
+      },
+      asdfssafdsfdfs: {
+        id: "stuff",
+        items: [
+          { id: "box3", content: "Regular Banner", height: "75px", order: 1 }
+        ]
       },
       asdfasdf: {
         id: "Products",
         items: [
-          { id: "0", content: "A", height: "30px" },
-          { id: "1", content: "B", height: "30px" },
-          { id: "2", content: "C", height: "30px" },
-          { id: "3", content: "D", height: "30px" },
-          { id: "4", content: "E", height: "30px" },
-          { id: "5", content: "F", height: "30px" }
+          { id: "0", content: "A", height: "642px" },
+          { id: "1", content: "B", height: "642px" },
+          { id: "2", content: "C", height: "642px" },
+          { id: "3", content: "D", height: "642px" },
+          { id: "4", content: "E", height: "642px" },
+          { id: "5", content: "F", height: "642px" }
         ]
       }
     }

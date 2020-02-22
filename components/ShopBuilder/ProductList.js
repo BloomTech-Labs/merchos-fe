@@ -3,6 +3,8 @@ import styled from "styled-components";
 
 const Container = styled.div`
   height: ${props => props.height};
+  display: flex;
+  justify-content: space-between;
   background: #7d34eb;
   font-size: 2rem;
 `;
