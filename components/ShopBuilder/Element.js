@@ -2,17 +2,23 @@ import React from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
-  width: 100%;
-  height: 100%;
+  height: ${props => props.height};
   text-align: center;
   font-size: 2rem;
   margin-top: 1px;
 `;
 
 const Element = props => {
-  return props.dragElement.map(element => {
-    return <Container>{element.content}</Container>;
-  });
+  return (
+    <Container
+      height={props.draggable.height}
+      onClick={() => {
+        props.changeEleHeight(props.clickedOnDropId, props.clickedOnDragId);
+      }}
+    >
+      {props.draggable.content}
+    </Container>
+  );
 };
 
 export default Element;

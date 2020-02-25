@@ -6,10 +6,11 @@ import styled from "styled-components";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  background: ${props => (props.isDraggingOver ? "green" : "white")};
 `;
 
 const PageContainer = styled.div`
-  height: 90vh;
+  height: 100vh;
   width: 90vw;
   border: 1px solid black;
 `;
@@ -27,7 +28,11 @@ const PageDroppable = props => {
         containers based off of the current events like isDragging (used by draggable) 
         or isDraggingOver (used by droppable)*/}
         {(provided, snapshot) => (
-          <PageContainer {...provided.droppableProps} ref={provided.innerRef}>
+          <PageContainer
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+            isDraggingOver={snapshot.isDraggingOver}
+          >
             {props.children}
             {provided.placeholder}
           </PageContainer>

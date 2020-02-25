@@ -1,22 +1,13 @@
 import React from "react";
 import { Draggable } from "react-beautiful-dnd";
 import styled from "styled-components";
-import Element from "./Element";
-import ProductList from "./ProductList";
-import { ListManager } from "react-beautiful-dnd-grid";
 
 const Container = styled.div`
+  height: max-content;
+  width: ${props => props.width};
   position: relative;
-  height: ${props => (props.colId === "Products" ? "200px" : props.height)};
-  background: ${props => {
-    switch (props.colId) {
-      case "firstColumn":
-        return `rgba(255, 0, 0, ${props.isDragging ? "0.1" : "1"})`;
-      case "secondColumn":
-        return `rgba(240, 255, 0, ${props.isDragging ? "0.1" : "1"})`;
-      default:
-        return "pink";
-    }
+  background: ${props =>
+    props.isDragging ? "rgba(137, 196, 244, 0.5)" : "rgba(137, 196, 244, 1)"}
   }};
 `;
 
@@ -25,10 +16,6 @@ const DragPart = styled.div`
   height: 20px;
   background: blue;
   width: 100%;
-`;
-
-const ProductContainer = styled.div`
-  margin: 0 auto;
 `;
 
 //this function is not useful right now
@@ -41,26 +28,14 @@ const ColumnDrag = props => {
     <Draggable draggableId={props.columnId} index={props.index}>
       {(provided, snapshot) => (
         <Container
-          colId={props.columnId}
           ref={provided.innerRef}
           {...provided.draggableProps}
           isDragging={snapshot.isDragging}
-          height={props.dragElement[0].height}
+          {...provided.dragHandleProps}
+          width={props.width}
         >
-          <DragPart {...provided.dragHandleProps}></DragPart>
-          {props.dndContainer !== "Products" ? (
-            <Element dragElement={props.dragElement} />
-          ) : (
-            <ProductContainer>
-              <ListManager
-                items={props.dragElement}
-                direction="horizontal"
-                maxItems={3}
-                render={item => <ProductList item={item} />}
-                onDragEnd={dragEnd}
-              />
-            </ProductContainer>
-          )}
+          {/* <DragPart {...provided.dragHandleProps}></DragPart> */}
+          {props.children}
         </Container>
       )}
     </Draggable>

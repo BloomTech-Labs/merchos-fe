@@ -1,4 +1,5 @@
-export const PAGE_NOT_PRODUCTS = "PAGE_NOT_PRODUCTS";
+export const DRAG_N_DROP = "DRAG_N_DROP";
+export const CHANGE_HEIGHT = "CHANGE_HEIGHT";
 
 export const onDragEnd = dropValue => dispatch => {
   const { draggableId, source, destination } = dropValue;
@@ -15,10 +16,17 @@ export const onDragEnd = dropValue => dispatch => {
     return;
   }
 
-  if (source.droppableId !== destination.droppableId) {
-    dispatch({
-      type: PAGE_NOT_PRODUCTS,
-      payload: dropValue
-    });
-  }
+  //if (destination.droppableId !== source.droppableId) {
+  console.log("moving from one container to another");
+  dispatch({
+    type: DRAG_N_DROP,
+    payload: dropValue
+  });
+  //}
+
+  return;
+};
+
+export const changeEleHeight = (dropArea, indexOfItem) => dispatch => {
+  dispatch({ type: CHANGE_HEIGHT, payload: { dropArea, indexOfItem } });
 };

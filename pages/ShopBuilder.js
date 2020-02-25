@@ -6,40 +6,54 @@ import PageDroppable from "../components/ShopBuilder/PageDroppable";
 import ColumnDrop from "../components/ShopBuilder/ColumnDrop";
 import ColumnDrag from "../components/ShopBuilder/ColumnDrag";
 import { onDragEnd } from "../store/actions/ShopBuilderActions";
+import { changeEleHeight } from "../store/actions/ShopBuilderActions";
+import Element from "../components/ShopBuilder/Element";
+import ProductList from "../components/ShopBuilder/ProductList";
+import { ListManager } from "react-beautiful-dnd-grid";
+
+const ProductContainer = styled.div`
+  margin: 0 auto;
+  background: red;
+`;
 
 const ShopBuilder = props => {
-  const columnArr = Object.entries(props.state.Page.columns);
+  //const columnArr = Object.entries(props.state.Page.columns);
   return (
-    <div>
-      {/*holds context for drag and drop can pass in events
-         for dragging*/}
-      <DragDropContext onDragEnd={props.onDragEnd}>
-        <PageDroppable>
-          {columnArr.map((entry, index) => {
-            const droppableContainer = entry[0];
-            const dndContainer = entry[1].id;
-            const dragElement = entry[1].items;
-            const type = entry[1].type;
-            return (
-              <ColumnDrop
-                key={droppableContainer}
-                columnId={droppableContainer}
-                dragElement={dragElement[0]}
-                type={type}
-              >
-                <ColumnDrag
-                  columnId={dndContainer}
-                  dragElement={dragElement}
-                  index={index}
-                  dndContainer={dndContainer}
-                />
-              </ColumnDrop>
-            );
-          })}
-        </PageDroppable>
-      </DragDropContext>
-      <button></button>
-    </div>
+    // {/*holds context for drag and drop can pass in events
+    //    for dragging*/}
+    <DragDropContext onDragEnd={props.onDragEnd}>
+      <PageDroppable>
+        {props.state.Page.columns.map((column, index) => {
+          const dragElements = column.items;
+          const clickedOnDropId = index;
+          return (
+            <ColumnDrop
+              key={index}
+              columnId={`${index}`}
+              direction={column.id === "Products" ? "horizontal" : "vertical"}
+            >
+              {dragElements.map((draggable, index) => {
+                return (
+                  <ColumnDrag
+                    key={draggable.id}
+                    columnId={draggable.id}
+                    index={index}
+                    width={draggable.width || "100%"}
+                  >
+                    <Element
+                      draggable={draggable}
+                      clickedOnDropId={clickedOnDropId}
+                      clickedOnDragId={index}
+                      changeEleHeight={props.changeEleHeight}
+                    />
+                  </ColumnDrag>
+                );
+              })}
+            </ColumnDrop>
+          );
+        })}
+      </PageDroppable>
+    </DragDropContext>
   );
 };
 
@@ -49,4 +63,6 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { onDragEnd })(ShopBuilder);
+export default connect(mapStateToProps, { onDragEnd, changeEleHeight })(
+  ShopBuilder
+);
