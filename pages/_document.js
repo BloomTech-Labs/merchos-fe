@@ -1,6 +1,6 @@
-import Document, { Html, Head, Main, NextScript } from 'next/document';
+import Document, { Html, Head, Main, NextScript } from "next/document";
 // Import styled components ServerStyleSheet
-import { ServerStyleSheet } from 'styled-components';
+import { ServerStyleSheet } from "styled-components";
 
 export default class MyDocument extends Document {
   static getInitialProps({ renderPage }) {
@@ -25,8 +25,8 @@ export default class MyDocument extends Document {
       <Html>
         <Head>
           <link
-            href='https://fonts.googleapis.com/css?family=Nunito&Roboto&display=swap'
-            rel='stylesheet'
+            href="https://fonts.googleapis.com/css?family=Nunito&Roboto&display=swap"
+            rel="stylesheet"
           />
           {/* Output the styles in the head  */}
           {styleTags}

@@ -87,7 +87,7 @@ const Index = () => {
       <ContentWrapper>
         <Heading>Welcome to the World's Easiest Online-Shop Builder</Heading>
         <ButtonWrapper>
-          <Link href="/sidebar">
+          <Link href="/ShopBuilder">
             <Anchor title="Start!">Start!</Anchor>
           </Link>
           <AuthButton
