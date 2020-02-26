@@ -11,18 +11,6 @@ const Container = styled.div`
   }};
 `;
 
-const DragPart = styled.div`
-  z-index: 1;
-  height: 20px;
-  background: blue;
-  width: 100%;
-`;
-
-//this function is not useful right now
-const dragEnd = function(...dragVal) {
-  console.log("DRAG_VAL: ", dragVal);
-};
-
 const ColumnDrag = props => {
   return (
     <Draggable draggableId={props.columnId} index={props.index}>
@@ -34,7 +22,6 @@ const ColumnDrag = props => {
           {...provided.dragHandleProps}
           width={props.width}
         >
-          {/* <DragPart {...provided.dragHandleProps}></DragPart> */}
           {props.children}
         </Container>
       )}

@@ -1,11 +1,13 @@
 import { DRAG_N_DROP } from "../actions/ShopBuilderActions";
 import { CHANGE_HEIGHT } from "../actions/ShopBuilderActions";
 import { DELETE_ELEMENT } from "../actions/ShopBuilderActions";
+import { CHANGE_STORE_NAME } from "../actions/ShopBuilderActions";
 
 const initialState = {
   Page: {
     id: "Page",
     title: "Workspace",
+    storeName: "Click to edit store name",
     columns: [
       //This is where the page columns are held which is the layout of the page
       {
@@ -58,7 +60,7 @@ const initialState = {
 };
 
 const workspaceReducer = (state = initialState, action) => {
-  const { draggableId, source, destination, dropArea, indexOfItem } =
+  const { draggableId, source, destination, dropArea, indexOfItem, storeName } =
     action.payload || {};
 
   const tempArr = Array.from(state.Page.columns);
@@ -107,9 +109,6 @@ const workspaceReducer = (state = initialState, action) => {
       };
 
     case DELETE_ELEMENT:
-      //already declared above in Change Height this is here for reference
-      // const { dropArea, indexOfItem } = action.payload;
-
       tempArr[dropArea].items.splice(indexOfItem, 1);
 
       return {
@@ -119,6 +118,16 @@ const workspaceReducer = (state = initialState, action) => {
           columns: tempArr
         }
       };
+
+    case CHANGE_STORE_NAME:
+      return {
+        ...state,
+        Page: {
+          ...state.Page,
+          storeName: storeName
+        }
+      };
+
     default:
       return state;
   }
