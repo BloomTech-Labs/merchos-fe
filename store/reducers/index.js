@@ -1,13 +1,12 @@
 import { combineReducers } from "redux";
-import { sidebar } from "./sidebarReducers";
 
-export const placeholder = (state = {}, action) => {
-  switch (action.type) {
-    default:
-      return state;
-  }
-};
+// reducers
+import { sidebar } from "./sidebarReducers";
+import { authInterface } from "./userInterface/authInterface";
+import { userData } from "./userData/userData";
 
 export const rootReducer = combineReducers({
-  sidebar
+  sidebar,
+  authInterface,
+  userData
 });
