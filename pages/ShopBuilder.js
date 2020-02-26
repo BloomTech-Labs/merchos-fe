@@ -7,6 +7,7 @@ import ColumnDrop from "../components/ShopBuilder/ColumnDrop";
 import ColumnDrag from "../components/ShopBuilder/ColumnDrag";
 import { onDragEnd } from "../store/actions/ShopBuilderActions";
 import { changeEleHeight } from "../store/actions/ShopBuilderActions";
+import { deleteElement } from "../store/actions/ShopBuilderActions";
 import Element from "../components/ShopBuilder/Element";
 import ProductList from "../components/ShopBuilder/ProductList";
 import { ListManager } from "react-beautiful-dnd-grid";
@@ -45,6 +46,7 @@ const ShopBuilder = props => {
                       clickedOnDropId={clickedOnDropId}
                       clickedOnDragId={index}
                       changeEleHeight={props.changeEleHeight}
+                      deleteElement={props.deleteElement}
                     />
                   </ColumnDrag>
                 );
@@ -63,6 +65,8 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { onDragEnd, changeEleHeight })(
-  ShopBuilder
-);
+export default connect(mapStateToProps, {
+  onDragEnd,
+  changeEleHeight,
+  deleteElement
+})(ShopBuilder);

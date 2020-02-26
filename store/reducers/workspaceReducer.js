@@ -1,5 +1,6 @@
 import { DRAG_N_DROP } from "../actions/ShopBuilderActions";
 import { CHANGE_HEIGHT } from "../actions/ShopBuilderActions";
+import { DELETE_ELEMENT } from "../actions/ShopBuilderActions";
 
 const initialState = {
   Page: {
@@ -57,34 +58,31 @@ const initialState = {
 };
 
 const workspaceReducer = (state = initialState, action) => {
-  const { draggableId, source, destination } = action.payload
-    ? action.payload
-    : { draggableId: 0, source: 0, destination: 0 };
+  const { draggableId, source, destination, dropArea, indexOfItem } =
+    action.payload || {};
+
+  const tempArr = Array.from(state.Page.columns);
 
   switch (action.type) {
     case DRAG_N_DROP:
       const sourceId = Number(source.droppableId);
       const destinationId = Number(destination.droppableId);
-      const dragNDropArr = Array.from(state.Page.columns);
 
-      const draggable = dragNDropArr[sourceId].items[source.index];
+      const draggable = tempArr[sourceId].items[source.index];
 
-      dragNDropArr[sourceId].items.splice(source.index, 1);
-      dragNDropArr[destinationId].items.splice(destination.index, 0, draggable);
+      tempArr[sourceId].items.splice(source.index, 1);
+      tempArr[destinationId].items.splice(destination.index, 0, draggable);
 
       return {
         ...state,
         Page: {
           ...state.Page,
-          columns: dragNDropArr
+          columns: tempArr
         }
       };
+
     case CHANGE_HEIGHT:
-      const { dropArea, indexOfItem } = action.payload;
-      const changHeightArr = Array.from(state.Page.columns);
-      console.log("DROP_AREA: ", dropArea);
-      console.log("INDEX_OF_ITEM: ", indexOfItem);
-      const currentHeight = changHeightArr[dropArea].items[indexOfItem].height;
+      const currentHeight = tempArr[dropArea].items[indexOfItem].height;
       let nextHeight = 0;
 
       switch (currentHeight) {
@@ -98,13 +96,27 @@ const workspaceReducer = (state = initialState, action) => {
           nextHeight = "75px";
       }
 
-      changHeightArr[dropArea].items[indexOfItem].height = nextHeight;
+      tempArr[dropArea].items[indexOfItem].height = nextHeight;
 
       return {
         ...state,
         Page: {
           ...state.Page,
-          columns: changHeightArr
+          columns: tempArr
+        }
+      };
+
+    case DELETE_ELEMENT:
+      //already declared above in Change Height this is here for reference
+      // const { dropArea, indexOfItem } = action.payload;
+
+      tempArr[dropArea].items.splice(indexOfItem, 1);
+
+      return {
+        ...state,
+        Page: {
+          ...state.Page,
+          columns: tempArr
         }
       };
     default:

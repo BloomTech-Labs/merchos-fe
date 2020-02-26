@@ -1,5 +1,6 @@
 export const DRAG_N_DROP = "DRAG_N_DROP";
 export const CHANGE_HEIGHT = "CHANGE_HEIGHT";
+export const DELETE_ELEMENT = "DELETE_ELEMENT";
 
 export const onDragEnd = dropValue => dispatch => {
   const { draggableId, source, destination } = dropValue;
@@ -29,4 +30,8 @@ export const onDragEnd = dropValue => dispatch => {
 
 export const changeEleHeight = (dropArea, indexOfItem) => dispatch => {
   dispatch({ type: CHANGE_HEIGHT, payload: { dropArea, indexOfItem } });
+};
+
+export const deleteElement = (dropArea, indexOfItem) => dispatch => {
+  dispatch({ type: DELETE_ELEMENT, payload: { dropArea, indexOfItem } });
 };
