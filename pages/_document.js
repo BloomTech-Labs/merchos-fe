@@ -1,9 +1,11 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
+import { resetServerContext } from "react-beautiful-dnd";
 // Import styled components ServerStyleSheet
 import { ServerStyleSheet } from "styled-components";
 
 export default class MyDocument extends Document {
   static getInitialProps({ renderPage }) {
+    resetServerContext();
     // Create an instance of ServerStyleSheet
     const sheet = new ServerStyleSheet();
 
