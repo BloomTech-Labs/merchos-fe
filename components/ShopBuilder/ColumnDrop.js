@@ -3,7 +3,7 @@ import { Droppable } from "react-beautiful-dnd";
 import styled from "styled-components";
 
 const Container = styled.div`
-  min-height: 100px;
+  min-height: ${props => props.dropHeight || "100px"};
   ${props => {
     if (props.direction === "horizontal") {
       return `display: flex;`;
@@ -13,8 +13,9 @@ const Container = styled.div`
     }
   }}
   padding: 10px, 0;
-  border: 1px solid black;
-  background: ${props => (props.isDraggingOver ? "#7befb2" : "#d3d3d3")};
+  border: ${props =>
+    props.isDraggingOver ? "10px dashed rgba(0, 230, 64, 1)" : "none"};
+  background: white;
 `;
 
 const ColumnDrop = props => {
@@ -30,6 +31,7 @@ const ColumnDrop = props => {
           {...provided.droppableProps}
           isDraggingOver={snapshot.isDraggingOver}
           direction={props.direction}
+          dropHeight={props.dropHeight}
         >
           {props.children}
           {provided.placeholder}
