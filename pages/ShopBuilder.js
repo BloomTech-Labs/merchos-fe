@@ -90,3 +90,4 @@ export default connect(mapStateToProps, {
   changeEleHeightAction,
   deleteElementAction
 })(ShopBuilder);
+//changed name of page of shopbuilder back to ShopBuilder
