@@ -30,13 +30,13 @@ const ShopBuilder = props => {
   return (
     <div>
       <ModalLayout displayModal={displayModal} display={display} />
-      {/* <ShopContainer blurContainer={displayModal}>
+      <ShopContainer blurContainer={displayModal}>
         <Button onClick={display}>show layout</Button>
         <StoreNameForm />
         {/*holds context for drag and drop can pass in events
-       for dragging}
+       for dragging*/}
         <DragDropContext onDragEnd={props.onDragEndAction}>
-          <PageDroppable>
+          {/* <PageDroppable>
             {props.state.Page.columns.map((column, index) => {
               const dragElements = column.items;
               const clickedOnDropId = index;
@@ -72,9 +72,9 @@ const ShopBuilder = props => {
                 </ColumnDrop>
               );
             })}
-          </PageDroppable>
+          </PageDroppable> */}
         </DragDropContext>
-      </ShopContainer> */}
+      </ShopContainer>
     </div>
   );
 };
