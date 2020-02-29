@@ -36,7 +36,7 @@ const ShopBuilder = props => {
         {/*holds context for drag and drop can pass in events
        for dragging*/}
         <DragDropContext onDragEnd={props.onDragEndAction}>
-          {/* <PageDroppable>
+          <PageDroppable>
             {props.state.Page.columns.map((column, index) => {
               const dragElements = column.items;
               const clickedOnDropId = index;
@@ -51,7 +51,7 @@ const ShopBuilder = props => {
                   }
                   dropHeight={column.height}
                 >
-                  {dragElements.map((draggable, index) => {
+                  {/* {dragElements.map((draggable, index) => {
                     return (
                       <ColumnDrag
                         key={draggable.id}
@@ -68,11 +68,11 @@ const ShopBuilder = props => {
                         />
                       </ColumnDrag>
                     );
-                  })}
+                  })} */}
                 </ColumnDrop>
               );
             })}
-          </PageDroppable> */}
+          </PageDroppable>
         </DragDropContext>
       </ShopContainer>
     </div>
