@@ -51,7 +51,7 @@ const ShopBuilder = props => {
                   }
                   dropHeight={column.height}
                 >
-                  {/* {dragElements.map((draggable, index) => {
+                  {dragElements.map((draggable, index) => {
                     return (
                       <ColumnDrag
                         key={draggable.id}
@@ -68,7 +68,7 @@ const ShopBuilder = props => {
                         />
                       </ColumnDrag>
                     );
-                  })} */}
+                  })}
                 </ColumnDrop>
               );
             })}
