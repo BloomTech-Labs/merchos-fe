@@ -84,6 +84,7 @@ const Index = () => {
 
   return (
     <Layout>
+
       <IndexWrapper>
         {modalActive ? <AuthModal modalHandler={modalHandler} /> : null}
         <ContentWrapper>
@@ -103,6 +104,7 @@ const Index = () => {
           </ListInfo>
         </ContentWrapper>
       </IndexWrapper>
+
     </Layout>
   );
 };
