@@ -76,12 +76,6 @@ const Navbar = () => {
         <SwagNavBar>
             <div className="nav-logo">SwagDragon</div >
 
-            {/* <ul className="nav-item">
-                <li><Link href="/" className="link"><a>Home</a></Link></li>
-                <li><Link href="/" className="link"><a>My Stores</a></Link></li>
-                <li><Link href="/" className="link"><a>Log Out</a></Link></li>
-            </ul> */}
-
             <div className="user-dropdown">
                 <button onclick="myFunction()" className="dropbtn">Welcome Alberta</button>
                 <div id="myDropdown" className="dropdown-content">

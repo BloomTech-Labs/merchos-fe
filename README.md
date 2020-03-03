@@ -1,162 +1,148 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/c21a02d3e767bcf2cb14/maintainability)](https://codeclimate.com/github/Lambda-School-Labs/merchos-fe/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/c21a02d3e767bcf2cb14/test_coverage)](https://codeclimate.com/github/Lambda-School-Labs/merchos-fe/test_coverage)
 
-🚫 Note: All lines that start with 🚫 are instructions and should be deleted before this is posted to your portfolio. This is intended to be a guideline, feel free to add your own flare to it.
+# MerchOS
 
-🚫 The numbers 1️⃣ through 5️⃣ next to each item represent the week that part of the docs needs to be comepleted by.  Make sure to delete the numbers by the end of Labs.
+You can find the deployed project at [Heroku](https://merchos-fe.herokuapp.com/).
 
-🚫 Each student has a required minimum number of meaningful PRs each week per the rubric. Contributing to docs does NOT count as a PR to meet your weekly requirements.
+## Contributors
 
-# 1️⃣ Title of project goes here
+|                                       [Alberto Galvan](https://github.com/AlbertoGalvan001)                                       |                                        [Austin Lynes](https://github.com/AustinLynes)                                        |                                      [Brandon Nichols](https://github.com/prototype109)                                       |                                       [Brandon Davis](https://github.com/bdavis90)                                        |
+| :-------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------: |
+| [<img src="https://ca.slack-edge.com/T4JUEB3ME-UMQM1MY5V-974d72bb895c-512" width = "200" />](https://github.com/AlbertoGalvan001) | [<img src="https://ca.slack-edge.com/T4JUEB3ME-UF3B2ME82-505b9a4c929c-512" width = "200" />](https://github.com/AustinLynes) | [<img src="https://ca.slack-edge.com/T4JUEB3ME-UFWLKPTAA-478f93f85502-512" width = "200" />](https://github.com/prototype109) | [<img src="https://ca.slack-edge.com/T4JUEB3ME-UGVV1EC1W-58fa80057fad-512" width = "200" />](https://github.com/bdavis90) |
+|                   [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/AlbertoGalvan001)                   |                   [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/AustinLynes)                   |                   [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/prototype109)                   |                   [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/bdavis90)                   |
+|           [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)           |        [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/austin-lynes-2b274518a/)         |         [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)         |       [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/brandon-davis-6a5322194/)       |
 
-1️⃣ You can find the deployed project at [🚫URL NAME GOES HERE](🚫copy and paste URL here).
-
-## 4️⃣ Contributors
-
-🚫Add contributor info below, make sure add images and edit the social links for each member. Add to or delete these place-holders as needed
-
-|                                       [Student 1](https://github.com/)                                        |                                       [Student 2](https://github.com/)                                        |                                       [Student 3](https://github.com/)                                        |                                       [Student 4](https://github.com/)                                        |                                       [Student 5](https://github.com/)                                        |
-| :-----------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------: |
-|                      [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-male.png" width = "200" />](https://github.com/)                       |                      [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-female.png" width = "200" />](https://github.com/)                       |                      [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-male.png" width = "200" />](https://github.com/)                       |                      [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-female.png" width = "200" />](https://github.com/)                       |                      [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-male.png" width = "200" />](https://github.com/)                       |
-|                 [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/)                 |            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/honda0306)             |           [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/Mister-Corn)            |          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/NandoTheessen)           |            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/wvandolah)             |
-| [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/) |
+|                                       [Chris Ksiazak](https://github.com/cksiazak)                                        |                                        [Igor Tavarez](https://github.com/itava0)                                        |                                        [Jake Butler](https://github.com/UXSpecialist)                                         |                                       [Taylor Blount](https://github.com/thirdeyeclub)                                        |
+| :-----------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------: |
+| [<img src="https://ca.slack-edge.com/T4JUEB3ME-UH16GFSQ2-83bd67f6de7d-512" width = "200" />](https://github.com/cksiazak) | [<img src="https://ca.slack-edge.com/T4JUEB3ME-ULP41RFT3-783830622b31-512" width = "200" />](https://github.com/itava0) | [<img src="https://ca.slack-edge.com/T4JUEB3ME-UHD7D5TEF-d20b27c861cf-512" width = "200" />](https://github.com/UXSpecialist) | [<img src="https://ca.slack-edge.com/T4JUEB3ME-UEX32B31R-dae3716261ce-512" width = "200" />](https://github.com/thirdeyeclub) |
+|                   [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/cksiazak)                   |                   [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/itava0)                   |                   [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/UXSpecialist)                   |                   [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/thirdeyeclub)                   |
+|       [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/cksiazak)       |      [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/igor-tavarez/)      |         [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/jakebutler007/)         |         [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/taylorsblount/)         |
 
 <br>
 <br>
-
-🚫 4️⃣ Optional examples of using images with links for your tech stack, make sure to change these to fit your project
 
 ![MIT](https://img.shields.io/packagist/l/doctrine/orm.svg)
-![React](https://img.shields.io/badge/react-v16.7.0--alpha.2-blue.svg)
-![Typescript](https://img.shields.io/npm/types/typescript.svg?style=flat)
-[![Netlify Status](https://api.netlify.com/api/v1/badges/b5c4db1c-b10d-42c3-b157-3746edd9e81d/deploy-status)](netlify link goes in these parenthesis)
-[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
-
-🚫 more info on using badges [here](https://github.com/badges/shields)
+![Nextjs](https://img.shields.io/badge/Nextjs-9.2.1-green)
 
 ## Project Overview
 
-1️⃣ [Trello Board](🚫add link to trello board here)
+[Trello Board](https://trello.com/b/nBQ5sMkP/labspt7-merchos)
 
-1️⃣ [Product Canvas](🚫add link to product canvas here)
+[Product Canvas](https://www.notion.so/MerchOS-af114d165448428cb06876501dc07168)
 
-1️⃣ [UX Design files](🚫add link to design files here) - 🚫 delete if not applicable
+[UX Design files](https://www.figma.com/file/1qBDKonqWkY12pykaz4aW8/Untitled?node-id=262%3A0)
 
-🚫 Replace lorem ipsum with a description of your project
+The fastest, most hassle free way to set up a merch shop. It's a platform to build your store, upload your design, and create products, all while plugging into scalablepress.com to drop ship your product.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+### Key Features
 
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+- Drag and Drop store builder
+- Hassle free product creator
+- Easy payment options
+- Analytics
+- Free to build
 
-
-### 4️⃣ Key Features
-
--    feature one
--    feature two
--    feature three
--    feature four
--    feature five
-
-## 1️⃣ Tech Stack
+## Tech Stack
 
 ### Front end built using:
 
-#### _Front end framework goes here_
+#### NextJS
 
-🚫 Why did you choose this framework?
+- Server Side Rendering
+- Architecture flow
+- SEO
 
--    point one
--    point two
--    point three
--    point four
+#### Redux + Redux Persist + Redux Thunk
 
-🚫List the rest of the front end features and libraries in the same format as the framework above.
+- Centralized State management
+- Maintainability
+- Predictable state
+- Asynchronous actions
+- Persistence
 
-#### Front end deployed to `🚫insert service here`
+#### Styled Components
 
-#### [Back end](🚫link to back end repo here) built using:
+- Style freedom
+- Scoped styles
+- Server Side Rendering
+- Variable props
 
-#### 🚫 back end framework goes here
+#### Front end deployed to `https://merchos-fe.herokuapp.com/`
 
--    point one
--    point two
--    point three
+#### [Back end](https://github.com/Lambda-School-Labs/merchos-be) built using:
 
-🚫 List the rest of the back end end features and libraries in the same format as the framework above
+#### Nodejs/express
+
+- Simplified HTTP server
+- Pure Javascript
+- NPM access
+- Middleware
+
+#### bcryptjs
+
+- One way hashing
+- Salting
+- Random salt for each request
+
+#### jsonwebtoken
+
+- Authentication
+- Authorization
+- Validation
+
+#### knex
+
+- SQL queries in JS
+- Database migrations and seeding
+- Database control
+
+#### postgres
+
+- Relational data management
+- Data integrity
 
 # APIs
 
-## 2️⃣ Authentication API here
+## Scalablepress.com
 
-🚫Replace text below with a description of the API
+Scalablepress allows us to hook into their drop shipping service by creating the merchandise requested by our end user. This allows the user to submit a product, receive a quote, and place a purchase. Payments are accepted via Paypal.
 
-Water's like me. It's laaazy ... Boy, it always looks for the easiest way to do things A little happy sunlight shining through there. Let all these little things happen. Don't fight them. Learn to use them. Even the worst thing we can do here is good.
+# Environment Variables
 
-## 2️⃣ Payment API here
+In order for the app to function correctly, the user must set up their own environment variables. There should be a env file containing the following:
 
-🚫Replace text below with a description of the API
+       BACKEND_URL: 'Enter URL to server'
 
-This is the way you take out your flustrations. Get away from those little Christmas tree things we used to make in school. Isn't it fantastic that you can change your mind and create all these happy things? Everything's not great in life, but we can still find beauty in it.
+# Content Licenses
 
-## 3️⃣ Misc API here
+| Image Filename | Source / Creator | License |
+| -------------- | ---------------- | ------- |
 
-🚫Replace text below with a description of the API
 
-You can do anything your heart can imagine. In life you need colors. This is where you take out all your hostilities and frustrations. It's better than kicking the puppy dog around and all that so. I'm sort of a softy, I couldn't shoot Bambi except with a camera. Trees get lonely too, so we'll give him a little friend. We'll lay all these little funky little things in there.
+# Testing
 
-## 3️⃣ Misc API here
+Cypress
 
-🚫Replace text below with a description of the API
+# Installation Instructions
 
-When you do it your way you can go anywhere you choose. Let your heart take you to wherever you want to be. If I paint something, I don't want to have to explain what it is. A tree needs to be your friend if you're going to paint him. That's a son of a gun of a cloud. Even the worst thing we can do here is good.
+1.  Clone this repository to your local machine
 
-## 3️⃣ Misc API here
+        git clone https://github.com/Lambda-School-Labs/merchos-fe.git
 
-🚫Replace text below with a description of the API
+2.  Once downloaded, enter the project directory
+3.  With your package manager of choice, install the dependencies
 
-Volunteering your time; it pays you and your whole community fantastic dividends. Maybe there's a happy little waterfall happening over here. You can spend all day playing with mountains. We don't have to be committed. We are just playing here. You have freedom here. The only guide is your heart. It's cold, but it's beautiful.
+    - `yarn install` or `npm install`
 
-# 3️⃣ Environment Variables
-
-In order for the app to function correctly, the user must set up their own environment variables. There should be a .env file containing the following:
-
-🚫These are just examples, replace them with the specifics for your app
-
-    *  REACT_APP_apiKey - this is your Google API key, which can be generated in the Google Cloud Console
-    *  REACT_APP_authDomain - when you set up your Firebase project, this information will be in the dashboard
-    *  REACT_APP_databaseURL - in the Firebase dashboard
-    *  REACT_APP_projectID - in the Firebase dashboard
-    *  REACT_APP_storageBucket - in the Firebase dashboard
-    *  REACT_APP_messagingSenderId - in the Firebase dashboard
-    *  REACT_APP_stripe_API - this is your public Stripe API key, generated in the Stripe dashboard
-    *  REACT_APP_backendURL - optional for your local development server
-    *  REACT_APP_clientid - this is the Stripe_connect clientID, generated in Stripe_connect settings
-    *  REACT_APP_stripe_plan - this is the ID for a second Stripe subscription plan, generated under Stripe products
-
-# 5️⃣ Content Licenses
-
-🚫For all content - images, icons, etc, use this table to document permission of use. Remove the two placeholders and add you content to this table
-
-| Image Filename | Source / Creator | License                                                                      |
-| -------------- | ---------------- | ---------------------------------------------------------------------------- |
-| doodles.png    | Nicole Bennett   | [Creative Commons](https://www.toptal.com/designers/subtlepatterns/doodles/) |
-| rings.svg      | Sam Herbert      | [MIT](https://github.com/SamHerbert/SVG-Loaders)                             |
-
-# 4️⃣ Testing
-
-🚫Document what you used for testing and why
-
-# 4️⃣ Installation Instructions
-
-🚫explain how to install the required dependencies to get this project up and running with yarn and NPM
+4.  Start the client
+    - `yarn dev` or `npm run dev`
 
 ## Other Scripts
 
-🚫replace these examples with your own
-
-    * typecheck - runs the TypeScript compiler
-    * build - creates a build of the application
-    * start - starts the production server after a build is created
-    * test - runs tests in **tests** directory \* eject - copy the configuration files and dependencies into the project so you have full control over them
+    * dev - creates a dev build of the application (refreshes upon update)
+    * build - builds the application
+    * start - starts an instance of the application
+    * cypress - initializes the cypress testing suite
 
 # Contributing
 
@@ -165,12 +151,13 @@ When contributing to this repository, please first discuss the change you wish t
 Please note we have a [code of conduct](./CODE_OF_CONDUCT.md). Please follow it in all your interactions with the project.
 
 ## Issue/Bug Request
-   
- **If you are having an issue with the existing project code, please submit a bug report under the following guidelines:**
- - Check first to see if your issue has already been reported.
- - Check to see if the issue has recently been fixed by attempting to reproduce the issue using the latest master branch in the repository.
- - Create a live example of the problem.
- - Submit a detailed bug report including your environment & browser, steps to reproduce the issue, actual and expected outcomes,  where you believe the issue is originating from, and any potential solutions you have considered.
+
+**If you are having an issue with the existing project code, please submit a bug report under the following guidelines:**
+
+- Check first to see if your issue has already been reported.
+- Check to see if the issue has recently been fixed by attempting to reproduce the issue using the latest master branch in the repository.
+- Create a live example of the problem.
+- Submit a detailed bug report including your environment & browser, steps to reproduce the issue, actual and expected outcomes, where you believe the issue is originating from, and any potential solutions you have considered.
 
 ### Feature Requests
 
@@ -196,4 +183,4 @@ These contribution guidelines have been adapted from [this good-Contributing.md-
 
 ## Documentation
 
-See [Backend Documentation](🚫_link to your backend readme here_) for details on the backend of our project.
+See [Backend Documentation](https://github.com/Lambda-School-Labs/merchos-be) for details on the backend of our project.

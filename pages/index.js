@@ -1,11 +1,22 @@
+<<<<<<< HEAD
 import React, { useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import styled from "styled-components";
 import Layout from "../components/Layout";
+=======
+import React, { useState } from 'react';
+import Head from 'next/head';
+import Link from 'next/link';
+import styled from 'styled-components';
+import { useSelector, useDispatch } from 'react-redux';
+>>>>>>> 08025ba3659c84ab606fb952f5dcb239260e1291
 
 // components
 import AuthModal from "../components/auth/AuthModal";
+
+// Redux actions
+import { authModalController } from '../store/actions/userInterface/authModalController';
 
 const IndexWrapper = styled.div`
   width: 100%;
@@ -75,14 +86,11 @@ const AuthButton = styled.button`
 `;
 
 const Index = () => {
-  // holds the active state of the authentication modal
-  const [modalActive, setModalActive] = useState(false);
-  // changes the modals active state
-  const modalHandler = () => {
-    setModalActive(!modalActive);
-  };
+  const { authModalActive } = useSelector(state => state.authInterface);
+  const dispatch = useDispatch();
 
   return (
+<<<<<<< HEAD
     <Layout>
 
       <IndexWrapper>
@@ -106,6 +114,30 @@ const Index = () => {
       </IndexWrapper>
 
     </Layout>
+=======
+    <IndexWrapper>
+      {authModalActive ? <AuthModal /> : null}
+      <ContentWrapper>
+        <Heading>Welcome to the World's Easiest Online-Shop Builder</Heading>
+        <ButtonWrapper>
+          <Link href=''>
+            <Anchor title='Start!'>Start!</Anchor>
+          </Link>
+          <AuthButton
+            type='button'
+            onClick={() => dispatch(authModalController('open'))}
+          >
+            Sign In
+          </AuthButton>
+        </ButtonWrapper>
+        <ListInfo>
+          {listData.map((item, i) => (
+            <li key={i}>{item}</li>
+          ))}
+        </ListInfo>
+      </ContentWrapper>
+    </IndexWrapper>
+>>>>>>> 08025ba3659c84ab606fb952f5dcb239260e1291
   );
 };
 
