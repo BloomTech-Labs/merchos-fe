@@ -3,13 +3,12 @@ import { connect } from "react-redux";
 import { DragDropContext } from "react-beautiful-dnd";
 import PageDroppable from "../components/ShopBuilder/PageDroppable";
 import ColumnDrop from "../components/ShopBuilder/ColumnDrop";
-import ColumnDrag from "../components/ShopBuilder/ColumnDrag";
 import { onDragEndAction } from "../store/actions/ShopBuilderActions";
-import { changeEleHeightAction } from "../store/actions/ShopBuilderActions";
-import { deleteElementAction } from "../store/actions/ShopBuilderActions";
-import Element from "../components/ShopBuilder/Element";
 import StoreNameForm from "../components/ShopBuilder/StoreNameForm";
 import ModalLayout from "../components/ShopBuilder/ModalLayout";
+import ListManager from "../components/ShopBuilder/ListManager";
+import DragItem from "../components/ShopBuilder/DragItem";
+import { setProductIdAction } from "../store/actions/ShopBuilderActions";
 import styled from "styled-components";
 
 const Button = styled.button`
@@ -18,6 +17,11 @@ const Button = styled.button`
 
 const ShopContainer = styled.div`
   ${props => (props.blurContainer ? "filter: blur(2px);" : "")}
+`;
+
+const ListContainer = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 const ShopBuilder = props => {
@@ -39,36 +43,36 @@ const ShopBuilder = props => {
           <PageDroppable>
             {props.state.Page.columns.map((column, index) => {
               const dragElements = column.items;
-              const clickedOnDropId = index;
+              const interactDropId = index; //index of drop location being interacted with, row in column
               return (
                 <ColumnDrop
-                  key={index}
-                  columnId={`${index}`}
-                  direction={
-                    RegExp("PRODUCTS_.*").test(column.id)
-                      ? "horizontal"
-                      : "vertical"
-                  }
+                  key={interactDropId}
+                  columnId={`${interactDropId}`}
                   dropHeight={column.height}
+                  isProduct={false}
                 >
-                  {dragElements.map((draggable, index) => {
-                    return (
-                      <ColumnDrag
-                        key={draggable.id}
-                        columnId={draggable.id}
+                  {RegExp("PRODUCTS_.*").test(column.id) ? (
+                    <ListContainer>
+                      <ListManager
+                        dragElements={dragElements}
+                        rowLimit={column.rowLimit}
                         index={index}
-                        width={draggable.width || "100%"}
-                      >
-                        <Element
+                        interactDropId={interactDropId}
+                        setProductIdAction={props.setProductIdAction}
+                      />
+                    </ListContainer>
+                  ) : (
+                    dragElements.map((draggable, index) => {
+                      return (
+                        <DragItem
+                          key={draggable.id}
                           draggable={draggable}
-                          clickedOnDropId={clickedOnDropId}
-                          clickedOnDragId={index}
-                          changeEleHeight={props.changeEleHeightAction}
-                          deleteElement={props.deleteElementAction}
+                          index={index}
+                          interactDropId={interactDropId}
                         />
-                      </ColumnDrag>
-                    );
-                  })}
+                      );
+                    })
+                  )}
                 </ColumnDrop>
               );
             })}
@@ -87,7 +91,6 @@ const mapStateToProps = state => {
 
 export default connect(mapStateToProps, {
   onDragEndAction,
-  changeEleHeightAction,
-  deleteElementAction
+  setProductIdAction
 })(ShopBuilder);
 //changed name of page of shopbuilder back to ShopBuilder

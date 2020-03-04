@@ -1,8 +1,10 @@
 import { DRAG_N_DROP } from "../actions/ShopBuilderActions";
+import { DRAG_N_DROP_PRODUCTS } from "../actions/ShopBuilderActions";
 import { CHANGE_HEIGHT } from "../actions/ShopBuilderActions";
 import { DELETE_ELEMENT } from "../actions/ShopBuilderActions";
 import { CHANGE_STORE_NAME } from "../actions/ShopBuilderActions";
 import { SELECT_LAYOUT } from "../actions/ShopBuilderActions";
+import { SET_PRODUCT_ID } from "../actions/ShopBuilderActions";
 import { BasicLayout } from "../../components/ShopBuilder/Layouts/BasicLayout";
 
 const initialState = {
@@ -22,9 +24,10 @@ const workspaceReducer = (state = initialState, action) => {
     source,
     destination,
     dropArea,
-    indexOfItem,
+    clickId,
     storeName,
-    layoutType
+    layoutType,
+    correctionId
   } = action.payload || {};
 
   const tempArr = Array.from(state.Page.columns);
@@ -47,11 +50,58 @@ const workspaceReducer = (state = initialState, action) => {
         }
       };
 
+    case DRAG_N_DROP_PRODUCTS:
+      const sourceLocation = draggableId.split("-");
+      const destinationLocation = destination.droppableId.split("-");
+      // destinationIndex result comes from calculating destinationLocation[2]
+      // which is the limit of the product row multiplied by the
+      // destinationLocation[1] which is the current drop index location of the item
+      // and adding the destination.index will give us the actual index
+      const destinationIndex =
+        destinationLocation[2] * destinationLocation[1] + destination.index;
+
+      console.log("SOURCE_LOCATION: ", sourceLocation);
+      console.log("DESTINATION_LOCATION: ", destinationLocation);
+
+      const draggableSource =
+        tempArr[sourceLocation[0]].items[sourceLocation[2]];
+      tempArr[sourceLocation[0]].items.splice(sourceLocation[2], 1);
+      tempArr[destinationLocation[0]].items.splice(
+        destinationIndex,
+        0,
+        draggableSource
+      );
+
+      return {
+        ...state,
+        Page: {
+          ...state.Page,
+          columns: tempArr
+        }
+      };
+
+    case SET_PRODUCT_ID:
+      const correctionIdSplit = correctionId.split("-");
+      tempArr[Number(correctionIdSplit[0])].items[
+        Number(correctionIdSplit[2])
+      ].id = correctionId;
+
+      return {
+        ...state,
+        Page: {
+          ...state.Page,
+          columns: tempArr
+        }
+      };
     case CHANGE_HEIGHT:
-      const currentHeight = tempArr[dropArea].items[indexOfItem].height;
+      const selectedItem = tempArr[dropArea].items.filter((item, index) => {
+        if (item.id === clickId) {
+          return { item, index };
+        }
+      });
       let nextHeight = 0;
 
-      switch (currentHeight) {
+      switch (selectedItem[0].item.height) {
         case "75px":
           nextHeight = "150px";
           break;
@@ -62,7 +112,7 @@ const workspaceReducer = (state = initialState, action) => {
           nextHeight = "75px";
       }
 
-      tempArr[dropArea].items[indexOfItem].height = nextHeight;
+      tempArr[dropArea].items[selectedItem[0].index].height = nextHeight;
 
       return {
         ...state,
@@ -73,7 +123,11 @@ const workspaceReducer = (state = initialState, action) => {
       };
 
     case DELETE_ELEMENT:
-      tempArr[dropArea].items.splice(indexOfItem, 1);
+      const updatedArr = tempArr[dropArea].items.filter(
+        item => item.id !== clickId
+      );
+
+      tempArr[dropArea].items = updatedArr;
 
       return {
         ...state,
