@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar'
 import { axiosWithAuth } from '../utils/axiosWithAuth'
-import Store from '../components/Store'
+import Store from '../components/StoreData'
 
 
 
