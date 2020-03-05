@@ -1,17 +1,10 @@
-<<<<<<< HEAD
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import styled from "styled-components";
 import Layout from "../components/Layout";
-=======
-import React, { useState } from 'react';
-import Head from 'next/head';
-import Link from 'next/link';
-import styled from 'styled-components';
-import { useSelector, useDispatch } from 'react-redux';
->>>>>>> 08025ba3659c84ab606fb952f5dcb239260e1291
-
+import { useSelector, useDispatch } from "react-redux";
+import Router from "next/router";
 // components
 import AuthModal from "../components/auth/AuthModal";
 
@@ -86,35 +79,21 @@ const AuthButton = styled.button`
 `;
 
 const Index = () => {
+
   const { authModalActive } = useSelector(state => state.authInterface);
+  const { userIsAuthed } = useSelector(state => state.userData);
   const dispatch = useDispatch();
 
+  console.log("this is the auth", userIsAuthed);
+
+  useEffect(() => {
+    if (userIsAuthed == true) {
+      Router.push("/dashboard")
+    }
+
+  }, [userIsAuthed])
+
   return (
-<<<<<<< HEAD
-    <Layout>
-
-      <IndexWrapper>
-        {modalActive ? <AuthModal modalHandler={modalHandler} /> : null}
-        <ContentWrapper>
-          <Heading>Welcome to the World's Easiest Online-Shop Builder</Heading>
-          <ButtonWrapper>
-            <Link href="">
-              <Anchor title="Start!">Start!</Anchor>
-            </Link>
-            <AuthButton typbe="button" onClick={modalHandler}>
-              Sign In
-            </AuthButton>
-          </ButtonWrapper>
-          <ListInfo>
-            {listData.map((item, i) => (
-              <li key={i}>{item}</li>
-            ))}
-          </ListInfo>
-        </ContentWrapper>
-      </IndexWrapper>
-
-    </Layout>
-=======
     <IndexWrapper>
       {authModalActive ? <AuthModal /> : null}
       <ContentWrapper>
@@ -137,7 +116,6 @@ const Index = () => {
         </ListInfo>
       </ContentWrapper>
     </IndexWrapper>
->>>>>>> 08025ba3659c84ab606fb952f5dcb239260e1291
   );
 };
 

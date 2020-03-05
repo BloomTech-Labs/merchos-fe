@@ -7,15 +7,21 @@ const SwagNavBar = styled.nav`
  justify-content: space-evenly;
  align-items: center;
 
- background: gray;
+ background: #F3F3FF;
  color: white;
  height: 8rem;
  width: 90%;
 
- .nav-logo {
-    font-size: 4rem;
-    font-weight: bold;
-    text-shadow: 3px 3px 3px black;
+ .head {
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-size: 62px;
+    font-weight: 200;
+    line-height: 73px
+    display: flex;
+    align-items: center;
+    text-align: center
+    color: #000000;
  }
 .link {
 
@@ -65,16 +71,14 @@ const SwagNavBar = styled.nav`
       background-color: #ddd;
   }
 
-  .show {
-      display: block;
- }
+  
   
  `
 
 const Navbar = () => {
     return (
         <SwagNavBar>
-            <div className="nav-logo">SwagDragon</div >
+            <div className="Head">Back Office</div >
 
             <div className="user-dropdown">
                 <button onclick="myFunction()" className="dropbtn">Welcome Alberta</button>
@@ -85,21 +89,7 @@ const Navbar = () => {
             </div>
         </SwagNavBar >
     )
-    function myFunction() {
-        document.getElementById("myDropdown").classList.toggle("show");
-    }
-    window.onclick = function (event) {
-        if (!event.target.matches('.dropbtn')) {
-            var dropdowns = document.getElementsByClassName("dropdown-content");
-            var i;
-            for (i = 0; i < dropdowns.length; i++) {
-                var openDropdown = dropdowns[i];
-                if (openDropdown.classList.contains('show')) {
-                    openDropdown.classList.remove('show');
-                }
-            }
-        }
-    }
+
 }
 
 export default Navbar
