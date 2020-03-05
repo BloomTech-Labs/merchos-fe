@@ -1,65 +1,34 @@
 import { DRAG_N_DROP } from "../actions/ShopBuilderActions";
+import { DRAG_N_DROP_PRODUCTS } from "../actions/ShopBuilderActions";
 import { CHANGE_HEIGHT } from "../actions/ShopBuilderActions";
 import { DELETE_ELEMENT } from "../actions/ShopBuilderActions";
+import { CHANGE_STORE_NAME } from "../actions/ShopBuilderActions";
+import { SELECT_LAYOUT } from "../actions/ShopBuilderActions";
+import { SET_PRODUCT_ID } from "../actions/ShopBuilderActions";
+import { BasicLayout } from "../../components/ShopBuilder/Layouts/BasicLayout";
 
 const initialState = {
   Page: {
     id: "Page",
     title: "Workspace",
+    storeName: "Click to edit store name",
     columns: [
       //This is where the page columns are held which is the layout of the page
-      {
-        id: "Monster Image",
-        items: [{ id: "box1", content: "Monster Image", height: "100px" }],
-        order: 1,
-        type: "Monster"
-      },
-      {
-        id: "secondColumn",
-        items: [
-          { id: "box2", content: "Double Size", height: "100px", order: 2 },
-          {
-            id: "box4",
-            content: "half width image",
-            height: "100px",
-            width: "50%",
-            order: 1
-          },
-          {
-            id: "box5",
-            content: "half width image",
-            height: "100px",
-            width: "50%",
-            order: 1
-          }
-        ],
-        order: 2,
-        type: "Double"
-      },
-      {
-        id: "stuff",
-        items: [
-          { id: "box3", content: "Regular Banner", height: "100px", order: 1 }
-        ]
-      },
-      {
-        id: "Products",
-        items: [
-          { id: "0", content: "A", height: "100px" },
-          { id: "1", content: "B", height: "100px" },
-          { id: "2", content: "C", height: "100px" },
-          { id: "3", content: "D", height: "100px" },
-          { id: "4", content: "E", height: "100px" },
-          { id: "5", content: "F", height: "100px" }
-        ]
-      }
     ]
   }
 };
 
 const workspaceReducer = (state = initialState, action) => {
-  const { draggableId, source, destination, dropArea, indexOfItem } =
-    action.payload || {};
+  const {
+    draggableId,
+    source,
+    destination,
+    dropArea,
+    clickId,
+    storeName,
+    layoutType,
+    correctionId
+  } = action.payload || {};
 
   const tempArr = Array.from(state.Page.columns);
 
@@ -81,11 +50,58 @@ const workspaceReducer = (state = initialState, action) => {
         }
       };
 
+    case DRAG_N_DROP_PRODUCTS:
+      const sourceLocation = draggableId.split("-");
+      const destinationLocation = destination.droppableId.split("-");
+      // destinationIndex result comes from calculating destinationLocation[2]
+      // which is the limit of the product row multiplied by the
+      // destinationLocation[1] which is the current drop index location of the item
+      // and adding the destination.index will give us the actual index
+      const destinationIndex =
+        destinationLocation[2] * destinationLocation[1] + destination.index;
+
+      console.log("SOURCE_LOCATION: ", sourceLocation);
+      console.log("DESTINATION_LOCATION: ", destinationLocation);
+
+      const draggableSource =
+        tempArr[sourceLocation[0]].items[sourceLocation[2]];
+      tempArr[sourceLocation[0]].items.splice(sourceLocation[2], 1);
+      tempArr[destinationLocation[0]].items.splice(
+        destinationIndex,
+        0,
+        draggableSource
+      );
+
+      return {
+        ...state,
+        Page: {
+          ...state.Page,
+          columns: tempArr
+        }
+      };
+
+    case SET_PRODUCT_ID:
+      const correctionIdSplit = correctionId.split("-");
+      tempArr[Number(correctionIdSplit[0])].items[
+        Number(correctionIdSplit[2])
+      ].id = correctionId;
+
+      return {
+        ...state,
+        Page: {
+          ...state.Page,
+          columns: tempArr
+        }
+      };
     case CHANGE_HEIGHT:
-      const currentHeight = tempArr[dropArea].items[indexOfItem].height;
+      const selectedItem = tempArr[dropArea].items.filter((item, index) => {
+        if (item.id === clickId) {
+          return { item, index };
+        }
+      });
       let nextHeight = 0;
 
-      switch (currentHeight) {
+      switch (selectedItem[0].item.height) {
         case "75px":
           nextHeight = "150px";
           break;
@@ -96,7 +112,7 @@ const workspaceReducer = (state = initialState, action) => {
           nextHeight = "75px";
       }
 
-      tempArr[dropArea].items[indexOfItem].height = nextHeight;
+      tempArr[dropArea].items[selectedItem[0].index].height = nextHeight;
 
       return {
         ...state,
@@ -107,10 +123,11 @@ const workspaceReducer = (state = initialState, action) => {
       };
 
     case DELETE_ELEMENT:
-      //already declared above in Change Height this is here for reference
-      // const { dropArea, indexOfItem } = action.payload;
+      const updatedArr = tempArr[dropArea].items.filter(
+        item => item.id !== clickId
+      );
 
-      tempArr[dropArea].items.splice(indexOfItem, 1);
+      tempArr[dropArea].items = updatedArr;
 
       return {
         ...state,
@@ -119,6 +136,30 @@ const workspaceReducer = (state = initialState, action) => {
           columns: tempArr
         }
       };
+
+    case CHANGE_STORE_NAME:
+      return {
+        ...state,
+        Page: {
+          ...state.Page,
+          storeName: storeName
+        }
+      };
+
+    case SELECT_LAYOUT:
+      switch (layoutType) {
+        case "BasicLayout":
+          return {
+            ...state,
+            Page: {
+              ...state.Page,
+              columns: BasicLayout
+            }
+          };
+        default:
+          return state;
+      }
+
     default:
       return state;
   }

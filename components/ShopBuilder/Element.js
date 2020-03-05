@@ -20,13 +20,13 @@ const Element = props => {
     <div>
       <CloseIcon
         onClick={() =>
-          props.deleteElement(props.clickedOnDropId, props.clickedOnDragId)
+          props.deleteElement(props.interactDropId, props.draggable.id)
         }
       />
       <Container
         height={props.draggable.height}
         onClick={() => {
-          props.changeEleHeight(props.clickedOnDropId, props.clickedOnDragId);
+          props.changeEleHeight(props.interactDropId, props.clickedOnDragId);
         }}
       >
         {props.draggable.content}
