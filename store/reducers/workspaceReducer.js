@@ -5,6 +5,7 @@ import { DELETE_ELEMENT } from "../actions/ShopBuilderActions";
 import { CHANGE_STORE_NAME } from "../actions/ShopBuilderActions";
 import { SELECT_LAYOUT } from "../actions/ShopBuilderActions";
 import { SET_PRODUCT_ID } from "../actions/ShopBuilderActions";
+import { CREATE_DRAG_ELEMENT } from "../actions/ShopBuilderActions";
 import { BasicLayout } from "../../components/ShopBuilder/Layouts/BasicLayout";
 
 const initialState = {
@@ -14,6 +15,18 @@ const initialState = {
     storeName: "Click to edit store name",
     columns: [
       //This is where the page columns are held which is the layout of the page
+    ]
+  },
+  SideBar: {
+    id: "SideBarProducts",
+    column: [
+      {
+        items: [
+          { id: "product-1", content: "shirt" },
+          { id: "product-2", content: "pants" },
+          { id: "product-3", content: "hats" }
+        ]
+      }
     ]
   }
 };
@@ -42,6 +55,24 @@ const workspaceReducer = (state = initialState, action) => {
       tempArr[sourceId].items.splice(source.index, 1);
       tempArr[destinationId].items.splice(destination.index, 0, draggable);
 
+      return {
+        ...state,
+        Page: {
+          ...state.Page,
+          columns: tempArr
+        }
+      };
+
+    case CREATE_DRAG_ELEMENT:
+      const dragProducts = Array.from(state.SideBar.column);
+      const product = dragProducts[0].items[source.index];
+      if (source.droppableId === "Page") {
+        tempArr[destination.index] = product;
+      } else {
+        tempArr[Number(destination.droppableId)].items[
+          destination.index
+        ] = product;
+      }
       return {
         ...state,
         Page: {

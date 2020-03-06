@@ -2,32 +2,23 @@ import React from "react";
 import styled from "styled-components";
 import { Draggable } from "react-beautiful-dnd";
 
-const ProductList = styled.div`
-  font-size: 30px;
-  display: ${({ open }) => (open === false ? "none" : "block")};
-`;
-
 const Container = styled.div`
   margin-top: 10px;
   display: flex;
   flex-direction: column;
 `;
 
-const Product = ({ product, index, open }) => {
-  console.log(index, "index");
+const DragProduct = props => {
   return (
-    <Draggable draggableId={product.id} index={index}>
+    <Draggable draggableId={props.columnId} index={props.index}>
       {provided => {
         return (
           <Container
-            key={product.id}
             ref={provided.innerRef}
             {...provided.draggableProps}
             {...provided.dragHandleProps}
           >
-            <ProductList open={open} ref={provided.innerRef}>
-              {product.content}
-            </ProductList>
+            {props.children}
           </Container>
         );
       }}
@@ -35,4 +26,4 @@ const Product = ({ product, index, open }) => {
   );
 };
 
-export default Product;
+export default DragProduct;
