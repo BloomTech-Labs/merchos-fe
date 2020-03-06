@@ -1,12 +1,12 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 const ActiveTab = styled.li`
   cursor: pointer;
   background: ${({ isActive, current }) =>
-    isActive === current ? '#82DAFF' : '#FFFFFF'};
+    isActive === current ? "#82DAFF" : "#FFFFFF"};
   color: ${({ isActive, current }) =>
-    isActive === current ? '#FFFFFF' : '#82DAFF'};
+    isActive === current ? "#FFFFFF" : "#82DAFF"};
   width: 100%;
   text-align: center;
   padding: 15px 0px;
@@ -24,6 +24,7 @@ const Tab = ({ children, tabHandler, isActive }) => {
       current={children}
       onClick={() => tabHandler(children)}
     >
+      {console.log(children, "children")}
       {children}
     </ActiveTab>
   );

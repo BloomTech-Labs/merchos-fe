@@ -11,6 +11,7 @@ import DragItem from "../components/ShopBuilder/DragItem";
 import { setProductIdAction } from "../store/actions/ShopBuilderActions";
 import styled from "styled-components";
 import ColumnDrag from "../components/ShopBuilder/ColumnDrag";
+import SideBar from "../components/SidebarBuilder/SideBar";
 
 const Button = styled.button`
   font-size: 1.5rem;
@@ -42,6 +43,7 @@ const ShopBuilder = props => {
         {/*holds context for drag and drop can pass in events
        for dragging*/}
         <DragDropContext onDragEnd={props.onDragEndAction}>
+          <SideBar />
           <PageDroppable>
             {props.state.Page.columns.map((column, index) => {
               const dragElements = column.items;
@@ -60,7 +62,6 @@ const ShopBuilder = props => {
                       columnId={`${interactDropId}`}
                       dropHeight={column.height}
                       isProduct={true}
-                      type="PRODUCT-AREA"
                     >
                       <ListContainer>
                         <ListManager
@@ -78,7 +79,6 @@ const ShopBuilder = props => {
                       columnId={`${interactDropId}`}
                       dropHeight={column.height}
                       isProduct={false}
-                      type="ITEM"
                     >
                       {dragElements.map((draggable, index) => {
                         return (

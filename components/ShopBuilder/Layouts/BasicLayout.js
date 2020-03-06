@@ -21,7 +21,7 @@ export const BasicLayout = [
       { content: "F", height: "100px", width: "150px" }
     ],
     order: 3,
-    rowLimit: 3
+    rowLimit: 5
   },
   {
     id: "DOUBLE_SIZE_1",

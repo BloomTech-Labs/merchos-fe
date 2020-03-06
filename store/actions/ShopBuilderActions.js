@@ -5,9 +5,11 @@ export const DELETE_ELEMENT = "DELETE_ELEMENT";
 export const CHANGE_STORE_NAME = "CHANGE_STORE_NAME";
 export const SELECT_LAYOUT = "SELECT_LAYOUT";
 export const SET_PRODUCT_ID = "SET_PRODUCT_ID";
+export const CREATE_DRAG_ELEMENT = "CREATE_DRAG_ELEMENT";
 
 export const onDragEndAction = dropValue => dispatch => {
   const { draggableId, source, destination, type } = dropValue || {};
+  console.log("DROP_VALUE: ", dropValue);
   if (!destination) {
     console.log("here destination end");
     return;
@@ -21,6 +23,13 @@ export const onDragEndAction = dropValue => dispatch => {
     return;
   }
   console.log("moving from one container to another");
+  if (source.droppableId === "SideBarProducts") {
+    dispatch({
+      type: CREATE_DRAG_ELEMENT,
+      payload: dropValue
+    });
+    return;
+  }
 
   if (type === "PRODUCT") {
     dispatch({ type: DRAG_N_DROP_PRODUCTS, payload: dropValue });

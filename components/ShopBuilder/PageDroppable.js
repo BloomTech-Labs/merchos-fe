@@ -6,13 +6,13 @@ import styled from "styled-components";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  background: ${props => (props.isDraggingOver ? "green" : "white")};
 `;
 
 const PageContainer = styled.div`
   height: 100vh;
   width: 90vw;
   border: 1px solid black;
+  background: ${props => (props.isDraggingOver ? "green" : "white")};
 `;
 
 //this component is the page component and is the main droppable

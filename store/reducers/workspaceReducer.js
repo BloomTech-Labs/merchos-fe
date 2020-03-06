@@ -5,7 +5,9 @@ import { DELETE_ELEMENT } from "../actions/ShopBuilderActions";
 import { CHANGE_STORE_NAME } from "../actions/ShopBuilderActions";
 import { SELECT_LAYOUT } from "../actions/ShopBuilderActions";
 import { SET_PRODUCT_ID } from "../actions/ShopBuilderActions";
+import { CREATE_DRAG_ELEMENT } from "../actions/ShopBuilderActions";
 import { BasicLayout } from "../../components/ShopBuilder/Layouts/BasicLayout";
+import { v4 as uuidv4 } from "uuid";
 
 const initialState = {
   Page: {
@@ -16,6 +18,18 @@ const initialState = {
       //This is where the page columns are held which is the layout of the page
     ],
     isLive: false
+  },
+  SideBar: {
+    id: "SideBarProducts",
+    column: [
+      {
+        items: [
+          { id: "product-1", content: "Product Default", type: "PRODUCT" },
+          { id: "product-2", content: "General Default", type: "DEFAULT" },
+          { id: "product-3", content: "General Default", type: "GENERAL" }
+        ]
+      }
+    ]
   }
 };
 
@@ -51,6 +65,47 @@ const workspaceReducer = (state = initialState, action) => {
         }
       };
 
+    case CREATE_DRAG_ELEMENT:
+      console.log("CREATING");
+      const dragProducts = Array.from(state.SideBar.column);
+      const product = dragProducts[0].items[source.index];
+
+      const destinationLocationCreate = destination.droppableId.split("-");
+      console.log("DESTINATION_LOCATION: ", destinationLocationCreate);
+
+      if (destination.droppableId === "Page") {
+        console.log("PAGE AREA IF");
+        tempArr[destination.index] = {
+          id: uuidv4(),
+          items: [{ ...product, id: uuidv4() }]
+        };
+      } else {
+        console.log("HERE");
+        if (destinationLocationCreate.length > 1) {
+          tempArr[Number(destinationLocationCreate[0])].items[
+            Number(destinationLocationCreate[2])
+          ] = {
+            id: uuidv4(),
+            items: [{ ...product, id: uuidv4() }]
+          };
+        } else {
+          tempArr[Number(destinationLocationCreate[0])].items[
+            destination.index
+          ] = {
+            id: uuidv4(),
+            items: [{ ...product, id: uuidv4() }]
+          };
+        }
+      }
+      console.log("SKIP");
+      return {
+        ...state,
+        Page: {
+          ...state.Page,
+          columns: tempArr
+        }
+      };
+
     case DRAG_N_DROP_PRODUCTS:
       const sourceLocation = draggableId.split("-");
       const destinationLocation = destination.droppableId.split("-");
@@ -60,9 +115,6 @@ const workspaceReducer = (state = initialState, action) => {
       // and adding the destination.index will give us the actual index
       const destinationIndex =
         destinationLocation[2] * destinationLocation[1] + destination.index;
-
-      console.log("SOURCE_LOCATION: ", sourceLocation);
-      console.log("DESTINATION_LOCATION: ", destinationLocation);
 
       const draggableSource =
         tempArr[sourceLocation[0]].items[sourceLocation[2]];
@@ -101,8 +153,6 @@ const workspaceReducer = (state = initialState, action) => {
         }
       });
       let nextHeight = 0;
-
-      console.log("SELECTED_ITEM: ", selectedItem);
 
       switch (selectedItem[0].item.height) {
         case "75px":

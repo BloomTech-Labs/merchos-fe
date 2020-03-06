@@ -31,8 +31,8 @@ const ListManager = props => {
         key={columnDropIndex}
         columnId={columnDropIndex}
         dropHeight={props.dropHeight}
-        type="PRODUCT"
         isProduct={true}
+        type="PRODUCT"
       >
         {row.map((draggable, index) => {
           const itemIndex = props.rowLimit * itemsDropIndex + index;

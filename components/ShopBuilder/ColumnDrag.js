@@ -40,7 +40,6 @@ const TopHandleBar = styled.div`
 // `;
 
 const ColumnDrag = props => {
-  console.log("DRAG_ALL: ", props.dragAll);
   const [showHandles, setShowHandles] = useState(false);
 
   const showDragHandles = e => {
@@ -58,7 +57,6 @@ const ColumnDrag = props => {
           <div
             ref={provided.innerRef}
             {...provided.draggableProps}
-            isDragging={snapshot.isDragging}
             {...provided.dragHandleProps}
           >
             <div onMouseEnter={showDragHandles} onMouseLeave={showDragHandles}>

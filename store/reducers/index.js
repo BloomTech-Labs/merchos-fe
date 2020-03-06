@@ -1,12 +1,13 @@
 import { combineReducers } from "redux";
-import workspaceReducer from "./workspaceReducer";
 
 // reducers
-import { authInterface } from './userInterface/authInterface';
-import { userData } from './userData/userData';
+import { authInterface } from "./userInterface/authInterface";
+import { userData } from "./userData/userData";
+import workspaceReducer from "./workspaceReducer";
 
 export const rootReducer = combineReducers({
   workspace: workspaceReducer,
+
   authInterface,
   userData
 });
