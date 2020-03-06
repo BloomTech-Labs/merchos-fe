@@ -28,10 +28,8 @@ export const authorizeUser = (activeTab, data) => dispatch => {
       };
       // call axiosWithAuth and send a POST request to the login route
       return axiosWithAuth()
-        .post('/user/login', newData)
+        .post('/auth/login', newData)
         .then(({ data }) => {
-          // once we receive the data, we'll set the token to localStorage
-          localStorage.setItem('token', data.token);
           // after which we'll dispatch a success message, along with the data as the payload
           dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
         })
@@ -45,10 +43,8 @@ export const authorizeUser = (activeTab, data) => dispatch => {
       dispatch({ type: USER_REGISTER_TRY });
       // after which, call axiosWithAuth and send a post request to registration route
       return axiosWithAuth()
-        .post('/user/register', data)
+        .post('/auth/register', data)
         .then(({ data }) => {
-          // once we receive the data, set the token to local storage
-          localStorage.setItem('token', data.token);
           // dispatch the success to our reducer, along with the payload data
           dispatch({ type: USER_REGISTER_SUCCESS, payload: data });
         })
