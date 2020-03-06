@@ -7,6 +7,7 @@ const Container = styled.div`
   text-align: center;
   font-size: 2rem;
   margin-top: 1px;
+  background: rgba(137, 196, 244, 1);
 `;
 
 const CloseIcon = styled(IoIosCloseCircle)`
@@ -23,12 +24,7 @@ const Element = props => {
           props.deleteElement(props.interactDropId, props.draggable.id)
         }
       />
-      <Container
-        height={props.draggable.height}
-        onClick={() => {
-          props.changeEleHeight(props.interactDropId, props.clickedOnDragId);
-        }}
-      >
+      <Container height={props.draggable.height}>
         {props.draggable.content}
       </Container>
     </div>

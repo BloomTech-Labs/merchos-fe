@@ -14,7 +14,8 @@ const initialState = {
     storeName: "Click to edit store name",
     columns: [
       //This is where the page columns are held which is the layout of the page
-    ]
+    ],
+    isLive: false
   }
 };
 
@@ -100,6 +101,8 @@ const workspaceReducer = (state = initialState, action) => {
         }
       });
       let nextHeight = 0;
+
+      console.log("SELECTED_ITEM: ", selectedItem);
 
       switch (selectedItem[0].item.height) {
         case "75px":

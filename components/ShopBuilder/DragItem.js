@@ -13,6 +13,7 @@ const DragItem = props => {
       columnId={props.draggable.id}
       index={props.index}
       width={props.draggable.width || "100%"}
+      dragAll={false}
     >
       <Element
         draggable={props.draggable}

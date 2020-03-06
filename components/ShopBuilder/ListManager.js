@@ -1,6 +1,9 @@
 import React from "react";
 import ColumnDrop from "./ColumnDrop";
 import DragItem from "./DragItem";
+import styled from "styled-components";
+
+const Item = styled.div``;
 
 const splitList = (list, limit) => {
   const tempList = Array.from(list);
@@ -19,10 +22,9 @@ const getDropId = dropId => {
 
 const ListManager = props => {
   return splitList(props.dragElements, props.rowLimit).map((row, index) => {
-    console.log("ROW: ", row);
+    const itemsDropIndex = index;
     //columnDropIndex is a combination of the column index and
     //the index of the droppable currently being dragged
-    const itemsDropIndex = index;
     const columnDropIndex = `${props.interactDropId}-${itemsDropIndex}-${props.rowLimit}`;
     return (
       <ColumnDrop
@@ -42,7 +44,6 @@ const ListManager = props => {
           //not really a good idea right now, but the best I got for this double list
           //problem
           if (draggable.id !== dragProductId) {
-            console.log("DRAGGABLE_ID LISTMANAGER: ", draggable);
             props.setProductIdAction(dragProductId);
           }
 

@@ -10,6 +10,7 @@ import ListManager from "../components/ShopBuilder/ListManager";
 import DragItem from "../components/ShopBuilder/DragItem";
 import { setProductIdAction } from "../store/actions/ShopBuilderActions";
 import styled from "styled-components";
+import ColumnDrag from "../components/ShopBuilder/ColumnDrag";
 
 const Button = styled.button`
   font-size: 1.5rem;
@@ -20,6 +21,7 @@ const ShopContainer = styled.div`
 `;
 
 const ListContainer = styled.div`
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
 `;
@@ -45,35 +47,52 @@ const ShopBuilder = props => {
               const dragElements = column.items;
               const interactDropId = index; //index of drop location being interacted with, row in column
               return (
-                <ColumnDrop
-                  key={interactDropId}
-                  columnId={`${interactDropId}`}
-                  dropHeight={column.height}
-                  isProduct={false}
+                <ColumnDrag
+                  key={column.id}
+                  columnId={column.id}
+                  index={interactDropId}
+                  width="100%"
+                  dragAll={true}
                 >
                   {RegExp("PRODUCTS_.*").test(column.id) ? (
-                    <ListContainer>
-                      <ListManager
-                        dragElements={dragElements}
-                        rowLimit={column.rowLimit}
-                        index={index}
-                        interactDropId={interactDropId}
-                        setProductIdAction={props.setProductIdAction}
-                      />
-                    </ListContainer>
-                  ) : (
-                    dragElements.map((draggable, index) => {
-                      return (
-                        <DragItem
-                          key={draggable.id}
-                          draggable={draggable}
+                    <ColumnDrop
+                      key={interactDropId}
+                      columnId={`${interactDropId}`}
+                      dropHeight={column.height}
+                      isProduct={true}
+                      type="PRODUCT-AREA"
+                    >
+                      <ListContainer>
+                        <ListManager
+                          dragElements={dragElements}
+                          rowLimit={column.rowLimit}
                           index={index}
                           interactDropId={interactDropId}
+                          setProductIdAction={props.setProductIdAction}
                         />
-                      );
-                    })
+                      </ListContainer>
+                    </ColumnDrop>
+                  ) : (
+                    <ColumnDrop
+                      key={interactDropId}
+                      columnId={`${interactDropId}`}
+                      dropHeight={column.height}
+                      isProduct={false}
+                      type="ITEM"
+                    >
+                      {dragElements.map((draggable, index) => {
+                        return (
+                          <DragItem
+                            key={draggable.id}
+                            draggable={draggable}
+                            index={index}
+                            interactDropId={interactDropId}
+                          />
+                        );
+                      })}
+                    </ColumnDrop>
                   )}
-                </ColumnDrop>
+                </ColumnDrag>
               );
             })}
           </PageDroppable>
