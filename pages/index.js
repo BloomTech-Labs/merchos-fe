@@ -84,7 +84,7 @@ const Index = () => {
   const { userIsAuthed } = useSelector(state => state.userData);
   const dispatch = useDispatch();
 
-  console.log("this is the auth", userIsAuthed);
+
 
   useEffect(() => {
     if (userIsAuthed == true) {
