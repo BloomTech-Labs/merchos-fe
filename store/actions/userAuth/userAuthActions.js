@@ -21,14 +21,9 @@ export const authorizeUser = (activeTab, data) => dispatch => {
       // first, dispatch the login attempt
       dispatch({ type: USER_LOGIN_TRY });
 
-      // remove rememberMe from obj as it's not implemented yet
-      const newData = {
-        username: data.username,
-        password: data.password
-      };
       // call axiosWithAuth and send a POST request to the login route
       return axiosWithAuth()
-        .post('/auth/login', newData)
+        .post('/auth/login', data)
         .then(({ data }) => {
           // after which we'll dispatch a success message, along with the data as the payload
           dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
