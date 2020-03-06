@@ -26,7 +26,7 @@ const SubmitButton = styled.button`
 const AuthForm = ({ activeTab, submitHandler }) => {
   // handles state for current form data
   const [formData, setFormData] = useState({
-    email: '',
+    username: '',
     password: '',
     rememberBox: false
   });
@@ -47,14 +47,14 @@ const AuthForm = ({ activeTab, submitHandler }) => {
     if (activeTab === 'Sign In') {
       // set form data for sign in page back to empty strings
       setFormData({
-        email: '',
+        username: '',
         password: '',
         rememberBox: false
       });
     } else {
       // if not, set the registration form data to empty strings
       setFormData({
-        email: '',
+        username: '',
         password: ''
       });
     }
