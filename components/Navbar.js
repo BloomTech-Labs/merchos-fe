@@ -1,93 +1,93 @@
 import Link from 'next/link';
 import styled from 'styled-components';
 
-const SwagNavBar = styled.nav`
- display: flex;
- flex-flow: row nowrap;
- justify-content: space-evenly;
- align-items: center;
+const Wrapper = styled.section`
 
- background: #F3F3FF;
- color: white;
- height: 8rem;
- width: 90%;
+display: flex;
+justify-content: space-between;
+align-items: center
 
- .head {
-    font-family: 'Roboto', sans-serif;
-    font-style: normal;
-    font-size: 62px;
-    font-weight: 200;
-    line-height: 73px
-    display: flex;
-    align-items: center;
-    text-align: center
-    color: #000000;
- }
-.link {
+background: #F3F3FF;
+box-shadow: inset 5px 5px 13px rgba(0, 0, 0, 0.2), inset -9px -9px 3.37829px rgba(255, 255, 255, 0.65);
 
-}
- .nav-item {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-evenly;
-    align-items: center; 
-    width: 35vh;
- }
- .dropbtn {
-    background-color: #3498DB;
-    color: white;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-  }
-  .dropbtn:hover, .dropbtn:focus {
-    background-color: #2980B9;
-  }
-  .user-dropdown {
-    position: relative;
-    display: inline-block;
-  }
+`
+const ProfileBtn = styled.button`
 
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f1f1f1;
-    min-width: 160px;
-    overflow: auto;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-  }
+width: 209px;
+height: 77px;
+left: 1650px;
+top: 18px;
 
-  .dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-  }
+font-family: Roboto;
+font-style: normal;
+font-weight: normal;
+font-size: 25px;
+line-height: 29px;
+display: flex;
+align-items: center;
+text-align: right;
+justify-content: center;
 
-  .dropdown a:hover {
-      background-color: #ddd;
-  }
+color: #000000;
 
-  
-  
- `
+background: #F3F3FF;
+box-shadow: 3px 3px 14px rgba(0, 0, 0, 0.41), -6px -6px 12px #FFFFFF;
+border-radius: 55px;
+
+
+`
+const Title = styled.h1`
+font-family: Roboto;
+font-style: normal;
+font-weight: 200;
+font-size: 62px;
+line-height: 73px;
+display: flex;
+align-items: center;
+text-align: center;
+justify-content: center;
+
+color: #000000;
+`
+const BackBtn = styled.button`
+width: 182px;
+height: 77px;
+left: 19px;
+top: 18px;
+
+background: #F3F3FF;
+box-shadow: 3px 3px 14px rgba(0, 0, 0, 0.41), -6px -6px 12px #FFFFFF;
+border-radius: 55px;
+
+font-family: Roboto;
+font-style: normal;
+font-weight: bold;
+font-size: 25px;
+line-height: 29px;
+display: flex;
+align-items: center;
+text-align: center;
+justify-content: center;
+
+color: #000000
+`
 
 const Navbar = () => {
     return (
-        <SwagNavBar>
-            <div className="Head">Back Office</div >
+        <Wrapper>
+            <BackBtn>Back</BackBtn>
+            <Title>Back Office</Title>
+            <ProfileBtn id="myDropdown" className="dropdown-content">Mike</ProfileBtn>
 
-            <div className="user-dropdown">
-                <button onclick="myFunction()" className="dropbtn">Welcome Alberta</button>
-                <div id="myDropdown" className="dropdown-content">
-                    <Link href="/" className="link"><a>Log Out</a></Link>
-                </div>
 
+
+            <button onclick="myFunction()" className="dropbtn">Welcome Alberta</button>
+            <div id="myDropdown" className="dropdown-content">
+                <Link href="/" className="link"><a>Log Out</a></Link>
             </div>
-        </SwagNavBar >
+
+
+        </Wrapper >
     )
 
 }
