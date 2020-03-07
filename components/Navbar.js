@@ -71,20 +71,47 @@ justify-content: center;
 
 color: #000000
 `
+const DropLogout = styled.h1`
+display: none;
+`
 
 const Navbar = () => {
+    const logout = e => {
+        e.preventDefault();
+        localStorage.removeItem('token');
+        localStorage.removeItem('user_id');
+        props.history.push('/')
+    }
+
+    function Hidden(e) {
+        e.preventDefault();
+        const act = document.getElementById('hide')
+        if (act.style.display === "none") {
+            act.style.display = "block"
+        } else { act.style.display = "none" }
+    }
+
     return (
         <Wrapper>
             <BackBtn>Back</BackBtn>
             <Title>Back Office</Title>
-            <ProfileBtn id="myDropdown" className="dropdown-content">Mike</ProfileBtn>
+            <ProfileBtn onClick={Hidden}>
+
+                <label for="select"></label>
+                <div className="select">
+
+                    <DropLogout id="hide" value="1" onClick={logout}>Log Out</DropLogout>
+
+                </div>
+
+            </ProfileBtn>
 
 
 
-            <button onclick="myFunction()" className="dropbtn">Welcome Alberta</button>
-            <div id="myDropdown" className="dropdown-content">
-                <Link href="/" className="link"><a>Log Out</a></Link>
-            </div>
+
+
+
+
 
 
         </Wrapper >

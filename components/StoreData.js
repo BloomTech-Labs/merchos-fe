@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 
 const Container = styled.div`
-position: absolute;
+
 left: 12.19%;
 right: 3.18%;
 top: 7.51%;
