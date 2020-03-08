@@ -66,7 +66,7 @@ describe('Index Page', () => {
     cy.get(':nth-child(2) > .MainInputs__Input-sc-1hnwefb-2').type('password');
     // set up route monitoring
     cy.route({
-      url: '/user/**',
+      url: '/auth/**',
       method: 'POST'
     }).as('login');
     // click on the submit button
@@ -109,10 +109,10 @@ describe('Index Page', () => {
 
     // set up monitoring for the registration route
     cy.route({
-      url: '/user/**',
+      url: '/auth/**',
       method: 'POST'
     }).as('register');
-    
+
     // click the submit button on the page
     cy.get('.Form__SubmitButton-u4p01-1').click();
 
