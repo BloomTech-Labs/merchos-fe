@@ -12,7 +12,7 @@ const DragItem = props => {
     <ColumnDrag
       columnId={props.draggable.id}
       index={props.index}
-      width={props.draggable.width || "100%"}
+      width={props.draggable.width}
       dragAll={false}
     >
       <Element

@@ -25,7 +25,7 @@ const initialState = {
       {
         items: [
           { id: "product-1", content: "Product Default", type: "PRODUCT" },
-          { id: "product-2", content: "General Default", type: "DEFAULT" },
+          { id: "product-2", content: "General Default", type: "GENERAL" },
           { id: "product-3", content: "General Default", type: "GENERAL" }
         ]
       }
@@ -78,38 +78,40 @@ const workspaceReducer = (state = initialState, action) => {
       };
 
     case CREATE_DRAG_ELEMENT:
-      console.log("CREATING");
       const dragProducts = Array.from(state.SideBar.column);
       const product = dragProducts[0].items[source.index];
+      console.log("PRODUCT: ", product);
 
       const destinationLocationCreate = destination.droppableId.split("-");
-      console.log("DESTINATION_LOCATION: ", destinationLocationCreate);
 
       if (destination.droppableId === "Page") {
-        console.log("PAGE AREA IF");
-        tempArr[destination.index] = {
-          id: uuidv4(),
+        tempArr.splice(destination.index, 0, {
+          ...product,
+          id: `${product.id}-${uuidv4()}`,
           items: [{ ...product, id: uuidv4() }]
-        };
+        });
       } else {
-        console.log("HERE");
         if (destinationLocationCreate.length > 1) {
-          tempArr[Number(destinationLocationCreate[0])].items[
-            Number(destinationLocationCreate[2])
-          ] = {
-            id: uuidv4(),
-            items: [{ ...product, id: uuidv4() }]
-          };
+          tempArr[Number(destinationLocationCreate[0])].items.splice(
+            Number(destinationLocationCreate[2]),
+            0,
+            {
+              ...product,
+              id: `${product.id}-${uuidv4()}`,
+              items: [{ ...product, id: uuidv4() }]
+            }
+          );
         } else {
-          tempArr[Number(destinationLocationCreate[0])].items[
-            destination.index
-          ] = {
-            id: uuidv4(),
-            items: [{ ...product, id: uuidv4() }]
-          };
+          tempArr[Number(destinationLocationCreate[0])].items.splice(
+            destination.index,
+            0,
+            {
+              id: `${product.id}-${uuidv4()}`,
+              items: [{ ...product, id: uuidv4() }]
+            }
+          );
         }
       }
-      console.log("SKIP");
       return {
         ...state,
         Page: {

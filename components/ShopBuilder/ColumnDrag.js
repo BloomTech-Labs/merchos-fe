@@ -4,48 +4,20 @@ import { Draggable } from "react-beautiful-dnd";
 import styled from "styled-components";
 
 const Container = styled.div`
+  ${props => {
+    if (props.width) {
+      return `width: ${props.width};`;
+    } else {
+      return "flex-grow: 1;";
+    }
+  }}
+
   height: max-content;
-  width: ${props => props.width};
   position: relative;
   background: transparent;
 `;
 
-const TopHandleBar = styled.div`
-  position: relative;
-  height: 30px;
-  ${props => {
-    if (props.dragAll) {
-      return `display: ${props.mouseOver ? "static" : "none"};`;
-    } else {
-      return null;
-    }
-  }}
-
-  background: orange;
-`;
-
-// const BottomHandleBar = TopHandleBar`
-// top: auto;
-// bottom: 0;
-// `;
-
-// const LeftHandleBar = TopHandleBar`
-// top: auto;
-// left: 0;
-// `;
-
-// const RightHandleBar = TopHandleBar`
-// top: auto;
-// right: 0;
-// `;
-
 const ColumnDrag = props => {
-  const [showHandles, setShowHandles] = useState(false);
-
-  const showDragHandles = e => {
-    setShowHandles(!showHandles);
-  };
-
   return (
     <Draggable
       draggableId={props.columnId}
@@ -59,14 +31,7 @@ const ColumnDrag = props => {
             {...provided.draggableProps}
             {...provided.dragHandleProps}
           >
-            <div onMouseEnter={showDragHandles} onMouseLeave={showDragHandles}>
-              <TopHandleBar
-                {...provided.dragHandleProps}
-                mouseOver={showHandles}
-                dragAll={props.dragAll}
-              />
-              {props.children}
-            </div>
+            {props.children}
           </div>
         </Container>
       )}

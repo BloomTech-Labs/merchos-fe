@@ -17,8 +17,7 @@ const Container = styled.div`
   padding: 10px, 0;
   border: ${props =>
     props.isDraggingOver ? "10px dashed rgba(0, 230, 64, 1)" : "none"};
-  border: 1px solid black;
-  background: transparent;
+  background: red;
 `;
 
 const ColumnDrop = props => {

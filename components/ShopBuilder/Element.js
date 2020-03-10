@@ -18,16 +18,15 @@ const CloseIcon = styled(IoIosCloseCircle)`
 
 const Element = props => {
   return (
-    <div>
+    <Container height={props.draggable.height}>
       <CloseIcon
         onClick={() =>
           props.deleteElement(props.interactDropId, props.draggable.id)
         }
       />
-      <Container height={props.draggable.height}>
-        {props.draggable.content}
-      </Container>
-    </div>
+
+      {props.draggable.content}
+    </Container>
   );
 };
 

@@ -17,6 +17,7 @@ const splitList = (list, limit) => {
 const getDropId = dropId => {
   const strArr = dropId.split("-");
   strArr.pop();
+  strArr.pop();
   return strArr.join("-");
 };
 
@@ -25,14 +26,14 @@ const ListManager = props => {
     const itemsDropIndex = index;
     //columnDropIndex is a combination of the column index and
     //the index of the droppable currently being dragged
-    const columnDropIndex = `${props.interactDropId}-${itemsDropIndex}-${props.rowLimit}`;
+    const columnDropIndex = `${props.interactDropId}-${itemsDropIndex}-${props.rowLimit}-PRODUCTS`;
     return (
       <ColumnDrop
         key={columnDropIndex}
         columnId={columnDropIndex}
         dropHeight={props.dropHeight}
         isProduct={true}
-        type="PRODUCT"
+        type="PRODUCTS"
       >
         {row.map((draggable, index) => {
           const itemIndex = props.rowLimit * itemsDropIndex + index;

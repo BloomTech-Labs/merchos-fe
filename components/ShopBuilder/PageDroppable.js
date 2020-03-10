@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Droppable } from "react-beautiful-dnd";
 import styled from "styled-components";
+import DropConditions from "./DropConditions";
 
 const Container = styled.div`
   display: flex;
@@ -9,10 +10,17 @@ const Container = styled.div`
 `;
 
 const PageContainer = styled.div`
-  height: 100vh;
+  height: 3000px;
   width: 90vw;
   border: 1px solid black;
   background: ${props => (props.isDraggingOver ? "green" : "white")};
+  ${props => {
+    if (props.isDraggingOver) {
+      return "transition: none;";
+    } else {
+      return null;
+    }
+  }}
 `;
 
 //this component is the page component and is the main droppable
@@ -21,6 +29,7 @@ const PageDroppable = props => {
   return (
     <Container>
       {/*droppableId brought in from state in redux store */}
+      {/* <DropConditions> */}
       <Droppable droppableId={props.dropId}>
         {/*provided passes down all the props required to make a container a draggable
         or droppable usable by DragDropContext, snapshot is an argument that takes
@@ -38,6 +47,7 @@ const PageDroppable = props => {
           </PageContainer>
         )}
       </Droppable>
+      {/* </DropConditions> */}
     </Container>
   );
 };

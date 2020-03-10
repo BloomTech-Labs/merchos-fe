@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import { Droppable, Draggable } from "react-beautiful-dnd";
+import DropConditions from "../components/ShopBuilder/DropConditions";
 import { DragDropContext } from "react-beautiful-dnd";
 import PageDroppable from "../components/ShopBuilder/PageDroppable";
+import ColumnDrag from "../components/ShopBuilder/ColumnDrag";
 import ColumnDrop from "../components/ShopBuilder/ColumnDrop";
 import { onDragEndAction } from "../store/actions/ShopBuilderActions";
 import StoreNameForm from "../components/ShopBuilder/StoreNameForm";
@@ -12,6 +15,25 @@ import { setProductIdAction } from "../store/actions/ShopBuilderActions";
 import styled from "styled-components";
 import SideBar from "../components/SidebarBuilder/SideBar";
 
+const Container = styled.div`
+  min-height: ${props => props.dropHeight || "100px"};
+  ${props => {
+    if (props.isProduct) {
+      return `display: flex;
+              `;
+    } else {
+      return `display: flex;
+              `;
+    }
+  }}
+  flex-wrap: wrap;
+  padding: 10px, 0;
+  border: ${props =>
+    props.isDraggingOver ? "10px dashed rgba(0, 230, 64, 1)" : "none"};
+  border: 1px solid black;
+  background: transparent;
+`;
+
 const Button = styled.button`
   font-size: 1.5rem;
 `;
@@ -21,9 +43,13 @@ const ShopContainer = styled.div`
 `;
 
 const ListContainer = styled.div`
-  margin: 0 auto;
+  width: 100%;
   display: flex;
   flex-direction: column;
+`;
+
+const ItemMargins = styled.div`
+  margin: 75px 0 0 0;
 `;
 
 const ShopBuilder = props => {
@@ -47,50 +73,52 @@ const ShopBuilder = props => {
             {props.state.Page.columns.map((column, index) => {
               const dragElements = column.items;
               const interactDropId = index; //index of drop location being interacted with, row in column
+
               return (
                 <ColumnDrag
-                  key={column.id}
+                  key={`${interactDropId}`}
                   columnId={column.id}
                   index={interactDropId}
-                  width="100%"
-                  dragAll={true}
                 >
-                  {RegExp("PRODUCTS_.*").test(column.id) ? (
-                    <ColumnDrop
-                      key={interactDropId}
-                      columnId={`${interactDropId}`}
-                      dropHeight={column.height}
-                      isProduct={true}
-                    >
-                      <ListContainer>
-                        <ListManager
-                          dragElements={dragElements}
-                          rowLimit={column.rowLimit}
-                          index={index}
-                          interactDropId={interactDropId}
-                          setProductIdAction={props.setProductIdAction}
-                        />
-                      </ListContainer>
-                    </ColumnDrop>
-                  ) : (
-                    <ColumnDrop
-                      key={interactDropId}
-                      columnId={`${interactDropId}`}
-                      dropHeight={column.height}
-                      isProduct={false}
-                    >
-                      {dragElements.map((draggable, index) => {
-                        return (
-                          <DragItem
-                            key={draggable.id}
-                            draggable={draggable}
+                  <ItemMargins>
+                    {RegExp("PRODUCTS_.*").test(column.id) ? (
+                      <ColumnDrop
+                        key={interactDropId}
+                        columnId={`${interactDropId}`}
+                        dropHeight={column.height}
+                        isProduct={true}
+                      >
+                        <ListContainer>
+                          <ListManager
+                            dragElements={dragElements}
+                            rowLimit={column.rowLimit}
                             index={index}
                             interactDropId={interactDropId}
+                            setProductIdAction={props.setProductIdAction}
                           />
-                        );
-                      })}
-                    </ColumnDrop>
-                  )}
+                        </ListContainer>
+                      </ColumnDrop>
+                    ) : (
+                      <ColumnDrop
+                        key={interactDropId}
+                        columnId={`${interactDropId}`}
+                        dropHeight={column.height}
+                        isProduct={false}
+                        type="GENERAL"
+                      >
+                        {dragElements.map((draggable, index) => {
+                          return (
+                            <DragItem
+                              key={draggable.id}
+                              draggable={draggable}
+                              index={index}
+                              interactDropId={interactDropId}
+                            />
+                          );
+                        })}
+                      </ColumnDrop>
+                    )}
+                  </ItemMargins>
                 </ColumnDrag>
               );
             })}
@@ -100,7 +128,7 @@ const ShopBuilder = props => {
     </div>
   );
 };
-
+// export default ShopBuilder;
 const mapStateToProps = state => {
   return {
     state: state.workspace

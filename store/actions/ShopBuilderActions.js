@@ -23,17 +23,24 @@ export const onDragEndAction = dropValue => dispatch => {
     return;
   }
   console.log("moving from one container to another");
-  if (source.droppableId === "SideBarProducts") {
-    dispatch({
-      type: CREATE_DRAG_ELEMENT,
-      payload: dropValue
-    });
-    return;
-  }
 
-  if (type === "PRODUCT") {
+  if (RegExp(".*PRODUCTS.*", "g").test(destination.droppableId)) {
+    if (source.droppableId === "SideBarProducts") {
+      dispatch({
+        type: CREATE_DRAG_ELEMENT,
+        payload: dropValue
+      });
+      return;
+    }
     dispatch({ type: DRAG_N_DROP_PRODUCTS, payload: dropValue });
   } else {
+    if (source.droppableId === "SideBarProducts") {
+      dispatch({
+        type: CREATE_DRAG_ELEMENT,
+        payload: dropValue
+      });
+      return;
+    }
     dispatch({
       type: DRAG_N_DROP,
       payload: dropValue

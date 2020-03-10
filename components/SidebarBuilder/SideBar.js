@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import { Droppable } from "react-beautiful-dnd";
 import Products from "./Products";
 import DragProduct from "./DragProduct";
-import DropConditions from "../ShopBuilder/DropConditions";
 
 const DnDContainer = styled.div`
   position: fixed;
