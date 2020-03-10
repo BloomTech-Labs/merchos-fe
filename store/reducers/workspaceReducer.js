@@ -30,6 +30,18 @@ const initialState = {
         ]
       }
     ]
+  },
+  SideBar: {
+    id: "SideBarProducts",
+    column: [
+      {
+        items: [
+          { id: "product-1", content: "shirt" },
+          { id: "product-2", content: "pants" },
+          { id: "product-3", content: "hats" }
+        ]
+      }
+    ]
   }
 };
 

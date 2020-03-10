@@ -10,7 +10,6 @@ import ListManager from "../components/ShopBuilder/ListManager";
 import DragItem from "../components/ShopBuilder/DragItem";
 import { setProductIdAction } from "../store/actions/ShopBuilderActions";
 import styled from "styled-components";
-import ColumnDrag from "../components/ShopBuilder/ColumnDrag";
 import SideBar from "../components/SidebarBuilder/SideBar";
 
 const Button = styled.button`
