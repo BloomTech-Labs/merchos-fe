@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Responsive, WidthProvider } from "react-grid-layout";
 import { connect } from "react-redux";
-import { updateLayoutAction } from "../store/actions/ShopBuilderActions";
+import {
+  updateLayoutAction,
+  onDrop
+} from "../store/actions/ShopBuilderActions";
+import {
+  BasicLayout,
+  contentExample
+} from "../components/ShopBuilder/Layouts/BasicLayout";
 import ModalLayout from "../components/ShopBuilder/ModalLayout";
 import SideBar from "../components/ShopBuilder/SideBar";
 import styled from "styled-components";
@@ -35,6 +42,7 @@ const ShopBuilder = props => {
   const sidebarLayout = props.state.SideBar.layout;
 
   let currentLayout = props.state.Page.layout;
+  console.log("CURRENT_LAYOUT: ", currentLayout);
 
   const display = e => {
     setDisplayModal(!displayModal);
@@ -76,16 +84,25 @@ const ShopBuilder = props => {
               layouts={{ lg: currentLayout }}
               breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
               cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }}
-              onDrop={onDrop}
+              onDrop={props.onDrop}
               measureBeforeMount={true}
               useCSSTransforms={true}
               isDroppable={true}
               preventCollision={false}
-              onLayoutChange={props.updateLayoutAction}
+              // droppingItem={{ i: `${currentLayout.length}`, w: 1, h: 1 }}
+              onLayoutChange={currentLayout => {
+                props.updateLayoutAction(currentLayout);
+              }}
             >
               {currentLayout.map((gridItem, index) => {
                 console.log("MAPPING");
-                return <GridItemContainer key={index}>a</GridItemContainer>;
+                return (
+                  <GridItemContainer key={gridItem.i}>
+                    {gridItem.i === "Filler"
+                      ? "Drop Items Here"
+                      : props.state.Page.content[index].content}
+                  </GridItemContainer>
+                );
               })}
             </ResponsiveGridLayout>
           </div>
@@ -102,5 +119,7 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { updateLayoutAction })(ShopBuilder);
+export default connect(mapStateToProps, { updateLayoutAction, onDrop })(
+  ShopBuilder
+);
 //changed name of page of shopbuilder back to ShopBuilder

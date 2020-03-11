@@ -37,14 +37,25 @@ const ModalLayout = props => {
       onClick={() => props.display(props.display)}
     >
       <Modal>
-        <LayoutContainer
-          onClick={() => props.selectLayoutAction("BasicLayout")}
-        >
-          Basic Template
-        </LayoutContainer>
+        {props.layouts.map((layout, index) => {
+          return (
+            <LayoutContainer
+              key={index}
+              onClick={() => props.selectLayoutAction(layout)}
+            >
+              {layout}
+            </LayoutContainer>
+          );
+        })}
       </Modal>
     </Container>
   );
 };
 
-export default connect(null, { selectLayoutAction })(ModalLayout);
+const mapStateToProps = state => {
+  return {
+    layouts: state.workspace.Page.layoutType
+  };
+};
+
+export default connect(mapStateToProps, { selectLayoutAction })(ModalLayout);
