@@ -89,7 +89,6 @@ const ShopBuilder = props => {
               useCSSTransforms={true}
               isDroppable={true}
               preventCollision={false}
-              // droppingItem={{ i: `${currentLayout.length}`, w: 1, h: 1 }}
               onLayoutChange={currentLayout => {
                 props.updateLayoutAction(currentLayout);
               }}

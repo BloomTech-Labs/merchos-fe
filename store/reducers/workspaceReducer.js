@@ -17,7 +17,6 @@ const initialState = {
       { i: "Filler", x: 0, y: 0, w: 1, h: 1 }
       //This is where the page columns are held which is the layout of the page
     ],
-    // content: [{content: }]
     content: [{ content: "+" }]
   },
   SideBar: {
