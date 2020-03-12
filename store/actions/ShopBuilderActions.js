@@ -6,10 +6,14 @@ export const selectLayoutAction = layoutType => dispatch => {
   dispatch({ type: SELECT_LAYOUT, payload: { layoutType } });
 };
 
-export const updateLayoutAction = layout => dispatch => {
-  if (layout[layout.length - 1].i !== "__dropping-elem__") {
-    const layoutUpdated = layout.filter(item => item.i !== "Filler");
-    dispatch({ type: UPDATE_LAYOUT, payload: { layoutUpdated } });
+export const updateLayoutAction = layoutUpdate => dispatch => {
+  console.log("LAYOUT: ", layoutUpdate);
+  if (
+    layoutUpdate.length &&
+    layoutUpdate[layoutUpdate.length - 1].i !== "__dropping-elem__"
+  ) {
+    // const layoutUpdated = layout.filter(item => item.i !== "Filler");
+    dispatch({ type: UPDATE_LAYOUT, payload: { layoutUpdate } });
   }
 };
 

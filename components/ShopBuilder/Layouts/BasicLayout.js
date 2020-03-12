@@ -25,13 +25,24 @@ export const ProductExample3 = [
 
 export const BlankLayout = [
   //This is where the page columns are held which is the layout of the page
-  { i: "Filler", x: 0, y: 0, w: 1, h: 1 }
 ];
 
 export const BasicLayout = [
   //This is where the page columns are held which is the layout of the page
-  { i: "0", x: 0, y: 0, w: 12, h: 1 },
-  { i: "1", x: 1, y: 0, w: 3, h: 2 },
-  { i: "2", x: 2, y: 0, w: 1, h: 2 },
-  { i: "3", x: 3, y: 0, w: 1, h: 2 }
+  { w: 12, h: 1, x: 0, y: 0, i: "0" },
+  { w: 12, h: 2, x: 0, y: 1, i: "1" },
+  { w: 1, h: 2, x: 0, y: 3, i: "2" },
+  { w: 1, h: 2, x: 1, y: 3, i: "3" },
+  { w: 1, h: 2, x: 3, y: 3, i: "4" },
+  { w: 1, h: 2, x: 2, y: 3, i: "5" },
+  { w: 1, h: 2, x: 4, y: 3, i: "6" },
+  { w: 1, h: 2, x: 5, y: 3, i: "7" },
+  { w: 1, h: 2, x: 6, y: 3, i: "8" },
+  { w: 1, h: 2, x: 7, y: 3, i: "9" },
+  { w: 1, h: 2, x: 8, y: 3, i: "10" },
+  { w: 1, h: 2, x: 9, y: 3, i: "11" },
+  { w: 1, h: 2, x: 10, y: 3, i: "12" },
+  { w: 1, h: 2, x: 11, y: 3, i: "13" },
+  { w: 1, h: 2, x: 0, y: 5, i: "14" },
+  { w: 1, h: 2, x: 1, y: 5, i: "15" }
 ];

@@ -25,41 +25,37 @@ const Button = styled.button`
 `;
 
 const Page = styled.div`
-  background: blue;
+  width: 100%;
   display: flex;
+`;
+
+const SideBarContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const DropZone = styled.div`
+  width: 100%;
+  height: 100%;
+  min-height: 500px;
 `;
 
 const ShopContainer = styled.div`
   ${props => (props.blurContainer ? "filter: blur(2px);" : "")}
 `;
 
-const Container = styled(ResponsiveGridLayout)`
-  min-height: 100px;
-`;
-
 const ShopBuilder = props => {
   const [displayModal, setDisplayModal] = useState(false);
   const sidebarLayout = props.state.SideBar.layout;
 
-  let currentLayout = props.state.Page.layout;
+  const currentLayout = props.state.Page.layout;
+  // if (currentLayout.length === 0) {
+  //   currentLayout.push({ i: "Filler", x: 0, y: 0, w: 1, h: 1, static: true });
+  // }
   console.log("CURRENT_LAYOUT: ", currentLayout);
 
   const display = e => {
     setDisplayModal(!displayModal);
-  };
-
-  const onDrop = elemParams => {
-    alert(
-      `Element parameters:\n${JSON.stringify(
-        elemParams,
-        ["x", "y", "w", "h"],
-        2
-      )}`
-    );
-  };
-
-  const dragging = (...itemCallback) => {
-    console.log("DRAGGING: ", itemCallback);
   };
 
   return (
@@ -67,23 +63,25 @@ const ShopBuilder = props => {
       <ModalLayout displayModal={displayModal} display={display} />
       <ShopContainer blurContainer={displayModal}>
         <Button onClick={display}>Show Layouts</Button>
-        <div>
-          {sidebarLayout.map((item, index) => {
-            return (
-              <SideBar
-                key={index}
-                content={item.content}
-                index={index}
-                dataItem={`data-${index}`}
-              />
-            );
-          })}
-          <div>
+        <Page>
+          <SideBarContainer>
+            {sidebarLayout.map((item, index) => {
+              return (
+                <SideBar
+                  key={index}
+                  content={item.content}
+                  index={index}
+                  dataItem={`data-${index}`}
+                />
+              );
+            })}
+          </SideBarContainer>
+          <DropZone>
             <ResponsiveGridLayout
               className="layout"
               layouts={{ lg: currentLayout }}
-              breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
-              cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }}
+              breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 360 }}
+              cols={{ lg: 12, md: 9, sm: 6, xs: 3 }}
               onDrop={props.onDrop}
               measureBeforeMount={true}
               useCSSTransforms={true}
@@ -92,20 +90,20 @@ const ShopBuilder = props => {
               onLayoutChange={currentLayout => {
                 props.updateLayoutAction(currentLayout);
               }}
+              style={{ background: "blue", minHeight: "500px" }}
             >
               {currentLayout.map((gridItem, index) => {
-                console.log("MAPPING");
                 return (
                   <GridItemContainer key={gridItem.i}>
-                    {gridItem.i === "Filler"
-                      ? "Drop Items Here"
-                      : props.state.Page.content[index].content}
+                    {props.state.Page.content.length
+                      ? props.state.Page.content[index].content
+                      : "+"}
                   </GridItemContainer>
                 );
               })}
             </ResponsiveGridLayout>
-          </div>
-        </div>
+          </DropZone>
+        </Page>
       </ShopContainer>
     </div>
   );

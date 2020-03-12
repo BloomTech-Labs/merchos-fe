@@ -14,10 +14,9 @@ const initialState = {
     storeName: "Click to edit store name",
     layoutType: ["Blank Layout", "Basic Layout"],
     layout: [
-      { i: "Filler", x: 0, y: 0, w: 1, h: 1 }
       //This is where the page columns are held which is the layout of the page
     ],
-    content: [{ content: "+" }]
+    content: []
   },
   SideBar: {
     id: "SideBar",
@@ -39,7 +38,7 @@ const initialState = {
 };
 
 const workspaceReducer = (state = initialState, action) => {
-  const { layoutType, layoutUpdated, item } = action.payload || {};
+  const { layoutType, layoutUpdate, item } = action.payload || {};
 
   const tempArray = Array.from(state.Page.layout);
   const contentArray = Array.from(state.Page.content);
@@ -48,11 +47,15 @@ const workspaceReducer = (state = initialState, action) => {
     case SELECT_LAYOUT:
       switch (layoutType) {
         case "Basic Layout":
+          for (let i = 0; i < BasicLayout.length; i++) {
+            contentArray.push({ content: "+" });
+          }
           return {
             ...state,
             Page: {
               ...state.Page,
-              layout: BasicLayout
+              layout: BasicLayout,
+              content: contentArray
             }
           };
         case "Blank Layout":
@@ -71,17 +74,17 @@ const workspaceReducer = (state = initialState, action) => {
         ...state,
         Page: {
           ...state.Page,
-          layout: layoutUpdated
+          layout: layoutUpdate
         }
       };
 
     case DROP_ITEM:
-      console.log("ITEM_IN_DROP_ITEM: ", item);
       contentArray.push({ content: "+" });
       tempArray.push({
         ...item,
-        i: `${state.Page.layout.length - 1}`
+        i: `${state.Page.layout.length}`
       });
+      console.log("TEMP_ARRAY: ", tempArray);
       return {
         ...state,
         Page: {
