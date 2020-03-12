@@ -14,7 +14,6 @@ const Item = styled.div`
 
 const SideBar = props => {
   const handleDragStart = e => {
-    console.log("E: ", e);
     e.dataTransfer.setData("text/plain", "");
   };
   return (

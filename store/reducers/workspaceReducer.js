@@ -84,7 +84,6 @@ const workspaceReducer = (state = initialState, action) => {
         ...item,
         i: `${state.Page.layout.length}`
       });
-      console.log("TEMP_ARRAY: ", tempArray);
       return {
         ...state,
         Page: {

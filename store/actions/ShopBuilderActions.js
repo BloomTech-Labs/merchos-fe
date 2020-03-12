@@ -12,7 +12,6 @@ export const updateLayoutAction = layoutUpdate => dispatch => {
     layoutUpdate.length &&
     layoutUpdate[layoutUpdate.length - 1].i !== "__dropping-elem__"
   ) {
-    // const layoutUpdated = layout.filter(item => item.i !== "Filler");
     dispatch({ type: UPDATE_LAYOUT, payload: { layoutUpdate } });
   }
 };

@@ -5,10 +5,6 @@ import {
   updateLayoutAction,
   onDrop
 } from "../store/actions/ShopBuilderActions";
-import {
-  BasicLayout,
-  contentExample
-} from "../components/ShopBuilder/Layouts/BasicLayout";
 import ModalLayout from "../components/ShopBuilder/ModalLayout";
 import SideBar from "../components/ShopBuilder/SideBar";
 import styled from "styled-components";
@@ -49,10 +45,6 @@ const ShopBuilder = props => {
   const sidebarLayout = props.state.SideBar.layout;
 
   const currentLayout = props.state.Page.layout;
-  // if (currentLayout.length === 0) {
-  //   currentLayout.push({ i: "Filler", x: 0, y: 0, w: 1, h: 1, static: true });
-  // }
-  console.log("CURRENT_LAYOUT: ", currentLayout);
 
   const display = e => {
     setDisplayModal(!displayModal);
