@@ -1,120 +1,48 @@
-//copied code, because I don't want to lose the contents of the items, it's annoying to remake them.
-// [
-//     //This is where the page columns are held which is the layout of the page
-//     {
-//       id: "MONSTER_IMAGE_1",
-//       items: [{ id: "monsterImage1", content: "Monster Image", height: "100px" }],
-//       order: 0,
-//       containerHeight: '750px'
-//     },
-//     {
-//       id: "BANNER_1",
-//       items: [
-//         { id: "banner1", content: "Double Size", height: "100px", order: 2 },
-//         {
-//           id: "halfImage1",
-//           content: "half width image",
-//           height: "100px",
-//           width: "50%",
-//           order: 1
-//         },
-//         {
-//           id: "halfImage2",
-//           content: "half width image",
-//           height: "100px",
-//           width: "50%",
-//           order: 1
-//         }
-//       ],
-//       order: 2,
-//       containerHeight: '75px'
-//     },
-//     {
-//       id: "stuff",
-//       items: [
-//         { id: "box3", content: "Regular Banner", height: "100px", order: 1 }
-//       ]
-//     },
-//     {
-//       id: "Products",
-//       items: [
-//         { id: "0", content: "A", height: "100px" },
-//         { id: "1", content: "B", height: "100px" },
-//         { id: "2", content: "C", height: "100px" },
-//         { id: "3", content: "D", height: "100px" },
-//         { id: "4", content: "E", height: "100px" },
-//         { id: "5", content: "F", height: "100px" }
-//       ]
-//     }
-// ]
+export const ProductExample1 = [
+  { x: 0, y: 0, w: 1, h: 2, content: "a" },
+  { x: 1, y: 0, w: 3, h: 2, content: "b" },
+  { x: 4, y: 0, w: 1, h: 2, content: "c" }
+];
+
+export const contentExample = [
+  {
+    content: (
+      <form>
+        <input />
+      </form>
+    )
+  },
+  { content: "b" },
+  { content: "c" },
+  { content: "d" }
+];
+
+export const ProductExample3 = [
+  { x: 0, y: 0, w: 1, h: 2, content: "g" },
+  { x: 1, y: 0, w: 3, h: 2, content: "h" },
+  { x: 4, y: 0, w: 1, h: 2, content: "i" }
+];
+
+export const BlankLayout = [
+  //This is where the page columns are held which is the layout of the page
+];
 
 export const BasicLayout = [
   //This is where the page columns are held which is the layout of the page
-  {
-    id: "MONSTER_IMAGE_1",
-    items: [],
-    order: 0,
-    containerHeight: "750px"
-  },
-  {
-    id: "PRODUCTS_2",
-    items: [
-      //the Id should consist of where it is in the columns array for the
-      //first number and then the index of the item when it was created
-      //for the second number for example 30 is 3 from index 3 in columns and
-      // 0 because it was created at the 0th index
-      { content: "A", height: "100px", width: "150px" },
-      { content: "B", height: "100px", width: "150px" },
-      { content: "C", height: "100px", width: "150px" },
-      { content: "D", height: "100px", width: "150px" },
-      { content: "E", height: "100px", width: "150px" },
-      { content: "F", height: "100px", width: "150px" }
-    ],
-    order: 3,
-    rowLimit: 3
-  },
-  {
-    id: "DOUBLE_SIZE_1",
-    items: [
-      { id: "banner1", content: "Double Size", height: "100px", order: 2 },
-      {
-        id: "halfImage1",
-        content: "half width image",
-        height: "100px",
-        width: "50%",
-        order: 1
-      },
-      {
-        id: "halfImage2",
-        content: "half width image",
-        height: "100px",
-        width: "50%",
-        order: 1
-      }
-    ],
-    order: 1,
-    containerHeight: "150px"
-  },
-  {
-    id: "REGULAR_BANNER_1",
-    items: [],
-    order: 2,
-    containerHeight: "75px"
-  },
-  {
-    id: "PRODUCTS_1",
-    items: [
-      //the Id should consist of where it is in the columns array for the
-      //first number and then the index of the drop area it was created in
-      //for the second number and the final number is it's index
-      { id: "3-0-0", content: "A", height: "100px", width: "150px" },
-      { id: "3-0-1", content: "B", height: "100px", width: "150px" },
-      { id: "3-0-2", content: "C", height: "100px", width: "150px" },
-      { id: "3-1-3", content: "D", height: "100px", width: "150px" },
-      { id: "3-1-4", content: "E", height: "100px", width: "150px" },
-      { id: "3-1-5", content: "F", height: "100px", width: "150px" }
-    ],
-    order: 3,
-    rowLimit: 4
-  }
+  { w: 12, h: 1, x: 0, y: 0, i: "0" },
+  { w: 12, h: 2, x: 0, y: 1, i: "1" },
+  { w: 1, h: 2, x: 0, y: 3, i: "2" },
+  { w: 1, h: 2, x: 1, y: 3, i: "3" },
+  { w: 1, h: 2, x: 3, y: 3, i: "4" },
+  { w: 1, h: 2, x: 2, y: 3, i: "5" },
+  { w: 1, h: 2, x: 4, y: 3, i: "6" },
+  { w: 1, h: 2, x: 5, y: 3, i: "7" },
+  { w: 1, h: 2, x: 6, y: 3, i: "8" },
+  { w: 1, h: 2, x: 7, y: 3, i: "9" },
+  { w: 1, h: 2, x: 8, y: 3, i: "10" },
+  { w: 1, h: 2, x: 9, y: 3, i: "11" },
+  { w: 1, h: 2, x: 10, y: 3, i: "12" },
+  { w: 1, h: 2, x: 11, y: 3, i: "13" },
+  { w: 1, h: 2, x: 0, y: 5, i: "14" },
+  { w: 1, h: 2, x: 1, y: 5, i: "15" }
 ];

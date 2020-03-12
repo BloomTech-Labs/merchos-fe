@@ -1,32 +1,50 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Responsive, WidthProvider } from "react-grid-layout";
 import { connect } from "react-redux";
-import { DragDropContext } from "react-beautiful-dnd";
-import PageDroppable from "../components/ShopBuilder/PageDroppable";
-import ColumnDrop from "../components/ShopBuilder/ColumnDrop";
-import { onDragEndAction } from "../store/actions/ShopBuilderActions";
-import StoreNameForm from "../components/ShopBuilder/StoreNameForm";
+import {
+  updateLayoutAction,
+  onDrop
+} from "../store/actions/ShopBuilderActions";
 import ModalLayout from "../components/ShopBuilder/ModalLayout";
-import ListManager from "../components/ShopBuilder/ListManager";
-import DragItem from "../components/ShopBuilder/DragItem";
-import { setProductIdAction } from "../store/actions/ShopBuilderActions";
+import SideBar from "../components/ShopBuilder/SideBar";
 import styled from "styled-components";
-import SideBar from "../components/SidebarBuilder/SideBar";
+
+const ResponsiveGridLayout = WidthProvider(Responsive);
+
+const GridItemContainer = styled.div`
+  background: red;
+  font-size: 2rem;
+`;
 
 const Button = styled.button`
   font-size: 1.5rem;
+`;
+
+const Page = styled.div`
+  width: 100%;
+  display: flex;
+`;
+
+const SideBarContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const DropZone = styled.div`
+  width: 100%;
+  height: 100%;
+  min-height: 500px;
 `;
 
 const ShopContainer = styled.div`
   ${props => (props.blurContainer ? "filter: blur(2px);" : "")}
 `;
 
-const ListContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
 const ShopBuilder = props => {
-  const [displayModal, setDisplayModal] = useState(true);
+  const [displayModal, setDisplayModal] = useState(false);
+  const sidebarLayout = props.state.SideBar.layout;
+
+  const currentLayout = props.state.Page.layout;
 
   const display = e => {
     setDisplayModal(!displayModal);
@@ -36,63 +54,61 @@ const ShopBuilder = props => {
     <div>
       <ModalLayout displayModal={displayModal} display={display} />
       <ShopContainer blurContainer={displayModal}>
-        <Button onClick={display}>show layout</Button>
-        <StoreNameForm />
-        {/*holds context for drag and drop can pass in events
-       for dragging*/}
-        <DragDropContext onDragEnd={props.onDragEndAction}>
-          <SideBar />
-          <PageDroppable>
-            {props.state.Page.columns.map((column, index) => {
-              const dragElements = column.items;
-              const interactDropId = index; //index of drop location being interacted with, row in column
+        <Button onClick={display}>Show Layouts</Button>
+        <Page>
+          <SideBarContainer>
+            {sidebarLayout.map((item, index) => {
               return (
-                <ColumnDrop
-                  key={interactDropId}
-                  columnId={`${interactDropId}`}
-                  dropHeight={column.height}
-                  isProduct={false}
-                >
-                  {RegExp("PRODUCTS_.*").test(column.id) ? (
-                    <ListContainer>
-                      <ListManager
-                        dragElements={dragElements}
-                        rowLimit={column.rowLimit}
-                        index={index}
-                        interactDropId={interactDropId}
-                        setProductIdAction={props.setProductIdAction}
-                      />
-                    </ListContainer>
-                  ) : (
-                    dragElements.map((draggable, index) => {
-                      return (
-                        <DragItem
-                          key={draggable.id}
-                          draggable={draggable}
-                          index={index}
-                          interactDropId={interactDropId}
-                        />
-                      );
-                    })
-                  )}
-                </ColumnDrop>
+                <SideBar
+                  key={index}
+                  content={item.content}
+                  index={index}
+                  dataItem={`data-${index}`}
+                />
               );
             })}
-          </PageDroppable>
-        </DragDropContext>
+          </SideBarContainer>
+          <DropZone>
+            <ResponsiveGridLayout
+              className="layout"
+              layouts={{ lg: currentLayout }}
+              breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 360 }}
+              cols={{ lg: 12, md: 9, sm: 6, xs: 3 }}
+              onDrop={props.onDrop}
+              measureBeforeMount={true}
+              useCSSTransforms={true}
+              isDroppable={true}
+              preventCollision={false}
+              onLayoutChange={currentLayout => {
+                props.updateLayoutAction(currentLayout);
+              }}
+              style={{ background: "blue", minHeight: "500px" }}
+            >
+              {currentLayout.map((gridItem, index) => {
+                return (
+                  <GridItemContainer key={gridItem.i}>
+                    {props.state.Page.content.length
+                      ? props.state.Page.content[index].content
+                      : "+"}
+                  </GridItemContainer>
+                );
+              })}
+            </ResponsiveGridLayout>
+          </DropZone>
+        </Page>
       </ShopContainer>
     </div>
   );
 };
 
+// export default ShopBuilder;
 const mapStateToProps = state => {
   return {
     state: state.workspace
   };
 };
 
-export default connect(mapStateToProps, {
-  onDragEndAction,
-  setProductIdAction
-})(ShopBuilder);
+export default connect(mapStateToProps, { updateLayoutAction, onDrop })(
+  ShopBuilder
+);
 //changed name of page of shopbuilder back to ShopBuilder

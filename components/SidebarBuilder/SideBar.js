@@ -2,12 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import { Droppable } from "react-beautiful-dnd";
-import { onDragEnd } from "../../store/actions/ShopBuilderActions";
-import { changeEleHeight } from "../../store/actions/ShopBuilderActions";
-import { deleteElement } from "../../store/actions/ShopBuilderActions";
 import Products from "./Products";
 import DragProduct from "./DragProduct";
-import { Container } from "next/app";
 
 const DnDContainer = styled.div`
   position: fixed;
@@ -34,7 +30,6 @@ const SideBar = props => {
   const { data } = props;
   const [openSideBar, setOpenSideBar] = useState(true);
   const [arrow, setArrow] = useState("<");
-  console.log(props, "sidebar");
 
   const toggleSideBar = () => {
     if (openSideBar === true) {
@@ -45,8 +40,6 @@ const SideBar = props => {
       setArrow("<");
     }
   };
-  console.log(data, "state data");
-  console.log(props, "sidebar props");
 
   return (
     <DnDContainer
@@ -57,17 +50,21 @@ const SideBar = props => {
     >
       {data.SideBar.column.map((column, index) => {
         const dragProducts = column.items;
-        console.log(dragProducts, "dragproducts sidebar");
         return (
-          <Droppable droppableId={data.SideBar.id} key={index}>
+          <Droppable
+            droppableId={data.SideBar.id}
+            key={index}
+            isDropDisabled={true}
+          >
             {provided => (
               <div ref={provided.innerRef} {...provided.droppableProps}>
                 {dragProducts.map((products, index) => {
-                  {
-                    console.log("inside sidebar");
-                  }
                   return (
-                    <DragProduct columnId={products.id} index={index}>
+                    <DragProduct
+                      columnId={products.id}
+                      index={index}
+                      key={products.id}
+                    >
                       <Products open={openSideBar} products={products} />
                       {props.children}
                     </DragProduct>
@@ -91,7 +88,6 @@ const SideBar = props => {
 };
 
 const mapStateToProps = state => {
-  console.log(state, "data");
   return {
     data: state.workspace
   };
