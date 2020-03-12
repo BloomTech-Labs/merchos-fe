@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Responsive, WidthProvider } from "react-grid-layout";
 import { connect } from "react-redux";
 import {
@@ -42,6 +42,7 @@ const ShopContainer = styled.div`
 
 const ShopBuilder = props => {
   const [displayModal, setDisplayModal] = useState(false);
+  
   const sidebarLayout = props.state.SideBar.layout;
 
   const currentLayout = props.state.Page.layout;
