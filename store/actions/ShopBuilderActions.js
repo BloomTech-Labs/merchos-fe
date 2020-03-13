@@ -7,15 +7,16 @@ export const selectLayoutAction = layoutType => dispatch => {
 };
 
 export const updateLayoutAction = layoutUpdate => dispatch => {
-  console.log("LAYOUT: ", layoutUpdate);
   if (
     layoutUpdate.length &&
-    layoutUpdate[layoutUpdate.length - 1].i !== "__dropping-elem__"
+    !RegExp(".*__dropping-elem__$").test(
+      layoutUpdate[layoutUpdate.length - 1].i
+    )
   ) {
     dispatch({ type: UPDATE_LAYOUT, payload: { layoutUpdate } });
   }
 };
 
-export const onDrop = item => dispatch => {
-  dispatch({ type: DROP_ITEM, payload: { item } });
+export const onDrop = (item, dragId) => dispatch => {
+  dispatch({ type: DROP_ITEM, payload: { item, dragId } });
 };
