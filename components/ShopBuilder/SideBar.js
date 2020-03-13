@@ -23,15 +23,17 @@ cursor: pointer;
 
 
 const SideBar = props => {
-  const handleDragStart = e => {
-    e.dataTransfer.setData("text/plain", "");
+  const handleDragStart = (e, setDragId) => {
+    e.dataTransfer.setData("text/plain", e.target.id);
+    setDragId(e.target.id);
   };
   return (
       <div
-        id={`${props.index}`}
-        key={props.index}
+        id={`${props.itemId}`}
         draggable={true}
-        onDragStart={handleDragStart}
+        onDragStart={e => {
+          handleDragStart(e, props.setDragId);
+        }}
         unselectable="on"
         className="droppable-element"
       >

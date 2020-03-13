@@ -69,7 +69,7 @@ const ClosedSideBarButton = styled.div`
 
 const ShopBuilder = props => {
   const [displayModal, setDisplayModal] = useState(false);
-
+  const [dragId, setDragId] = useState();
   const sidebarLayout = props.state.SideBar.layout;
 
   const currentLayout = props.state.Page.layout;
@@ -85,6 +85,19 @@ const ShopBuilder = props => {
       setSideBarDisplay(false)
     } else{ setSideBarDisplay(true) }
   }
+  
+  const placeholderSize = id => {
+    switch (id) {
+      case "banner":
+        return { w: 12, h: 2 };
+      case "product-container":
+        return { w: 1, h: 2 };
+      case "store-name":
+        return { w: 12, h: 1 };
+      default:
+        return { w: 1, h: 1 };
+    }
+  };
 
   return (
     <div>
@@ -101,8 +114,8 @@ const ShopBuilder = props => {
                 <SideBar
                   key={index}
                   content={item.content}
-                  index={index}
-                  dataItem={`data-${index}`}
+                  itemId={item.id}
+                  setDragId={setDragId}
                 />
               );
             })}
@@ -116,13 +129,19 @@ const ShopBuilder = props => {
               layouts={{ lg: currentLayout }}
               breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 360 }}
               cols={{ lg: 12, md: 9, sm: 6, xs: 3 }}
-              onDrop={props.onDrop}
+              onDrop={item => {
+                props.onDrop(item, dragId);
+              }}
               measureBeforeMount={true}
               useCSSTransforms={true}
               isDroppable={true}
               preventCollision={false}
               onLayoutChange={currentLayout => {
                 props.updateLayoutAction(currentLayout);
+              }}
+              droppingItem={{
+                i: `${dragId}__dropping-elem__`,
+                ...placeholderSize(dragId)
               }}
               style={{ background: "blue", minHeight: "500px" }}
             >

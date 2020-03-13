@@ -3,7 +3,8 @@ import { UPDATE_LAYOUT } from "../actions/ShopBuilderActions";
 import { DROP_ITEM } from "../actions/ShopBuilderActions";
 import {
   BasicLayout,
-  BlankLayout
+  BlankLayout,
+  BasicLayoutContent
 } from "../../components/ShopBuilder/Layouts/BasicLayout";
 
 // icons
@@ -43,24 +44,22 @@ const initialState = {
 };
 
 const workspaceReducer = (state = initialState, action) => {
-  const { layoutType, layoutUpdate, item } = action.payload || {};
+  const { layoutType, layoutUpdate, item, dragId } = action.payload || {};
 
   const tempArray = Array.from(state.Page.layout);
-  const contentArray = Array.from(state.Page.content);
+  let contentArray = Array.from(state.Page.content);
 
   switch (action.type) {
     case SELECT_LAYOUT:
+      contentArray = [];
       switch (layoutType) {
         case "Basic Layout":
-          for (let i = 0; i < BasicLayout.length; i++) {
-            contentArray.push({ content: "+" });
-          }
           return {
             ...state,
             Page: {
               ...state.Page,
               layout: BasicLayout,
-              content: contentArray
+              content: BasicLayoutContent
             }
           };
         case "Blank Layout":
@@ -68,7 +67,8 @@ const workspaceReducer = (state = initialState, action) => {
             ...state,
             Page: {
               ...state.Page,
-              layout: BlankLayout
+              layout: BlankLayout,
+              content: contentArray
             }
           };
         default:
@@ -84,7 +84,27 @@ const workspaceReducer = (state = initialState, action) => {
       };
 
     case DROP_ITEM:
-      contentArray.push({ content: "+" });
+      const insertContent = {
+        content: "no content",
+        id: `${dragId}-${Date.now().toPrecision()}`
+      };
+      switch (dragId) {
+        case "banner":
+          insertContent.content = "banner";
+          break;
+
+        case "product-container":
+          insertContent.content = "product-container";
+          break;
+
+        case "store-name":
+          insertContent.content = "store-name";
+          break;
+
+        default:
+          break;
+      }
+      contentArray.push(insertContent);
       tempArray.push({
         ...item,
         i: `${state.Page.layout.length}`
