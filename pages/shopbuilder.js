@@ -28,6 +28,18 @@ const Page = styled.div`
 const SideBarContainer = styled.div`
   display: flex;
   flex-direction: column;
+  border-radius: 0 45px 45px 0;
+  background: #EEE;
+  box-shadow: -2px -2px 6px 2px #FFF, 2px 2px 6px 2px #8e9093;
+  `;
+
+const SideBarTitle= styled.div`
+background: #464646;
+color: white;
+font-size: 2.4vw;
+border-radius: 0 45px 0  0;
+padding: 3%;
+text-align: center;
 `;
 
 const DropZone = styled.div`
@@ -42,7 +54,7 @@ const ShopContainer = styled.div`
 
 const ShopBuilder = props => {
   const [displayModal, setDisplayModal] = useState(false);
-  
+
   const sidebarLayout = props.state.SideBar.layout;
 
   const currentLayout = props.state.Page.layout;
@@ -57,7 +69,9 @@ const ShopBuilder = props => {
       <ShopContainer blurContainer={displayModal}>
         <Button onClick={display}>Show Layouts</Button>
         <Page>
+          {/* side bar that you drag stuff from */}
           <SideBarContainer>
+            <SideBarTitle>Draggable<br/>Items</SideBarTitle>
             {sidebarLayout.map((item, index) => {
               return (
                 <SideBar
@@ -68,7 +82,9 @@ const ShopBuilder = props => {
                 />
               );
             })}
+            <SideBarTitle style={{height: '5vh', borderRadius:"0 0 45px 0"}} />
           </SideBarContainer>
+          {/* area where you assemble the shop builder */}
           <DropZone>
             <ResponsiveGridLayout
               className="layout"
