@@ -31,12 +31,14 @@ const SideBarContainer = styled.div`
   border-radius: 0 45px 45px 0;
   background: #EEE;
   box-shadow: -2px -2px 6px 2px #FFF, 2px 2px 6px 2px #8e9093;
+  position: fixed;
+  z-index: 900;
   `;
 
 const SideBarTitle= styled.div`
 background: #464646;
 color: white;
-font-size: 2.4vw;
+font-size: 1.4vw;
 border-radius: 0 45px 0  0;
 padding: 3%;
 text-align: center;
@@ -46,10 +48,23 @@ const DropZone = styled.div`
   width: 100%;
   height: 100%;
   min-height: 500px;
+  margin-left: 10vw;
+  margin-right: 2vw;
 `;
 
 const ShopContainer = styled.div`
   ${props => (props.blurContainer ? "filter: blur(2px);" : "")}
+`;
+
+const ClosedSideBarButton = styled.div`
+  background: #AAACB1;
+  border-radius: 75px;
+  font-size: 15px;
+  display: flex;
+  font-weight: 700;
+  border-radius: 0 45px 45px 0;
+  box-shadow: -2px -2px 6px 2px #FFF, 2px 2px 6px 2px #8e9093;
+  padding: 10vw 1vw 1vw 1vw;
 `;
 
 const ShopBuilder = props => {
@@ -63,6 +78,14 @@ const ShopBuilder = props => {
     setDisplayModal(!displayModal);
   };
 
+  // function to open and close sidebar
+  const [SideBarDisplay, setSideBarDisplay] = useState(true)
+  function openClose(){
+    if(SideBarDisplay){
+      setSideBarDisplay(false)
+    } else{ setSideBarDisplay(true) }
+  }
+
   return (
     <div>
       <ModalLayout displayModal={displayModal} display={display} />
@@ -70,7 +93,8 @@ const ShopBuilder = props => {
         <Button onClick={display}>Show Layouts</Button>
         <Page>
           {/* side bar that you drag stuff from */}
-          <SideBarContainer>
+          {/* side bar can be toggled open and close */}
+          {SideBarDisplay ? <SideBarContainer>
             <SideBarTitle>Draggable<br/>Items</SideBarTitle>
             {sidebarLayout.map((item, index) => {
               return (
@@ -82,8 +106,9 @@ const ShopBuilder = props => {
                 />
               );
             })}
-            <SideBarTitle style={{height: '5vh', borderRadius:"0 0 45px 0"}} />
+            <SideBarTitle onClick={() => openClose()} style={{height: '5vh', borderRadius:"0 0 45px 0", fontSize: "1vw", cursor: "pointer" }} >close</SideBarTitle>
           </SideBarContainer>
+          : <ClosedSideBarButton onClick={() => openClose()}>O<br/>P<br/>E<br/>N<br/>&nbsp;<br/>D<br/>R<br/>A<br/>G<br/>A<br/>B<br/>E<br/>L<br/>S</ClosedSideBarButton>}
           {/* area where you assemble the shop builder */}
           <DropZone>
             <ResponsiveGridLayout

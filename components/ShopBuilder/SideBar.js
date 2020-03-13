@@ -19,7 +19,8 @@ const DragItemContainer = styled.div`
 
 const SideBarItemName = styled.div`
 cursor: pointer;
-`
+`;
+
 
 const SideBar = props => {
   const handleDragStart = e => {
@@ -35,7 +36,6 @@ const SideBar = props => {
         className="droppable-element"
       >
     <DragItemContainer>
-      
         <SideBarItemName>{props.content}</SideBarItemName>
     </DragItemContainer>
       </div>
