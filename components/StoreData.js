@@ -3,16 +3,16 @@ import styled from 'styled-components'
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 
 const Container = styled.div`
-
-left: 12.19%;
-right: 3.18%;
-top: 7.51%;
-bottom: -2.72%;
+display: flex;
+flex-wrap: wrap;
+justify-content: center;
+width: 90%;
 
 background: #E2EBFE;
 box-shadow: -21.1979px -21.1979px 42.3958px #FFFFFF, 21.1979px 21.1979px 42.3958px rgba(170, 170, 204, 0.5), 10.599px 10.599px 21.1979px rgba(170, 170, 204, 0.25), -10.599px -10.599px 21.1979px rgba(255, 255, 255, 0.5);
 border-radius: 75px 75px 0px 0px;
 
+z-index: -2;
 `
 const StoreName = styled.h2`
 
