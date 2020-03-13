@@ -7,18 +7,20 @@ const DragItemContainer = styled.div`
   flex-direction: column;
   font-size: 2rem;
   text-align: center;
-  width: 100px;
-  height: 100px;
+  width: 88px;
+  height: 88px;
   background: #aaacb1;
   color: white;
   box-sizing:border-box;
-  margin: 20px;
+  margin: 15px;
   border-radius: 15px;
   box-shadow: -2px -2px 6px 2px #FFF, 2px 2px 6px 2px #8e9093;
 `;
 
 const SideBarItemName = styled.div`
 cursor: pointer;
+font-size: 1vw;
+margin: 1vh;
 `;
 
 

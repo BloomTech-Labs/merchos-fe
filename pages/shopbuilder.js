@@ -7,10 +7,11 @@ import {
 } from "../store/actions/ShopBuilderActions";
 import ModalLayout from "../components/ShopBuilder/ModalLayout";
 import SideBar from "../components/ShopBuilder/SideBar";
-import styled from "styled-components";
+import styled , {keyframes} from "styled-components";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
+//STYLES
 const GridItemContainer = styled.div`
   background: red;
   font-size: 2rem;
@@ -28,7 +29,7 @@ const Page = styled.div`
 const SideBarContainer = styled.div`
   display: flex;
   flex-direction: column;
-  border-radius: 0 45px 45px 0;
+  border-radius: 45px 45px 45px 45px;
   background: #EEE;
   box-shadow: -2px -2px 6px 2px #FFF, 2px 2px 6px 2px #8e9093;
   position: fixed;
@@ -39,16 +40,17 @@ const SideBarTitle= styled.div`
 background: #464646;
 color: white;
 font-size: 1.4vw;
-border-radius: 0 45px 0  0;
-padding: 3%;
+border-radius: 45px 45px 0  0;
+padding: 13%;
 text-align: center;
+height: 60px;
 `;
 
 const DropZone = styled.div`
   width: 100%;
   height: 100%;
   min-height: 500px;
-  margin-left: 10vw;
+  margin-left: 9vw;
   margin-right: 2vw;
 `;
 
@@ -82,8 +84,11 @@ const ShopBuilder = props => {
   const [SideBarDisplay, setSideBarDisplay] = useState(true)
   function openClose(){
     if(SideBarDisplay){
-      setSideBarDisplay(false)
-    } else{ setSideBarDisplay(true) }
+      setSideBarDisplay(false);
+      document.getElementById("dropZone").style.marginLeft = "3vw"
+    } else{ 
+      setSideBarDisplay(true);
+      document.getElementById("dropZone").style.marginLeft = "9vw"}
   }
   
   const placeholderSize = id => {
@@ -119,11 +124,11 @@ const ShopBuilder = props => {
                 />
               );
             })}
-            <SideBarTitle onClick={() => openClose()} style={{height: '5vh', borderRadius:"0 0 45px 0", fontSize: "1vw", cursor: "pointer" }} >close</SideBarTitle>
+            <SideBarTitle onClick={() => openClose()} style={{height: '5vh', borderRadius:"0 0 45px 45px", fontSize: "1vw", cursor: "pointer" }} >close</SideBarTitle>
           </SideBarContainer>
           : <ClosedSideBarButton onClick={() => openClose()}>O<br/>P<br/>E<br/>N<br/>&nbsp;<br/>D<br/>R<br/>A<br/>G<br/>A<br/>B<br/>E<br/>L<br/>S</ClosedSideBarButton>}
           {/* area where you assemble the shop builder */}
-          <DropZone>
+          <DropZone id="dropZone">
             <ResponsiveGridLayout
               className="layout"
               layouts={{ lg: currentLayout }}
