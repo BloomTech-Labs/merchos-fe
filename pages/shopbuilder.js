@@ -3,7 +3,9 @@ import { Responsive, WidthProvider } from "react-grid-layout";
 import { connect } from "react-redux";
 import {
   updateLayoutAction,
-  onDrop
+  onDrop,
+  onBreakpointChange,
+  onWidthChange
 } from "../store/actions/ShopBuilderActions";
 import ModalLayout from "../components/ShopBuilder/ModalLayout";
 import SideBar from "../components/ShopBuilder/SideBar";
@@ -56,7 +58,7 @@ const ShopBuilder = props => {
       case "banner":
         return { w: 12, h: 2 };
       case "product-container":
-        return { w: 1, h: 2 };
+        return { w: 1, h: 3 };
       case "store-name":
         return { w: 12, h: 1 };
       default:
@@ -98,17 +100,26 @@ const ShopBuilder = props => {
               onLayoutChange={currentLayout => {
                 props.updateLayoutAction(currentLayout);
               }}
+              // onBreakpointChange={props.onBreakpointChange}
+              onWidthChange={props.onWidthChange}
               droppingItem={{
                 i: `${dragId}__dropping-elem__`,
                 ...placeholderSize(dragId)
               }}
-              style={{ background: "blue", minHeight: "500px" }}
+              margin={[10, 75]}
+              style={{
+                background: "blue",
+                minHeight: "500px",
+                width: "100vw",
+                paddingTop: "0"
+              }}
+              rowHeight={75}
             >
               {currentLayout.map((gridItem, index) => {
                 return (
                   <GridItemContainer key={gridItem.i}>
                     {props.state.Page.content.length
-                      ? props.state.Page.content[index].content
+                      ? `${props.state.Page.content[index].content}-${gridItem.i}`
                       : "+"}
                   </GridItemContainer>
                 );
@@ -128,7 +139,10 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { updateLayoutAction, onDrop })(
-  ShopBuilder
-);
+export default connect(mapStateToProps, {
+  updateLayoutAction,
+  onDrop,
+  onBreakpointChange,
+  onWidthChange
+})(ShopBuilder);
 //changed name of page of shopbuilder back to ShopBuilder
