@@ -6,7 +6,10 @@ import {
   BlankLayout,
   BasicLayoutContent
 } from "../../components/ShopBuilder/Layouts/BasicLayout";
-import { contentExample } from "../../components/ShopBuilder/Layouts/BasicLayout";
+
+// icons
+import BannerIcon from '../../assets/banner.png'
+import ProductIcon from '../../assets/product.png'
 
 const initialState = {
   Page: {
@@ -24,11 +27,13 @@ const initialState = {
     layout: [
       {
         id: "banner",
-        content: "banner"
+        content: "banner",
+        icon: BannerIcon
       },
       {
         id: "product-container",
-        content: "products"
+        content: "products",
+        icon: ProductIcon
       },
       {
         id: "store-name",
