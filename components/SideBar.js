@@ -2,13 +2,9 @@ import React from "react";
 import NavButton from "./NavButton";
 
 const SideBar = props => (
-  <div className="NavBar">
+  <div>
     {props.navButtons.map(button => (
-      <NavButton
-        key={button.path}
-        path={button.path}
-        label={button.label}
-      />
+      <NavButton key={button.path} path={button.path} label={button.label} />
     ))}
   </div>
 );

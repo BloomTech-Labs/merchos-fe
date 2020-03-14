@@ -9,7 +9,7 @@ import Router from "next/router";
 import AuthModal from "../components/auth/AuthModal";
 
 // Redux actions
-import { authModalController } from '../store/actions/userInterface/authModalController';
+import { authModalController } from "../store/actions/userInterface/authModalController";
 
 const IndexWrapper = styled.div`
   width: 100%;
@@ -99,12 +99,12 @@ const Index = () => {
       <ContentWrapper>
         <Heading>Welcome to the World's Easiest Online-Shop Builder</Heading>
         <ButtonWrapper>
-          <Link href=''>
-            <Anchor title='Start!'>Start!</Anchor>
+          <Link href="/shopbuilder">
+            <Anchor title="Start!">Start!</Anchor>
           </Link>
           <AuthButton
-            type='button'
-            onClick={() => dispatch(authModalController('open'))}
+            type="button"
+            onClick={() => dispatch(authModalController("open"))}
           >
             Sign In
           </AuthButton>

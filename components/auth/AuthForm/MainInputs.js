@@ -29,6 +29,7 @@ const MainInputs = ({ changeHandler, formData: { username, password } }) => {
           name='username'
           onChange={changeHandler}
           value={username}
+          required
         />
       </InputWrapper>
       <InputWrapper>
@@ -38,6 +39,7 @@ const MainInputs = ({ changeHandler, formData: { username, password } }) => {
           name='password'
           onChange={changeHandler}
           value={password}
+          required
         />
       </InputWrapper>
     </Fragment>

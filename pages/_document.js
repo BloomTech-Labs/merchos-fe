@@ -1,25 +1,14 @@
+<<<<<<< HEAD
 import Document, { Html, Head, Main, NextScript } from "next/document";
+=======
+import Document, { Html, Head, Main, NextScript } from 'next/document';
+import { resetServerContext } from 'react-beautiful-dnd';
+>>>>>>> c35cb6db757b4386a41cfd50cb8dcda46a666ff7
 // Import styled components ServerStyleSheet
 import { ServerStyleSheet } from "styled-components";
 import Layout from "../components/Layout";
 
-export default class MyDocument extends Document {
-  static getInitialProps({ renderPage }) {
-    // Create an instance of ServerStyleSheet
-    const sheet = new ServerStyleSheet();
-
-    // Retrieve styles from components in the page
-    const page = renderPage(App => props =>
-      sheet.collectStyles(<App {...props} />)
-    );
-
-    // Extract the styles as <style> tags
-    const styleTags = sheet.getStyleElement();
-
-    // Pass styleTags as a prop
-    return { ...page, styleTags };
-  }
-
+class MyDocument extends Document {
   render() {
     const { styleTags } = this.props;
     return (
@@ -42,3 +31,22 @@ export default class MyDocument extends Document {
     );
   }
 }
+
+MyDocument.getInitialProps = ({ renderPage }) => {
+  resetServerContext();
+  // Create an instance of ServerStyleSheet
+  const sheet = new ServerStyleSheet();
+
+  // Retrieve styles from components in the page
+  const page = renderPage(App => props =>
+    sheet.collectStyles(<App {...props} />)
+  );
+
+  // Extract the styles as <style> tags
+  const styleTags = sheet.getStyleElement();
+
+  // Pass styleTags as a prop
+  return { ...page, styleTags };
+};
+
+export default MyDocument;
