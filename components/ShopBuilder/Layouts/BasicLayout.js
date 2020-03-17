@@ -1,6 +1,12 @@
 export const BasicLayoutContent = [
-  { content: "store-name", id: `store-name-${Date.now().toPrecision()}` },
-  { content: "banner", id: `banner-${Date.now().toPrecision()}` },
+  {
+    content: "banner",
+    id: `banner-${Date.now().toPrecision()}`
+  },
+  {
+    content: "store-name",
+    id: `store-name-${Date.now().toPrecision()}`
+  },
   {
     content: "product-container",
     id: `product-container-${Date.now().toPrecision()}`
@@ -60,14 +66,13 @@ export const BlankLayout = [
 
 export const BasicLayout = [
   //This is where the page columns are held which is the layout of the page
-  { w: 12, h: 1, x: 0, y: 0, i: "0" },
-  { w: 12, h: 2, x: 0, y: 1, i: "1" },
-  { w: 3, h: 7, x: 0, y: 3, i: "2" },
-  { w: 3, h: 7, x: 3, y: 3, i: "3" },
-  { w: 3, h: 7, x: 6, y: 3, i: "4" },
-  { w: 3, h: 7, x: 9, y: 3, i: "5" },
-  { w: 3, h: 7, x: 0, y: 10, i: "6" },
-  { w: 3, h: 7, x: 3, y: 10, i: "7" },
-  { w: 3, h: 7, x: 6, y: 10, i: "8" },
-  { w: 3, h: 7, x: 9, y: 10, i: "9" }
+  { minW: 12, maxW: 12, minH: 2, maxH: 2, w: 12, h: 2, x: 0, y: 3, i: "0" },
+  { minW: 12, maxW: 12, minH: 4, maxH: 4, w: 12, h: 4, x: 0, y: 3, i: "1" },
+  { minW: 3, maxW: 6, minH: 9, maxH: 9, w: 3, h: 9, x: 3, y: 3, i: "2" },
+  { minW: 3, maxW: 6, minH: 9, maxH: 9, w: 3, h: 9, x: 6, y: 3, i: "3" },
+  { minW: 3, maxW: 6, minH: 9, maxH: 9, w: 3, h: 9, x: 9, y: 3, i: "4" },
+  { minW: 3, maxW: 6, minH: 9, maxH: 9, w: 3, h: 9, x: 0, y: 10, i: "5" },
+  { minW: 3, maxW: 6, minH: 9, maxH: 9, w: 3, h: 9, x: 3, y: 10, i: "6" },
+  { minW: 3, maxW: 6, minH: 9, maxH: 9, w: 3, h: 9, x: 6, y: 10, i: "7" },
+  { minW: 3, maxW: 6, minH: 9, maxH: 9, w: 3, h: 9, x: 9, y: 10, i: "8" }
 ];
