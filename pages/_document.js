@@ -1,7 +1,7 @@
-import Document, { Html, Head, Main, NextScript } from 'next/document';
-import { resetServerContext } from 'react-beautiful-dnd';
+import Document, { Html, Head, Main, NextScript } from "next/document";
+import { resetServerContext } from "react-beautiful-dnd";
 // Import styled components ServerStyleSheet
-import { ServerStyleSheet } from 'styled-components';
+import { ServerStyleSheet } from "styled-components";
 
 class MyDocument extends Document {
   render() {
@@ -10,8 +10,8 @@ class MyDocument extends Document {
       <Html>
         <Head>
           <link
-            href='https://fonts.googleapis.com/css?family=Nunito&Roboto&display=swap'
-            rel='stylesheet'
+            href="https://fonts.googleapis.com/css?family=Nunito&Roboto&display=swap"
+            rel="stylesheet"
           />
           {/* Output the styles in the head  */}
           {styleTags}
