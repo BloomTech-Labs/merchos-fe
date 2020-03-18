@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Router from 'next/router';
 import { useDispatch } from 'react-redux';
-import { axiosWithAuth } from './../../utils/axiosWithAuth';
 
 // actions
 import { authModalController } from '../../store/actions/userInterface/authModalController';
@@ -95,10 +94,10 @@ const ShopNavBar = ({ userAuthed, setSideBarDisplay, authModalActive }) => {
   const [topVisible, setTopVisible] = useState(true);
   // function for the button/links
   const linkHandler = action => {
-    if (action === 'Preview') previewButton();
+    if (action === 'Preview') return previewButton();
     if (action === 'Sign In') {
       previewButton();
-      dispatch(authModalController('open'));
+      return dispatch(authModalController('open'));
     }
 
     // Check if user is authenticated
@@ -119,7 +118,7 @@ const ShopNavBar = ({ userAuthed, setSideBarDisplay, authModalActive }) => {
     } else {
       // if not console log for now,
       // but add authentication modal for now
-      console.log('user is not authed');
+      alert('user is not authed');
     }
   };
 
