@@ -1,6 +1,6 @@
 import React from 'react'
 
-const testroute = () => {
+const TestRoute = () => {
   return (
     <div>
       TESTING
@@ -8,5 +8,4 @@ const testroute = () => {
   )
 }
 
-export default testroute
-TESTING
+export default TestRoute
