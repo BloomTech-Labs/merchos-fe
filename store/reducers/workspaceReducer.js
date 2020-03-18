@@ -1,6 +1,10 @@
 import { SELECT_LAYOUT } from "../actions/ShopBuilderActions";
 import { UPDATE_LAYOUT } from "../actions/ShopBuilderActions";
 import { DROP_ITEM } from "../actions/ShopBuilderActions";
+import { BREAKPOINT_CHANGE } from "../actions/ShopBuilderActions";
+import { DRAG_STOP } from "../actions/ShopBuilderActions";
+import { RESIZE_STOP } from "../actions/ShopBuilderActions";
+import { DELETE_ACTION } from "../actions/ShopBuilderActions";
 import {
   BasicLayout,
   BlankLayout,
@@ -8,8 +12,8 @@ import {
 } from "../../components/ShopBuilder/Layouts/BasicLayout";
 
 // icons
-import BannerIcon from '../../assets/banner.png'
-import ProductIcon from '../../assets/product.png'
+import BannerIcon from "../../assets/banner.png";
+import ProductIcon from "../../assets/product.png";
 
 const initialState = {
   Page: {
@@ -20,7 +24,8 @@ const initialState = {
     layout: [
       //This is where the page columns are held which is the layout of the page
     ],
-    content: []
+    content: [],
+    updatedBreakpoint: true
   },
   SideBar: {
     id: "SideBar",
@@ -44,7 +49,8 @@ const initialState = {
 };
 
 const workspaceReducer = (state = initialState, action) => {
-  const { layoutType, layoutUpdate, item, dragId } = action.payload || {};
+  const { layoutType, layoutUpdate, item, dragId, indexToRemove } =
+    action.payload || {};
 
   const tempArray = Array.from(state.Page.layout);
   let contentArray = Array.from(state.Page.content);
@@ -75,13 +81,18 @@ const workspaceReducer = (state = initialState, action) => {
           return state;
       }
     case UPDATE_LAYOUT:
-      return {
-        ...state,
-        Page: {
-          ...state.Page,
-          layout: layoutUpdate
-        }
-      };
+      if (!state.Page.updatedBreakpoint) {
+        return {
+          ...state,
+          Page: {
+            ...state.Page,
+            layout: layoutUpdate,
+            updatedBreakpoint: true
+          }
+        };
+      } else {
+        return state;
+      }
 
     case DROP_ITEM:
       const insertContent = {
@@ -114,10 +125,47 @@ const workspaceReducer = (state = initialState, action) => {
         Page: {
           ...state.Page,
           content: contentArray,
-          layout: tempArray
+          layout: tempArray,
+          updatedBreakpoint: false
+        }
+      };
+    case BREAKPOINT_CHANGE:
+      return {
+        ...state,
+        Page: {
+          ...state.Page,
+          updatedBreakpoint: true
+        }
+      };
+    case DRAG_STOP:
+      return {
+        ...state,
+        Page: {
+          ...state.Page,
+          updatedBreakpoint: false
+        }
+      };
+    case RESIZE_STOP:
+      return {
+        ...state,
+        Page: {
+          ...state.Page,
+          updatedBreakpoint: false
         }
       };
 
+    case DELETE_ACTION:
+      tempArray.splice(indexToRemove, 1);
+      contentArray.splice(indexToRemove, 1);
+      return {
+        ...state,
+        Page: {
+          ...state.Page,
+          layout: tempArray,
+          content: contentArray,
+          updatedBreakpoint: false
+        }
+      };
     default:
       return state;
   }

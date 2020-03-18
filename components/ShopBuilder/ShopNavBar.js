@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import Router from 'next/router';
+import { useDispatch } from 'react-redux';
 import { axiosWithAuth } from './../../utils/axiosWithAuth';
+
+// actions
+import { authModalController } from '../../store/actions/userInterface/authModalController';
 
 const NavBar = styled.section`
   display: flex;
@@ -8,7 +13,12 @@ const NavBar = styled.section`
   justify-content: center;
   background: #e3e6ec;
   padding: 10px 20px;
-  box-shadow: 0px 0px 14px rgba(0, 0, 0, 0.31);
+  box-shadow: ${props =>
+    !props.visible ? '' : '0px 0px 14px rgba(0, 0, 0, 0.31)'};
+  position: relative;
+  transition: 0.2s;
+  margin-top: ${props => (!props.visible ? '-110px' : '0px')};
+  z-index: 6;
 `;
 
 const InnerNavBar = styled.div`
@@ -32,7 +42,7 @@ const UserButton = styled.button`
   font-weight: medium;
   width: 150px;
   margin: 10px;
-  transition: 0.3s;
+  transition: 0.2s;
 
   &:hover {
     cursor: pointer;
@@ -48,22 +58,101 @@ const UserButton = styled.button`
   }
 `;
 
-const UserInput = ({ title }) => {
-  return <UserButton>{title}</UserButton>;
+const OpenNav = styled.button`
+  position: fixed;
+  transition: 0.2s;
+  top: ${props => (props.visible ? '-50px' : '0px')};
+  right: 100px;
+  border-radius: 0px 0px 25px 25px;
+  border: 0px;
+  padding: 10px;
+  box-shadow: outset 1.69px 3.38px 3.37829px rgba(0, 0, 0, 0.25),
+    inset -1.69px -3.38px 3.37829px rgba(255, 255, 255, 0.6);
+  z-index: 4;
+  cursor: pointer;
+`;
+
+const UserInput = ({ title, buttonHandler }) => {
+  const clickHandler = () => {
+    buttonHandler(title);
+  };
+
+  return (
+    <UserButton type='button' onClick={clickHandler}>
+      {title}
+    </UserButton>
+  );
 };
 
-const ShopNavBar = () => {
+const ShopNavBar = ({ userAuthed, setSideBarDisplay, authModalActive }) => {
+  const dispatch = useDispatch();
+
+  // hides navigations if auth modal is active, the opposite if not
+  useEffect(() => {
+    authModalActive ? null : previewButton();
+  }, [authModalActive]);
+
+  const [topVisible, setTopVisible] = useState(true);
+  // function for the button/links
+  const linkHandler = action => {
+    if (action === 'Preview') previewButton();
+    if (action === 'Sign In') {
+      previewButton();
+      dispatch(authModalController('open'));
+    }
+
+    // Check if user is authenticated
+    if (userAuthed) {
+      // if they are, allow them to proceed
+      // with their action passed in
+      switch (action) {
+        case 'Back Office':
+          Router.push('/testroute');
+          break;
+        case 'Save':
+          break;
+        case 'Publish':
+          break;
+        default:
+          break;
+      }
+    } else {
+      // if not console log for now,
+      // but add authentication modal for now
+      console.log('user is not authed');
+    }
+  };
+
+  // opens and closes the sidebar/navbar
+  const previewButton = () => {
+    setSideBarDisplay(prevState => {
+      // if sidebar doesn't have the same bool as top nav bar
+      if (prevState !== topVisible) {
+        // return previous state
+        return prevState;
+        // else if the sidebar and top bar are the same, return the opposite
+      } else if (prevState === topVisible) {
+        // then return the opposite
+        return !prevState;
+      }
+    });
+    setTopVisible(prevState => !prevState);
+  };
+
   return (
-    <NavBar>
+    <NavBar visible={topVisible}>
       <InnerNavBar>
-        <UserInput title='Back Office' />
+        <UserInput title='Back Office' buttonHandler={linkHandler} />
         <div>
-          <UserInput title='Save' />
-          <UserInput title='Preview' />
-          <UserInput title='Publish' />
+          <UserInput title='Save' buttonHandler={linkHandler} />
+          <UserInput title='Preview' buttonHandler={linkHandler} />
+          <UserInput title='Publish' buttonHandler={linkHandler} />
         </div>
-        <UserInput title='Sign In' />
+        <UserInput title='Sign In' buttonHandler={linkHandler} />
       </InnerNavBar>
+      <OpenNav visible={topVisible} type='button' onClick={previewButton}>
+        Exit Preview
+      </OpenNav>
     </NavBar>
   );
 };
