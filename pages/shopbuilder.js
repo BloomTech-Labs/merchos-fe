@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { Responsive, WidthProvider } from "react-grid-layout";
-import { connect } from "react-redux";
+import React, { useState, useEffect, Fragment } from 'react';
+import { Responsive, WidthProvider } from 'react-grid-layout';
+import { connect } from 'react-redux';
 import {
   updateLayoutAction,
   onDrop,
@@ -8,13 +8,17 @@ import {
   onDragStop,
   onResizeStop,
   deleteItemAction
-} from "../store/actions/ShopBuilderActions";
-import ModalLayout from "../components/ShopBuilder/ModalLayout";
-import SideBar from "../components/ShopBuilder/SideBar";
-import styled, { keyframes } from "styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { Item, TextBanner, Header } from "merch_components";
+} from '../store/actions/ShopBuilderActions';
+import ModalLayout from '../components/ShopBuilder/ModalLayout';
+import SideBar from '../components/ShopBuilder/SideBar';
+import styled, { keyframes } from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { Item, TextBanner, Header } from 'merch_components';
+
+// Nav and subsequent components
+import ShopBuilderNav from '../components/ShopBuilder/ShopNavBar';
+import AuthModal from '../components/auth/AuthModal';
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
@@ -62,7 +66,7 @@ const DropZone = styled.div`
 `;
 
 const ShopContainer = styled.div`
-  ${props => (props.blurContainer ? "filter: blur(2px);" : "")}
+  ${props => (props.blurContainer ? 'filter: blur(2px);' : '')}
 `;
 
 const ClosedSideBarButton = styled.div`
@@ -92,20 +96,20 @@ const ShopBuilder = props => {
   function openClose() {
     if (SideBarDisplay) {
       setSideBarDisplay(false);
-      document.getElementById("dropZone").style.marginLeft = "3vw";
+      document.getElementById('dropZone').style.marginLeft = '3vw';
     } else {
       setSideBarDisplay(true);
-      document.getElementById("dropZone").style.marginLeft = "9vw";
+      document.getElementById('dropZone').style.marginLeft = '9vw';
     }
   }
 
   const placeholderSize = id => {
     switch (id) {
-      case "banner":
+      case 'banner':
         return { w: 12, h: 2 };
-      case "product-container":
+      case 'product-container':
         return { w: 3, h: 9, minW: 3, maxW: 6, minH: 9, maxH: 9 };
-      case "store-name":
+      case 'store-name':
         return { w: 12, h: 1 };
       default:
         return { w: 1, h: 1 };
@@ -113,7 +117,14 @@ const ShopBuilder = props => {
   };
 
   return (
-    <div>
+    <Fragment>
+      <ShopBuilderNav
+        userAuthed={props.userAuthed}
+        setSideBarDisplay={setSideBarDisplay}
+        authModalActive={props.authModalActive}
+        workspace={props.state}
+      />
+      {props.authModalActive && <AuthModal />}
       <ModalLayout displayModal={displayModal} display={display} />
       <ShopContainer blurContainer={displayModal}>
         <Button onClick={display}>Show Layouts</Button>
@@ -140,10 +151,10 @@ const ShopBuilder = props => {
               <SideBarTitle
                 onClick={() => openClose()}
                 style={{
-                  height: "5vh",
-                  borderRadius: "0 0 45px 45px",
-                  fontSize: "1vw",
-                  cursor: "pointer"
+                  height: '5vh',
+                  borderRadius: '0 0 45px 45px',
+                  fontSize: '1vw',
+                  cursor: 'pointer'
                 }}
               >
                 close
@@ -157,9 +168,9 @@ const ShopBuilder = props => {
             </ClosedSideBarButton>
           )}
           {/* area where you assemble the shop builder */}
-          <DropZone id="dropZone">
+          <DropZone id='dropZone'>
             <ResponsiveGridLayout
-              className="layout"
+              className='layout'
               layouts={{
                 lg: currentLayout
               }}
@@ -183,10 +194,10 @@ const ShopBuilder = props => {
                 ...placeholderSize(dragId)
               }}
               style={{
-                background: "white",
-                minHeight: "500px",
-                width: "100vw",
-                paddingTop: "0"
+                background: 'white',
+                minHeight: '500px',
+                width: '100vw',
+                paddingTop: '0'
               }}
               autoSize={true}
               rowHeight={75}
@@ -197,17 +208,17 @@ const ShopBuilder = props => {
                     <FontAwesomeIcon
                       icon={faTimes}
                       style={{
-                        fontSize: "3.8rem",
-                        opacity: "0.72",
-                        marginRight: "10px",
-                        marginTop: "10px"
+                        fontSize: '3.8rem',
+                        opacity: '0.72',
+                        marginRight: '10px',
+                        marginTop: '10px'
                       }}
                       onClick={() => props.deleteItemAction(index)}
                     />
                     <div>
                       {props.state.Page.content.length ? (
                         props.state.Page.content[index].content ===
-                        "product-container" ? (
+                        'product-container' ? (
                           <Item
                             item={{
                               itemName: `blanket item ${gridItem.i}`,
@@ -218,16 +229,16 @@ const ShopBuilder = props => {
                                 Number(gridItem.i) % 2 === 0 ? true : false,
                               saleCost: 0.5
                             }}
-                            style={{ plusIconStyle: { fontSize: "2px" } }}
+                            style={{ plusIconStyle: { fontSize: '2px' } }}
                           />
                         ) : props.state.Page.content[Number(gridItem.i)]
-                            .content === "banner" ? (
+                            .content === 'banner' ? (
                           <TextBanner message='i"m a banner i"m a banner i"m a banner' />
                         ) : (
-                          <Header title="Store Name" />
+                          <Header title='Store Name' />
                         )
                       ) : (
-                        "+"
+                        '+'
                       )}
                     </div>
                   </GridItemContainer>
@@ -237,14 +248,16 @@ const ShopBuilder = props => {
           </DropZone>
         </Page>
       </ShopContainer>
-    </div>
+    </Fragment>
   );
 };
 
 // export default ShopBuilder;
 const mapStateToProps = state => {
   return {
-    state: state.workspace
+    state: state.workspace,
+    userAuthed: state.userData.userIsAuthed,
+    authModalActive: state.authInterface.authModalActive
   };
 };
 
