@@ -8,13 +8,15 @@ import { authorizeUser } from "../store/actions/userAuth/userAuthActions";
 
 const Wrapper = styled.section`
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-content: center;
   align-items: center;
 
   width: auto;
   height: 10%;
   padding-top: 1%;
+  padding-left: 2%;
+  padding-right: 6%;
 
   background: #f3f3ff;
   box-shadow: inset 5px 5px 13px rgba(0, 0, 0, 0.2),
@@ -44,6 +46,7 @@ const ProfileBtn = styled.button`
   justify-content: center;
 
   color: #000000;
+  cursor: pointer;
 
   background: #f3f3ff;
   box-shadow: -2px -2px 6px 2px #fff, 2px 2px 6px 2px #787878;
@@ -69,6 +72,7 @@ const BackBtn = styled.button`
   background: #f3f3ff;
   box-shadow: -2px -2px 6px 2px #fff, 2px 2px 6px 2px #787878;
   border-radius: 55px;
+  cursor: pointer;
 
   font-family: "'Roboto', sans-serif";
 
@@ -113,13 +117,6 @@ const Navbar = props => {
     console.log("logging out");
   };
 
-  // function Hidden(e) {
-  //     e.preventDefault();
-  //     const act = document.getElementById('hide')
-  //     if (act.style.display === "none") {
-  //         act.style.display = "block"
-  //     } else { act.style.display = "none" }
-  // }
   const [isHovering, setIsHovering] = useState(false);
   const hoveringState = () => {
     setIsHovering(!isHovering);

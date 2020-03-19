@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 import Document, { Html, Head, Main, NextScript } from "next/document";
-=======
-import Document, { Html, Head, Main, NextScript } from 'next/document';
-import { resetServerContext } from 'react-beautiful-dnd';
->>>>>>> c35cb6db757b4386a41cfd50cb8dcda46a666ff7
+import { resetServerContext } from "react-beautiful-dnd";
 // Import styled components ServerStyleSheet
 import { ServerStyleSheet } from "styled-components";
 import Layout from "../components/Layout";

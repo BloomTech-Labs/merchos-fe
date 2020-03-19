@@ -1,12 +1,29 @@
 import React from "react";
-import NavButton from "./NavButton";
+import SideNav from "./SideNav";
+import styled from "styled-components";
+
+const Side = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  align-items: center;
+  padding-top: 2%;
+
+  height: 100%;
+  list-style: none;
+
+  width: 15%;
+
+  background: #f3f3ff;
+`;
 
 const SideBar = props => (
-  <div>
+  <Side>
     {props.navButtons.map(button => (
-      <NavButton key={button.path} path={button.path} label={button.label} />
+      <SideNav key={button.path} path={button.path} label={button.label} />
     ))}
-  </div>
+  </Side>
 );
 
 export default SideBar;

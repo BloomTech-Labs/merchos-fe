@@ -2,19 +2,18 @@ const navButtons = [
   {
     label: "Stores",
     path: "/dashboard/stores"
-   
   },
   {
     label: "Stats",
     path: "/dashboard/stats"
   },
   {
-    label: "Settings",
-    path: "/dashboard/settings"
+    label: "Next Steps",
+    path: "/dashboard/next_steps"
   },
   {
-    label: "Next",
-    path: "/dashboard/next"
+    label: "Profile",
+    path: "/dashboard/profile"
   }
 ];
 

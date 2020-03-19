@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Responsive, WidthProvider } from "react-grid-layout";
 import { connect } from "react-redux";
 import {
@@ -7,10 +7,11 @@ import {
 } from "../store/actions/ShopBuilderActions";
 import ModalLayout from "../components/ShopBuilder/ModalLayout";
 import SideBar from "../components/ShopBuilder/SideBar";
-import styled from "styled-components";
+import styled , {keyframes} from "styled-components";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
+//STYLES
 const GridItemContainer = styled.div`
   background: red;
   font-size: 2rem;
@@ -28,16 +29,44 @@ const Page = styled.div`
 const SideBarContainer = styled.div`
   display: flex;
   flex-direction: column;
+  border-radius: 45px 45px 45px 45px;
+  background: #EEE;
+  box-shadow: -2px -2px 6px 2px #FFF, 2px 2px 6px 2px #8e9093;
+  position: fixed;
+  z-index: 900;
+  `;
+
+const SideBarTitle= styled.div`
+background: #464646;
+color: white;
+font-size: 1.4vw;
+border-radius: 45px 45px 0  0;
+padding: 13%;
+text-align: center;
+height: 60px;
 `;
 
 const DropZone = styled.div`
   width: 100%;
   height: 100%;
   min-height: 500px;
+  margin-left: 9vw;
+  margin-right: 2vw;
 `;
 
 const ShopContainer = styled.div`
   ${props => (props.blurContainer ? "filter: blur(2px);" : "")}
+`;
+
+const ClosedSideBarButton = styled.div`
+  background: #AAACB1;
+  border-radius: 75px;
+  font-size: 15px;
+  display: flex;
+  font-weight: 700;
+  border-radius: 0 45px 45px 0;
+  box-shadow: -2px -2px 6px 2px #FFF, 2px 2px 6px 2px #8e9093;
+  padding: 10vw 1vw 1vw 1vw;
 `;
 
 const ShopBuilder = props => {
@@ -51,6 +80,17 @@ const ShopBuilder = props => {
     setDisplayModal(!displayModal);
   };
 
+  // function to open and close sidebar
+  const [SideBarDisplay, setSideBarDisplay] = useState(true)
+  function openClose(){
+    if(SideBarDisplay){
+      setSideBarDisplay(false);
+      document.getElementById("dropZone").style.marginLeft = "3vw"
+    } else{ 
+      setSideBarDisplay(true);
+      document.getElementById("dropZone").style.marginLeft = "9vw"}
+  }
+  
   const placeholderSize = id => {
     switch (id) {
       case "banner":
@@ -70,7 +110,10 @@ const ShopBuilder = props => {
       <ShopContainer blurContainer={displayModal}>
         <Button onClick={display}>Show Layouts</Button>
         <Page>
-          <SideBarContainer>
+          {/* side bar that you drag stuff from */}
+          {/* side bar can be toggled open and close */}
+          {SideBarDisplay ? <SideBarContainer>
+            <SideBarTitle>Draggable<br/>Items</SideBarTitle>
             {sidebarLayout.map((item, index) => {
               return (
                 <SideBar
@@ -81,8 +124,11 @@ const ShopBuilder = props => {
                 />
               );
             })}
+            <SideBarTitle onClick={() => openClose()} style={{height: '5vh', borderRadius:"0 0 45px 45px", fontSize: "1vw", cursor: "pointer" }} >close</SideBarTitle>
           </SideBarContainer>
-          <DropZone>
+          : <ClosedSideBarButton onClick={() => openClose()}>O<br/>P<br/>E<br/>N<br/>&nbsp;<br/>D<br/>R<br/>A<br/>G<br/>A<br/>B<br/>E<br/>L<br/>S</ClosedSideBarButton>}
+          {/* area where you assemble the shop builder */}
+          <DropZone id="dropZone">
             <ResponsiveGridLayout
               className="layout"
               layouts={{ lg: currentLayout }}
