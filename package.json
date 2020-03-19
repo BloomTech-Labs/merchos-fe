@@ -20,6 +20,7 @@
     "react": "^16.12.0",
     "react-beautiful-dnd": "^12.2.0",
     "react-beautiful-dnd-grid": "^0.1.3-alpha",
+    "react-color": "^2.18.0",
     "react-dom": "^16.12.0",
     "react-ga": "^2.7.0",
     "react-icons": "^3.9.0",
