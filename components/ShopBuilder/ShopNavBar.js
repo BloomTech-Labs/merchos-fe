@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 
 // actions
 import { authModalController } from '../../store/actions/userInterface/authModalController';
+import { saveStore } from '../../store/actions/shopServerConnection/shopServerConnection';
 
 const NavBar = styled.section`
   display: flex;
@@ -50,10 +51,22 @@ const UserButton = styled.button`
 
   &:active {
     transform: scale(0.99);
+    animation: buttonClick 0.235s forwards;
   }
 
   &:focus {
     outline: 0;
+  }
+
+  @keyframes buttonClick {
+    0% {
+      box-shadow: 3.38px 3.37829px 3.37829px rgba(0, 0, 0, 0.25),
+        -3.387px -3.37829px 3.37829px rgba(255, 255, 255, 0.6);
+    }
+    100% {
+      box-shadow: inset 3.38px 3.37829px 3.37829px rgba(0, 0, 0, 0.25),
+        -3.387px -3.37829px 3.37829px rgba(255, 255, 255, 0.6);
+    }
   }
 `;
 
@@ -83,12 +96,20 @@ const UserInput = ({ title, buttonHandler }) => {
   );
 };
 
-const ShopNavBar = ({ userAuthed, setSideBarDisplay, authModalActive }) => {
+const ShopNavBar = ({
+  userAuthed,
+  setSideBarDisplay,
+  authModalActive,
+  workspace
+}) => {
   const dispatch = useDispatch();
 
   // hides navigations if auth modal is active, the opposite if not
   useEffect(() => {
-    authModalActive ? null : previewButton();
+    if (!authModalActive) {
+      setSideBarDisplay(true);
+      setTopVisible(true);
+    }
   }, [authModalActive]);
 
   const [topVisible, setTopVisible] = useState(true);
@@ -109,6 +130,7 @@ const ShopNavBar = ({ userAuthed, setSideBarDisplay, authModalActive }) => {
           Router.push('/testroute');
           break;
         case 'Save':
+          dispatch(saveStore(workspace));
           break;
         case 'Publish':
           break;

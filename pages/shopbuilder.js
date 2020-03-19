@@ -122,6 +122,7 @@ const ShopBuilder = props => {
         userAuthed={props.userAuthed}
         setSideBarDisplay={setSideBarDisplay}
         authModalActive={props.authModalActive}
+        workspace={props.state}
       />
       {props.authModalActive && <AuthModal />}
       <ModalLayout displayModal={displayModal} display={display} />
