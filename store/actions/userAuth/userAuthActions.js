@@ -1,5 +1,7 @@
 import { axiosWithAuth } from "../../../utils/axiosWithAuth";
 
+import { CLOSE_AUTH_MODAL } from "../userInterface/authModalController";
+
 export const USER_LOGIN_TRY = "USER_LOGIN";
 export const USER_LOGIN_SUCCESS = "USER_LOGIN_SUCCESS";
 export const USER_LOGIN_FAIL = "USER_LOGIN_FAIL";
@@ -28,6 +30,7 @@ export const authorizeUser = (activeTab, data) => dispatch => {
         .then(({ data }) => {
           // after which we'll dispatch a success message, along with the data as the payload
           dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
+          dispatch({ type: CLOSE_AUTH_MODAL });
         })
         .catch(() => {
           // if any errors, dispatch a login fail state
@@ -43,6 +46,7 @@ export const authorizeUser = (activeTab, data) => dispatch => {
         .then(({ data }) => {
           // dispatch the success to our reducer, along with the payload data
           dispatch({ type: USER_REGISTER_SUCCESS, payload: data });
+          dispatch({ type: CLOSE_AUTH_MODAL });
         })
         .catch(() => {
           // if any fail, dispatch the fail
