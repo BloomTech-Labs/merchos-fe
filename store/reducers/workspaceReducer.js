@@ -5,6 +5,7 @@ import { BREAKPOINT_CHANGE } from "../actions/ShopBuilderActions";
 import { DRAG_STOP } from "../actions/ShopBuilderActions";
 import { RESIZE_STOP } from "../actions/ShopBuilderActions";
 import { DELETE_ACTION } from "../actions/ShopBuilderActions";
+import { START_DRAG } from "../actions/ShopBuilderActions";
 import {
   BasicLayout,
   BlankLayout,
@@ -25,7 +26,8 @@ const initialState = {
       //This is where the page columns are held which is the layout of the page
     ],
     content: [],
-    updatedBreakpoint: true
+    updatedBreakpoint: true,
+    date: Date.now().toPrecision()
   },
   SideBar: {
     id: "SideBar",
@@ -42,14 +44,26 @@ const initialState = {
       },
       {
         id: "store-name",
-        content: "store name area"
+        content: "store header"
+      },
+      {
+        id: "image",
+        content: "image"
+      },
+      {
+        id: "carousel",
+        content: "carousel"
+      },
+      {
+        id: "theme",
+        content: "theme"
       }
     ]
   }
 };
 
 const workspaceReducer = (state = initialState, action) => {
-  const { layoutType, layoutUpdate, item, dragId, indexToRemove } =
+  const { layoutType, layoutUpdate, itemWithLimits, dragId, indexToRemove } =
     action.payload || {};
 
   const tempArray = Array.from(state.Page.layout);
@@ -57,6 +71,7 @@ const workspaceReducer = (state = initialState, action) => {
 
   switch (action.type) {
     case SELECT_LAYOUT:
+      localStorage.clear();
       contentArray = [];
       switch (layoutType) {
         case "Basic Layout":
@@ -65,7 +80,8 @@ const workspaceReducer = (state = initialState, action) => {
             Page: {
               ...state.Page,
               layout: BasicLayout,
-              content: BasicLayoutContent
+              content: BasicLayoutContent,
+              date: Date.now().toPrecision()
             }
           };
         case "Blank Layout":
@@ -74,7 +90,8 @@ const workspaceReducer = (state = initialState, action) => {
             Page: {
               ...state.Page,
               layout: BlankLayout,
-              content: contentArray
+              content: contentArray,
+              date: Date.now().toPrecision()
             }
           };
         default:
@@ -96,20 +113,29 @@ const workspaceReducer = (state = initialState, action) => {
 
     case DROP_ITEM:
       const insertContent = {
-        content: "no content",
+        content: {},
+        contentType: "no content",
         id: `${dragId}-${Date.now().toPrecision()}`
       };
       switch (dragId) {
         case "banner":
-          insertContent.content = "banner";
+          insertContent.contentType = "banner";
           break;
 
         case "product-container":
-          insertContent.content = "product-container";
+          insertContent.contentType = "product-container";
           break;
 
         case "store-name":
-          insertContent.content = "store-name";
+          insertContent.contentType = "store-name";
+          break;
+
+        case "image":
+          insertContent.contentType = "image";
+          break;
+
+        case "carousel":
+          insertContent.contentType = "carousel";
           break;
 
         default:
@@ -117,7 +143,7 @@ const workspaceReducer = (state = initialState, action) => {
       }
       contentArray.push(insertContent);
       tempArray.push({
-        ...item,
+        ...itemWithLimits,
         i: `${state.Page.layout.length}`
       });
       return {
@@ -163,6 +189,15 @@ const workspaceReducer = (state = initialState, action) => {
           ...state.Page,
           layout: tempArray,
           content: contentArray,
+          updatedBreakpoint: false
+        }
+      };
+
+    case START_DRAG:
+      return {
+        ...state,
+        Page: {
+          ...state.Page,
           updatedBreakpoint: false
         }
       };
