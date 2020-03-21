@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import { Responsive, WidthProvider } from "react-grid-layout";
 import { connect } from "react-redux";
 import {
@@ -23,6 +23,10 @@ import {
   Reset,
   Carousel
 } from "merch_components";
+
+// Nav and subsequent components
+import ShopBuilderNav from "../components/ShopBuilder/ShopNavBar";
+import AuthModal from "../components/auth/AuthModal";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
@@ -149,8 +153,15 @@ const ShopBuilder = props => {
   };
 
   return (
-    <div>
-      <ModalLayout displayModal={displayModal} display={setDisplayModal} />
+    <Fragment>
+      <ShopBuilderNav
+        userAuthed={props.userAuthed}
+        setSideBarDisplay={setSideBarDisplay}
+        authModalActive={props.authModalActive}
+        workspace={props.state}
+      />
+      {props.authModalActive && <AuthModal />}
+      <ModalLayout displayModal={displayModal} display={display} />
       <ShopContainer blurContainer={displayModal}>
         <Page>
           {/* side bar that you drag stuff from */}
@@ -259,13 +270,15 @@ const ShopBuilder = props => {
           </DropZone>
         </Page>
       </ShopContainer>
-    </div>
+    </Fragment>
   );
 };
 
 const mapStateToProps = state => {
   return {
-    state: state.workspace
+    state: state.workspace,
+    userAuthed: state.userData.userIsAuthed,
+    authModalActive: state.authInterface.authModalActive
   };
 };
 
