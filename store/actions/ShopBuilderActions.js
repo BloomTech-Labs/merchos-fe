@@ -5,7 +5,6 @@ export const BREAKPOINT_CHANGE = "BREAKPOINT_CHANGE";
 export const DRAG_STOP = "DRAG_STOP";
 export const RESIZE_STOP = "RESIZE_STOP";
 export const DELETE_ACTION = "DELETE_ACTION";
-export const START_DRAG = "START_DRAG";
 
 export const selectLayoutAction = layoutType => dispatch => {
   dispatch({ type: SELECT_LAYOUT, payload: { layoutType } });
@@ -31,12 +30,10 @@ export const onDragStop = () => dispatch => {
   dispatch({ type: DRAG_STOP });
 };
 
-export const onResizeStop = () => dispatch => {
-  dispatch({ type: RESIZE_STOP });
-};
-
-export const onDragStart = () => dispatch => {
-  dispatch({ type: START_DRAG });
+export const onResizeStop = (resizeOld, resizeNew) => dispatch => {
+  if (resizeOld.w != resizeNew.w || resizeOld.h != resizeNew.h) {
+    dispatch({ type: RESIZE_STOP });
+  }
 };
 
 export const deleteItemAction = indexToRemove => dispatch => {

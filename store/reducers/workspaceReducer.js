@@ -5,7 +5,6 @@ import { BREAKPOINT_CHANGE } from "../actions/ShopBuilderActions";
 import { DRAG_STOP } from "../actions/ShopBuilderActions";
 import { RESIZE_STOP } from "../actions/ShopBuilderActions";
 import { DELETE_ACTION } from "../actions/ShopBuilderActions";
-import { START_DRAG } from "../actions/ShopBuilderActions";
 import {
   BasicLayout,
   BlankLayout,
@@ -63,8 +62,15 @@ const initialState = {
 };
 
 const workspaceReducer = (state = initialState, action) => {
-  const { layoutType, layoutUpdate, itemWithLimits, dragId, indexToRemove } =
-    action.payload || {};
+  const {
+    layoutType,
+    layoutUpdate,
+    itemWithLimits,
+    dragId,
+    indexToRemove,
+    resizeOld,
+    resizeNew
+  } = action.payload || {};
 
   const tempArray = Array.from(state.Page.layout);
   let contentArray = Array.from(state.Page.content);
@@ -171,6 +177,7 @@ const workspaceReducer = (state = initialState, action) => {
           updatedBreakpoint: false
         }
       };
+
     case RESIZE_STOP:
       return {
         ...state,
@@ -193,14 +200,6 @@ const workspaceReducer = (state = initialState, action) => {
         }
       };
 
-    case START_DRAG:
-      return {
-        ...state,
-        Page: {
-          ...state.Page,
-          updatedBreakpoint: false
-        }
-      };
     default:
       return state;
   }

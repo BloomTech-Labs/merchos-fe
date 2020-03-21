@@ -7,8 +7,7 @@ import {
   onBreakpointChange,
   onDragStop,
   onResizeStop,
-  deleteItemAction,
-  onDragStart
+  deleteItemAction
 } from "../store/actions/ShopBuilderActions";
 import ModalLayout from "../components/ShopBuilder/ModalLayout";
 import SideBar from "../components/ShopBuilder/SideBar";
@@ -214,8 +213,10 @@ const ShopBuilder = props => {
                 props.updateLayoutAction(currentLayout);
               }}
               onDragStop={props.onDragStop}
-              onResizeStop={props.onResizeStop}
-              onDragStart={props.onDragStart}
+              onResizeStop={(...itemCallback) =>
+                props.onResizeStop(itemCallback[1], itemCallback[2])
+              }
+              onDragStart={undefined}
               droppingItem={{
                 i: `${dragId}__dropping-elem__`,
                 ...placeholderSize(dragId)
@@ -274,7 +275,6 @@ export default connect(mapStateToProps, {
   onBreakpointChange,
   onDragStop,
   onResizeStop,
-  deleteItemAction,
-  onDragStart
+  deleteItemAction
 })(ShopBuilder);
 //changed name of page of shopbuilder back to ShopBuilder
