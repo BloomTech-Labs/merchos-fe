@@ -161,7 +161,7 @@ const ShopBuilder = props => {
         workspace={props.state}
       />
       {props.authModalActive && <AuthModal />}
-      <ModalLayout displayModal={displayModal} display={display} />
+      <ModalLayout displayModal={displayModal} display={setDisplayModal} />
       <ShopContainer blurContainer={displayModal}>
         <Page>
           {/* side bar that you drag stuff from */}
