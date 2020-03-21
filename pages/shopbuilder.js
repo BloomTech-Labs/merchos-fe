@@ -1,6 +1,6 @@
-import React, { useState, useEffect, Fragment } from 'react';
-import { Responsive, WidthProvider } from 'react-grid-layout';
-import { connect } from 'react-redux';
+import React, { useState, useEffect, Fragment } from "react";
+import { Responsive, WidthProvider } from "react-grid-layout";
+import { connect } from "react-redux";
 import {
   updateLayoutAction,
   onDrop,
@@ -8,22 +8,31 @@ import {
   onDragStop,
   onResizeStop,
   deleteItemAction
-} from '../store/actions/ShopBuilderActions';
-import ModalLayout from '../components/ShopBuilder/ModalLayout';
-import SideBar from '../components/ShopBuilder/SideBar';
-import styled, { keyframes } from 'styled-components';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import { Item, TextBanner, Header } from 'merch_components';
+} from "../store/actions/ShopBuilderActions";
+import ModalLayout from "../components/ShopBuilder/ModalLayout";
+import SideBar from "../components/ShopBuilder/SideBar";
+import styled, { keyframes } from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faArrowsAltH } from "@fortawesome/free-solid-svg-icons";
+import {
+  Item,
+  TextBanner,
+  Header,
+  Image,
+  Reset,
+  Carousel
+} from "merch_components";
 
 // Nav and subsequent components
-import ShopBuilderNav from '../components/ShopBuilder/ShopNavBar';
-import AuthModal from '../components/auth/AuthModal';
+import ShopBuilderNav from "../components/ShopBuilder/ShopNavBar";
+import AuthModal from "../components/auth/AuthModal";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
 //STYLES
 const GridItemContainer = styled.div`
+  object-fit: contain;
   background: white;
   text-align: right;
 `;
@@ -50,7 +59,7 @@ const SideBarContainer = styled.div`
 const SideBarTitle = styled.div`
   background: #464646;
   color: white;
-  font-size: 1.4vw;
+  font-size: 1vw;
   border-radius: 45px 45px 0 0;
   padding: 13%;
   text-align: center;
@@ -82,13 +91,36 @@ const ClosedSideBarButton = styled.div`
 
 const ShopBuilder = props => {
   const [displayModal, setDisplayModal] = useState(false);
+
   const [dragId, setDragId] = useState();
   const sidebarLayout = props.state.SideBar.layout;
 
   const currentLayout = props.state.Page.layout;
 
-  const display = e => {
-    setDisplayModal(!displayModal);
+  const generateComponent = (component, item) => {
+    switch (component.contentType) {
+      case "product-container":
+        return <Item item={component.content} style={component.style} />;
+      case "banner":
+        return <TextBanner message={component.content.message} />;
+      case "store-name":
+        return <Header title={component.content.title} />;
+      case "image":
+        return (
+          <Image
+            src={component.content.src}
+            style={{
+              height: `${item.h * 75}px`,
+              width: "100%",
+              objectFit: "cover"
+            }}
+          />
+        );
+      case "carousel":
+        return <Carousel images={component.content.imageArray} />;
+      default:
+        return "broken";
+    }
   };
 
   // function to open and close sidebar
@@ -105,12 +137,16 @@ const ShopBuilder = props => {
 
   const placeholderSize = id => {
     switch (id) {
-      case 'banner':
-        return { w: 12, h: 2 };
-      case 'product-container':
+      case "banner":
+        return { w: 12, h: 2, minW: 12, maxW: 12, minH: 2, maxH: 2 };
+      case "product-container":
         return { w: 3, h: 9, minW: 3, maxW: 6, minH: 9, maxH: 9 };
-      case 'store-name':
-        return { w: 12, h: 1 };
+      case "store-name":
+        return { w: 12, h: 4, minW: 12, maxW: 12, minH: 4, maxH: 4 };
+      case "image":
+        return { w: 6, h: 10, minW: 6, maxW: 12, minH: 6, maxH: 12 };
+      case "carousel":
+        return { w: 6, h: 9, minW: 6, maxW: 12, minH: 9, maxH: 9 };
       default:
         return { w: 1, h: 1 };
     }
@@ -125,9 +161,8 @@ const ShopBuilder = props => {
         workspace={props.state}
       />
       {props.authModalActive && <AuthModal />}
-      <ModalLayout displayModal={displayModal} display={display} />
+      <ModalLayout displayModal={displayModal} display={setDisplayModal} />
       <ShopContainer blurContainer={displayModal}>
-        <Button onClick={display}>Show Layouts</Button>
         <Page>
           {/* side bar that you drag stuff from */}
           {/* side bar can be toggled open and close */}
@@ -145,6 +180,7 @@ const ShopBuilder = props => {
                     content={item.content}
                     itemId={item.id}
                     setDragId={setDragId}
+                    setDisplayModal={setDisplayModal}
                   />
                 );
               })}
@@ -153,7 +189,6 @@ const ShopBuilder = props => {
                 style={{
                   height: '5vh',
                   borderRadius: '0 0 45px 45px',
-                  fontSize: '1vw',
                   cursor: 'pointer'
                 }}
               >
@@ -177,7 +212,7 @@ const ShopBuilder = props => {
               breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 360 }}
               cols={{ lg: 12, md: 9, sm: 6, xs: 3 }}
               onDrop={item => {
-                props.onDrop(item, dragId);
+                props.onDrop(item, dragId, placeholderSize(dragId));
               }}
               measureBeforeMount={true}
               useCSSTransforms={true}
@@ -188,7 +223,10 @@ const ShopBuilder = props => {
                 props.updateLayoutAction(currentLayout);
               }}
               onDragStop={props.onDragStop}
-              onResizeStop={props.onResizeStop}
+              onResizeStop={(...itemCallback) =>
+                props.onResizeStop(itemCallback[1], itemCallback[2])
+              }
+              onDragStart={undefined}
               droppingItem={{
                 i: `${dragId}__dropping-elem__`,
                 ...placeholderSize(dragId)
@@ -215,31 +253,14 @@ const ShopBuilder = props => {
                       }}
                       onClick={() => props.deleteItemAction(index)}
                     />
-                    <div>
-                      {props.state.Page.content.length ? (
-                        props.state.Page.content[index].content ===
-                        'product-container' ? (
-                          <Item
-                            item={{
-                              itemName: `blanket item ${gridItem.i}`,
-                              itemDescription:
-                                'something funny I don"t even care, I just want to know if this works',
-                              itemCost: 1.49,
-                              onSale:
-                                Number(gridItem.i) % 2 === 0 ? true : false,
-                              saleCost: 0.5
-                            }}
-                            style={{ plusIconStyle: { fontSize: '2px' } }}
-                          />
-                        ) : props.state.Page.content[Number(gridItem.i)]
-                            .content === 'banner' ? (
-                          <TextBanner message='i"m a banner i"m a banner i"m a banner' />
-                        ) : (
-                          <Header title='Store Name' />
-                        )
-                      ) : (
-                        '+'
-                      )}
+                    <div style={{ height: "auto" }}>
+                      <Reset />
+                      {props.state.Page.content.length
+                        ? generateComponent(
+                            props.state.Page.content[index],
+                            gridItem
+                          )
+                        : "+"}
                     </div>
                   </GridItemContainer>
                 );
@@ -252,7 +273,6 @@ const ShopBuilder = props => {
   );
 };
 
-// export default ShopBuilder;
 const mapStateToProps = state => {
   return {
     state: state.workspace,
