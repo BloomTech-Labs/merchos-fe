@@ -75,7 +75,7 @@ const DropZone = styled.div`
 `;
 
 const ShopContainer = styled.div`
-  ${props => (props.blurContainer ? "filter: blur(2px);" : "")}
+  ${props => (props.blurContainer ? 'filter: blur(2px);' : '')}
 `;
 
 const ClosedSideBarButton = styled.div`
@@ -128,10 +128,10 @@ const ShopBuilder = props => {
   function openClose() {
     if (SideBarDisplay) {
       setSideBarDisplay(false);
-      document.getElementById("dropZone").style.marginLeft = "3vw";
+      document.getElementById('dropZone').style.marginLeft = '3vw';
     } else {
       setSideBarDisplay(true);
-      document.getElementById("dropZone").style.marginLeft = "9vw";
+      document.getElementById('dropZone').style.marginLeft = '9vw';
     }
   }
 
@@ -187,10 +187,10 @@ const ShopBuilder = props => {
               <SideBarTitle
                 onClick={() => openClose()}
                 style={{
-                  height: "5vh",
-                  borderRadius: "0 0 45px 45px",
-                  fontSize: "1vw",
-                  cursor: "pointer"
+                  height: '5vh',
+                  borderRadius: '0 0 45px 45px',
+                  fontSize: '1vw',
+                  cursor: 'pointer'
                 }}
               >
                 close
@@ -204,9 +204,9 @@ const ShopBuilder = props => {
             </ClosedSideBarButton>
           )}
           {/* area where you assemble the shop builder */}
-          <DropZone id="dropZone">
+          <DropZone id='dropZone'>
             <ResponsiveGridLayout
-              className="layout"
+              className='layout'
               layouts={{
                 lg: currentLayout
               }}
@@ -233,10 +233,10 @@ const ShopBuilder = props => {
                 ...placeholderSize(dragId)
               }}
               style={{
-                background: "white",
-                minHeight: "500px",
-                width: "100vw",
-                paddingTop: "0"
+                background: 'white',
+                minHeight: '500px',
+                width: '100vw',
+                paddingTop: '0'
               }}
               autoSize={true}
               rowHeight={75}
@@ -247,10 +247,10 @@ const ShopBuilder = props => {
                     <FontAwesomeIcon
                       icon={faTimes}
                       style={{
-                        fontSize: "3.8rem",
-                        opacity: "0.72",
-                        marginRight: "10px",
-                        marginTop: "10px"
+                        fontSize: '3.8rem',
+                        opacity: '0.72',
+                        marginRight: '10px',
+                        marginTop: '10px'
                       }}
                       onClick={() => props.deleteItemAction(index)}
                     />
