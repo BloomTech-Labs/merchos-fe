@@ -59,7 +59,7 @@ const SideBarContainer = styled.div`
 const SideBarTitle = styled.div`
   background: #464646;
   color: white;
-  font-size: 1.4vw;
+  font-size: 1vw;
   border-radius: 45px 45px 0 0;
   padding: 13%;
   text-align: center;
@@ -189,7 +189,6 @@ const ShopBuilder = props => {
                 style={{
                   height: '5vh',
                   borderRadius: '0 0 45px 45px',
-                  fontSize: '1vw',
                   cursor: 'pointer'
                 }}
               >
