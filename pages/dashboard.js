@@ -5,6 +5,7 @@ import Navbar from "../components/NavBar";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 import Store from "../components/StoreData";
 import styled from "styled-components";
+import Axios from "axios";
 
 const Dashlayout = styled.section`
   display: flex;
@@ -39,7 +40,7 @@ export default function dashboard() {
         {!store
           ? console.log(store)
           : store.map(data => {
-              return <Store props={data} />;
+              return <Store key={data.id} props={data} />;
             })}
       </Dashlayout>
     </div>

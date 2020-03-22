@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { authorizeUser } from "../store/actions/userAuth/userAuthActions";
 
 const Wrapper = styled.section`
+  z-index: 100;
   display: flex;
   justify-content: space-between;
   align-content: center;
@@ -123,7 +124,7 @@ const Navbar = props => {
 
   return (
     <Wrapper>
-      <BackBtn>
+      <BackBtn onClick={()=>window.history.back()}>
         <IoMdArrowBack size="4rem" color="#565656" />
         Back
       </BackBtn>
