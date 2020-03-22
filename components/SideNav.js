@@ -6,7 +6,7 @@ const Container = styled.section`
   flex-direction: column;
 
   align-items: center;
-  padding-top: 2%;
+  padding-top: 5%;
 
   height: 15rem;
   list-style: none;
@@ -28,13 +28,13 @@ const Button = styled.button`
   text-align: center;
   justify-content: center;
 
-  color: #000000;
+  color: #565656;
   cursor: pointer;
 `;
 
 const Label = styled.span`
   font-family: "'Roboto', sans-serif";
-  font-size: 2.5rem;
+  font-size: 2rem;
   text-transform: capitalize;
 `;
 

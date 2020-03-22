@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import styled from "styled-components";
-import { IoIosArrowRoundBack } from "react-icons/io";
+import { IoMdArrowBack, IoMdContact } from "react-icons/io";
 import Router from "next/router";
 import { useDispatch } from "react-redux";
 import { authorizeUser } from "../store/actions/userAuth/userAuthActions";
@@ -38,14 +38,13 @@ const ProfileBtn = styled.button`
   font-family: "Roboto", sans-serif;
   font-style: normal;
   font-weight: normal;
-  font-size: 25px;
+  font-size: 2rem;
   line-height: 29px;
   display: flex;
   align-items: center;
-  text-align: right;
-  justify-content: center;
+  justify-content: space-around;
 
-  color: #000000;
+  color: #565656;
   cursor: pointer;
 
   background: #f3f3ff;
@@ -54,8 +53,8 @@ const ProfileBtn = styled.button`
 `;
 const Title = styled.h1`
   font-family: "Roboto", sans-serif;
-  font-style: thin;
-  font-weight: 20;
+  font-style: light;
+  // font-weight: 10;
   font-size: 50px;
   line-height: 73px;
   display: flex;
@@ -63,10 +62,10 @@ const Title = styled.h1`
   text-align: center;
   justify-content: center;
 
-  color: #000000;
+  color: #565656;
 `;
 const BackBtn = styled.button`
-  width: 125px;
+  width: 145px;
   height: 50px;
 
   background: #f3f3ff;
@@ -76,14 +75,14 @@ const BackBtn = styled.button`
 
   font-family: "'Roboto', sans-serif";
 
-  font-size: 2.5rem;
+  font-size: 2rem;
 
   display: flex;
   align-items: center;
   text-align: center;
   justify-content: center;
 
-  color: #000000;
+  color: #565656;
 `;
 const DropLogout = styled.h1`
   display: none;
@@ -93,7 +92,7 @@ const DropLogout = styled.h1`
   font-family: "'Roboto', sans-serif";
   font-style: normal;
   font-weight: normal;
-  font-size: 25px;
+  font-size: 2rem;
   line-height: 29px;
   display: flex;
   align-items: center;
@@ -125,7 +124,7 @@ const Navbar = props => {
   return (
     <Wrapper>
       <BackBtn>
-        <IoIosArrowRoundBack />
+        <IoMdArrowBack size="4rem" color="#565656" />
         Back
       </BackBtn>
       <Title>Back Office</Title>
@@ -140,7 +139,11 @@ const Navbar = props => {
         onMouseLeave={hoveringState}
       >
         <li>
-          <ProfileBtn>Alberta</ProfileBtn>
+          <ProfileBtn>
+            {" "}
+            Alberta
+            <IoMdContact size="4rem" color="#565656" />
+          </ProfileBtn>
         </li>
         <li className={`log ${isHovering === true ? "dropmenu" : ""}`}>
           <DropLogout type="button" id="hide" value="1" onClick={logout}>
