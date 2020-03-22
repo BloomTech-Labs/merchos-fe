@@ -81,20 +81,17 @@ const AddNewBtn = styled.button`
   width: 150px;
   margin-left: 20%;
   margin-top: 5%;
-
   border: solid #0047ff 3px;
   border-radius: 25px;
   background: #f3f3ff;
-
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   justify-content: center;
-
   font-family: "'Roboto', sans-serif";
-
   font-size: 2rem;
+  cursor: pointer;
 `;
 
 const EditBtn = styled.button`
@@ -162,8 +159,12 @@ export default function StoreData(data) {
           </ul>
         </Card>
       </CardHolder>
-      <AddNewBtn onClick={() => (window.location = "/storebuilder")}>
-        <IoIosAddCircle size="4rem" color="#0047FF" />
+      <AddNewBtn>
+        <IoIosAddCircle
+          size="4rem"
+          color="#0047FF"
+          onClick={() => console.log("click")}
+        />
         New Store
       </AddNewBtn>
     </Container>

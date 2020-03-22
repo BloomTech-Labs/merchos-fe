@@ -11,18 +11,15 @@ export const selectLayoutAction = layoutType => dispatch => {
 };
 
 export const updateLayoutAction = layoutUpdate => dispatch => {
-  if (
-    layoutUpdate.length &&
-    !RegExp(".*__dropping-elem__$").test(
-      layoutUpdate[layoutUpdate.length - 1].i
-    )
-  ) {
-    dispatch({ type: UPDATE_LAYOUT, payload: { layoutUpdate } });
-  }
+  dispatch({ type: UPDATE_LAYOUT, payload: { layoutUpdate } });
 };
 
-export const onDrop = (item, dragId) => dispatch => {
-  dispatch({ type: DROP_ITEM, payload: { item, dragId } });
+export const onDrop = (item, dragId, limits) => dispatch => {
+  const itemWithLimits = {
+    ...item,
+    ...limits
+  };
+  dispatch({ type: DROP_ITEM, payload: { itemWithLimits, dragId } });
 };
 
 export const onBreakpointChange = () => dispatch => {
@@ -33,8 +30,10 @@ export const onDragStop = () => dispatch => {
   dispatch({ type: DRAG_STOP });
 };
 
-export const onResizeStop = () => dispatch => {
-  dispatch({ type: RESIZE_STOP });
+export const onResizeStop = (resizeOld, resizeNew) => dispatch => {
+  if (resizeOld.w != resizeNew.w || resizeOld.h != resizeNew.h) {
+    dispatch({ type: RESIZE_STOP });
+  }
 };
 
 export const deleteItemAction = indexToRemove => dispatch => {

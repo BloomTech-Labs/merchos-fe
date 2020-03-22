@@ -34,7 +34,7 @@ const ModalLayout = props => {
   return (
     <Container
       displayModal={props.displayModal}
-      onClick={() => props.display(props.display)}
+      onClick={() => props.display(prevState => !prevState)}
     >
       <Modal>
         {props.layouts.map((layout, index) => {
