@@ -11,8 +11,6 @@ const Container = styled.div`
   background: #f3f3ff;
   box-shadow: inset -2px -2px 6px 2px #fff, inset 2px 2px 6px 2px #787878;
   border-radius: 75px 75px 0px 0px;
-
-  z-index: -2;
 `;
 const Title = styled.h1`
   font-size: 4rem;
