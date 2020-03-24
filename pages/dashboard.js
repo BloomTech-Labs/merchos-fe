@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import SideBar from "../components/SideBar";
 import navButtons from "../config/buttons";
-import Navbar from "../components/NavBar";
+import Navbar from "../components/Navbar";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 import Store from "../components/StoreData";
 import styled from "styled-components";
