@@ -110,6 +110,19 @@ const DeleteBtn = styled.button`
   color: #565656;
 `;
 
+const Menu = styled.div`
+  display: flex;
+  flex-direction: column;
+  max-width: 10%;
+  margin: 3%;
+  cursor: pointer;
+`;
+
+const MenuItems = styled.div`
+  max-width: 40%;
+  margin-left: -200%;
+`;
+
 export default function StoreData(data) {
   function deleteStore() {
     const bool = confirm(
@@ -127,6 +140,34 @@ export default function StoreData(data) {
     }
   }
 
+  function updateStore(e) {
+    axiosWithAuth()
+      .put(`/store/${data.props.store_name}`)
+      .then(res => {
+        console.log("store edited:", res);
+        history.push("/store");
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  // onclick funtion for add store button
+  function addStore(e) {
+    console.log("clicked");
+    window.location = "/shopbuilder";
+  }
+
+  // on click to display menu items
+  function DisplayMenuItems(e) {
+    e.preventDefault();
+    if (document.getElementById("menu-items").style.display === "none") {
+      document.getElementById("menu-items").style.display = "flex";
+    } else {
+      document.getElementById("menu-items").style.display = "none";
+    }
+  }
+
   return (
     <Container>
       <Title>Stores:</Title>
@@ -136,33 +177,20 @@ export default function StoreData(data) {
           {/* We need to send them to already built store so user can edit*/}
         </StoreName>
         <Card>
-          <ul className="menu">
-            <li>
-              <IoIosSettings size="4rem" color="#fff" />
-            </li>
-            <ul className="menu-items">
+          <Menu onClick={DisplayMenuItems}>
+            <IoIosSettings size="4rem" color="#fff" />
+            <MenuItems id="menu-items" style={{ display: "none" }}>
               <li>
-                <EditBtn>Edit</EditBtn>
+                <EditBtn onClick={updateStore}>Edit</EditBtn>
                 <ShareBtn>Share</ShareBtn>
                 <DeleteBtn onClick={deleteStore}>Delete</DeleteBtn>
               </li>
-            </ul>
-            {/* <button
-            className="edit-store"
-            onClick={() => (window.location = "/storebuilder")}
-          />
-          <button className="delete-store" onClick={deleteStore}>
-            x
-          </button> */}
-          </ul>
+            </MenuItems>
+          </Menu>
         </Card>
       </CardHolder>
-      <AddNewBtn>
-        <IoIosAddCircle
-          size="4rem"
-          color="#0047FF"
-          onClick={() => console.log("click")}
-        />
+      <AddNewBtn onClick={addStore}>
+        <IoIosAddCircle cursor="pointer" size="4rem" color="#0047FF" />
         New Store
       </AddNewBtn>
     </Container>
