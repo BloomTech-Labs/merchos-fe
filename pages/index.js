@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import styled from "styled-components";
+import Layout from "../components/Layout";
 import { useSelector, useDispatch } from "react-redux";
-
+import Router from "next/router";
 // components
 import AuthModal from "../components/auth/AuthModal";
 
@@ -78,8 +79,19 @@ const AuthButton = styled.button`
 `;
 
 const Index = () => {
+
   const { authModalActive } = useSelector(state => state.authInterface);
+  const { userIsAuthed } = useSelector(state => state.userData);
   const dispatch = useDispatch();
+
+
+
+  useEffect(() => {
+    if (userIsAuthed == true) {
+      Router.push("/dashboard")
+    }
+
+  }, [userIsAuthed])
 
   return (
     <IndexWrapper>
