@@ -220,10 +220,10 @@ const ShopBuilder = props => {
               isDroppable={true}
               preventCollision={false}
               onBreakpointChange={props.onBreakpointChange}
-              onLayoutChange={currentLayout => {
-                props.updateLayoutAction(currentLayout);
-              }}
-              onDragStop={props.onDragStop}
+              onLayoutChange={props.updateLayoutAction}
+              onDragStop={(...itemCallback) =>
+                props.onDragStop(itemCallback[1], itemCallback[2])
+              }
               onResizeStop={(...itemCallback) =>
                 props.onResizeStop(itemCallback[1], itemCallback[2])
               }
