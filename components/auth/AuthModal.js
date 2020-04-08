@@ -66,7 +66,7 @@ const AuthModal = () => {
   const dispatch = useDispatch();
 
   const [activeTab, setActiveTab] = useState('Sign In');
-  const tabHandler = data => {
+  const tabHandler = (data) => {
     setActiveTab(data);
   };
 
@@ -74,13 +74,14 @@ const AuthModal = () => {
     e.preventDefault();
     dispatch(authorizeUser(activeTab, data));
   };
+
+  const modalCloser = () => {
+    dispatch(authModalController('close'));
+  };
   return (
     <ModalContainer>
       <Modal>
-        <XButton
-          type='button'
-          onClick={() => dispatch(authModalController('close'))}
-        >
+        <XButton type='button' onClick={modalCloser}>
           x
         </XButton>
         <TabBar>
