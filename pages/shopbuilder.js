@@ -22,6 +22,10 @@ import {
   Image,
   Reset,
   Carousel,
+  Button,
+  LinkBar,
+  Navigation,
+  Footer,
 } from "merch_components";
 
 // Nav and subsequent components
@@ -35,10 +39,6 @@ const GridItemContainer = styled.div`
   object-fit: contain;
   background: white;
   text-align: right;
-`;
-
-const Button = styled.button`
-  font-size: 1.5rem;
 `;
 
 const Page = styled.div`
@@ -118,6 +118,22 @@ const ShopBuilder = (props) => {
         );
       case "carousel":
         return <Carousel images={component.content.imageArray} />;
+      case "button":
+        return <Button name="Button" style={{ margin: "0 auto" }} />;
+      case "linkbar":
+        return <LinkBar links={["facebook"]} />;
+      case "navigation":
+        return (
+          <Navigation
+            links={[{ name: "Home" }, { name: "Products" }, { name: "About" }]}
+          />
+        );
+      case "footer":
+        return (
+          <Footer
+            links={[{ name: "Home" }, { name: "Products" }, { name: "About" }]}
+          />
+        );
       default:
         return "broken";
     }
@@ -146,9 +162,17 @@ const ShopBuilder = (props) => {
       case "store-name":
         return { w: 12, h: 4, minW: 12, maxW: 12, minH: 4, maxH: 4 };
       case "image":
-        return { w: 6, h: 10, minW: 6, maxW: 12, minH: 6, maxH: 12 };
+        return { w: 8, h: 10, minW: 6, maxW: 12, minH: 6, maxH: 12 };
       case "carousel":
         return { w: 6, h: 9, minW: 6, maxW: 12, minH: 9, maxH: 9 };
+      case "button":
+        return { w: 3, h: 4, minW: 3, maxW: 3, minH: 4, maxH: 4 };
+      case "linkbar":
+        return { w: 12, h: 9, minW: 12, maxW: 12, minH: 9, maxH: 9 };
+      case "navigation":
+        return { w: 12, h: 2, minW: 12, maxW: 12, minH: 2, maxH: 2 };
+      case "footer":
+        return { w: 12, h: 2, minW: 12, maxW: 12, minH: 2, maxH: 2 };
       default:
         return { w: 1, h: 1 };
     }
@@ -211,7 +235,7 @@ const ShopBuilder = (props) => {
               layouts={{
                 lg: currentLayout,
               }}
-              breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 360 }}
+              breakpoints={{ lg: 1000, md: 996, sm: 768, xs: 360 }}
               cols={{ lg: 12, md: 9, sm: 6, xs: 3 }}
               onDrop={(item) => {
                 props.onDrop(item, dragId, placeholderSize(dragId));
@@ -265,7 +289,7 @@ const ShopBuilder = (props) => {
                           e.clientX === mouseMove[0] ||
                           e.clientY === mouseMove[1]
                         ) {
-                          alert("did the thingy");
+                          setTimeout(() => {}, 1);
                         }
                       }}
                       draggable={false}
