@@ -55,6 +55,7 @@ const SelectProducts = ({ select }) => {
     select === selected ? setSelected(!selected) : setSelected(!selected);
   };
 
+  console.log(selected);
   return (
     <div>
       <ProductHeading>Pick a Product to Sell:</ProductHeading>

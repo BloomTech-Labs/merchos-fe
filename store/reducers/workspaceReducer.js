@@ -1,31 +1,61 @@
-import { DRAG_N_DROP } from "../actions/ShopBuilderActions";
-import { DRAG_N_DROP_PRODUCTS } from "../actions/ShopBuilderActions";
-import { CHANGE_HEIGHT } from "../actions/ShopBuilderActions";
-import { DELETE_ELEMENT } from "../actions/ShopBuilderActions";
-import { CHANGE_STORE_NAME } from "../actions/ShopBuilderActions";
 import { SELECT_LAYOUT } from "../actions/ShopBuilderActions";
-import { SET_PRODUCT_ID } from "../actions/ShopBuilderActions";
-import { CREATE_DRAG_ELEMENT } from "../actions/ShopBuilderActions";
-import { BasicLayout } from "../../components/ShopBuilder/Layouts/BasicLayout";
+import { UPDATE_LAYOUT } from "../actions/ShopBuilderActions";
+import { DROP_ITEM } from "../actions/ShopBuilderActions";
+import { BREAKPOINT_CHANGE } from "../actions/ShopBuilderActions";
+import { DRAG_STOP } from "../actions/ShopBuilderActions";
+import { RESIZE_STOP } from "../actions/ShopBuilderActions";
+import { DELETE_ACTION } from "../actions/ShopBuilderActions";
+import {
+  BasicLayout,
+  BlankLayout,
+  BasicLayoutContent
+} from "../../components/ShopBuilder/Layouts/BasicLayout";
+
+// icons
+import BannerIcon from "../../assets/banner.png";
+import ProductIcon from "../../assets/product.png";
 
 const initialState = {
   Page: {
     id: "Page",
     title: "Workspace",
     storeName: "Click to edit store name",
-    columns: [
+    layoutType: ["Blank Layout", "Basic Layout"],
+    layout: [
       //This is where the page columns are held which is the layout of the page
-    ]
+    ],
+    content: [],
+    updatedBreakpoint: true,
+    date: Date.now().toPrecision()
   },
   SideBar: {
-    id: "SideBarProducts",
-    column: [
+    id: "SideBar",
+    layout: [
       {
-        items: [
-          { id: "product-1", content: "shirt" },
-          { id: "product-2", content: "pants" },
-          { id: "product-3", content: "hats" }
-        ]
+        id: "banner",
+        content: "banner",
+        icon: BannerIcon
+      },
+      {
+        id: "product-container",
+        content: "products",
+        icon: ProductIcon
+      },
+      {
+        id: "store-name",
+        content: "store header"
+      },
+      {
+        id: "image",
+        content: "image"
+      },
+      {
+        id: "carousel",
+        content: "carousel"
+      },
+      {
+        id: "theme",
+        content: "theme"
       }
     ]
   }
@@ -33,163 +63,142 @@ const initialState = {
 
 const workspaceReducer = (state = initialState, action) => {
   const {
-    draggableId,
-    source,
-    destination,
-    dropArea,
-    clickId,
-    storeName,
     layoutType,
-    correctionId
+    layoutUpdate,
+    itemWithLimits,
+    dragId,
+    indexToRemove,
+    resizeOld,
+    resizeNew
   } = action.payload || {};
 
-  const tempArr = Array.from(state.Page.columns);
+  const tempArray = Array.from(state.Page.layout);
+  let contentArray = Array.from(state.Page.content);
 
   switch (action.type) {
-    case DRAG_N_DROP:
-      const sourceId = Number(source.droppableId);
-      const destinationId = Number(destination.droppableId);
-
-      const draggable = tempArr[sourceId].items[source.index];
-
-      tempArr[sourceId].items.splice(source.index, 1);
-      tempArr[destinationId].items.splice(destination.index, 0, draggable);
-
-      return {
-        ...state,
-        Page: {
-          ...state.Page,
-          columns: tempArr
-        }
-      };
-
-    case CREATE_DRAG_ELEMENT:
-      const dragProducts = Array.from(state.SideBar.column);
-      const product = dragProducts[0].items[source.index];
-      if (source.droppableId === "Page") {
-        tempArr[destination.index] = product;
-      } else {
-        tempArr[Number(destination.droppableId)].items[
-          destination.index
-        ] = product;
-      }
-      return {
-        ...state,
-        Page: {
-          ...state.Page,
-          columns: tempArr
-        }
-      };
-
-    case DRAG_N_DROP_PRODUCTS:
-      const sourceLocation = draggableId.split("-");
-      const destinationLocation = destination.droppableId.split("-");
-      // destinationIndex result comes from calculating destinationLocation[2]
-      // which is the limit of the product row multiplied by the
-      // destinationLocation[1] which is the current drop index location of the item
-      // and adding the destination.index will give us the actual index
-      const destinationIndex =
-        destinationLocation[2] * destinationLocation[1] + destination.index;
-
-      console.log("SOURCE_LOCATION: ", sourceLocation);
-      console.log("DESTINATION_LOCATION: ", destinationLocation);
-
-      const draggableSource =
-        tempArr[sourceLocation[0]].items[sourceLocation[2]];
-      tempArr[sourceLocation[0]].items.splice(sourceLocation[2], 1);
-      tempArr[destinationLocation[0]].items.splice(
-        destinationIndex,
-        0,
-        draggableSource
-      );
-
-      return {
-        ...state,
-        Page: {
-          ...state.Page,
-          columns: tempArr
-        }
-      };
-
-    case SET_PRODUCT_ID:
-      const correctionIdSplit = correctionId.split("-");
-      tempArr[Number(correctionIdSplit[0])].items[
-        Number(correctionIdSplit[2])
-      ].id = correctionId;
-
-      return {
-        ...state,
-        Page: {
-          ...state.Page,
-          columns: tempArr
-        }
-      };
-    case CHANGE_HEIGHT:
-      const selectedItem = tempArr[dropArea].items.filter((item, index) => {
-        if (item.id === clickId) {
-          return { item, index };
-        }
-      });
-      let nextHeight = 0;
-
-      switch (selectedItem[0].item.height) {
-        case "75px":
-          nextHeight = "150px";
-          break;
-        case "150px":
-          nextHeight = "175px";
-          break;
-        default:
-          nextHeight = "75px";
-      }
-
-      tempArr[dropArea].items[selectedItem[0].index].height = nextHeight;
-
-      return {
-        ...state,
-        Page: {
-          ...state.Page,
-          columns: tempArr
-        }
-      };
-
-    case DELETE_ELEMENT:
-      const updatedArr = tempArr[dropArea].items.filter(
-        item => item.id !== clickId
-      );
-
-      tempArr[dropArea].items = updatedArr;
-
-      return {
-        ...state,
-        Page: {
-          ...state.Page,
-          columns: tempArr
-        }
-      };
-
-    case CHANGE_STORE_NAME:
-      return {
-        ...state,
-        Page: {
-          ...state.Page,
-          storeName: storeName
-        }
-      };
-
     case SELECT_LAYOUT:
+      localStorage.clear();
+      contentArray = [];
       switch (layoutType) {
-        case "BasicLayout":
+        case "Basic Layout":
           return {
             ...state,
             Page: {
               ...state.Page,
-              columns: BasicLayout
+              layout: BasicLayout,
+              content: BasicLayoutContent,
+              date: Date.now().toPrecision()
+            }
+          };
+        case "Blank Layout":
+          return {
+            ...state,
+            Page: {
+              ...state.Page,
+              layout: BlankLayout,
+              content: contentArray,
+              date: Date.now().toPrecision()
             }
           };
         default:
           return state;
       }
+    case UPDATE_LAYOUT:
+      if (!state.Page.updatedBreakpoint) {
+        return {
+          ...state,
+          Page: {
+            ...state.Page,
+            layout: layoutUpdate,
+            updatedBreakpoint: true
+          }
+        };
+      } else {
+        return state;
+      }
+
+    case DROP_ITEM:
+      const insertContent = {
+        content: {},
+        contentType: "no content",
+        id: `${dragId}-${Date.now().toPrecision()}`
+      };
+      switch (dragId) {
+        case "banner":
+          insertContent.contentType = "banner";
+          break;
+
+        case "product-container":
+          insertContent.contentType = "product-container";
+          break;
+
+        case "store-name":
+          insertContent.contentType = "store-name";
+          break;
+
+        case "image":
+          insertContent.contentType = "image";
+          break;
+
+        case "carousel":
+          insertContent.contentType = "carousel";
+          break;
+
+        default:
+          break;
+      }
+      contentArray.push(insertContent);
+      tempArray.push({
+        ...itemWithLimits,
+        i: `${state.Page.layout.length}`
+      });
+      return {
+        ...state,
+        Page: {
+          ...state.Page,
+          content: contentArray,
+          layout: tempArray,
+          updatedBreakpoint: false
+        }
+      };
+    case BREAKPOINT_CHANGE:
+      return {
+        ...state,
+        Page: {
+          ...state.Page,
+          updatedBreakpoint: true
+        }
+      };
+    case DRAG_STOP:
+      return {
+        ...state,
+        Page: {
+          ...state.Page,
+          updatedBreakpoint: false
+        }
+      };
+
+    case RESIZE_STOP:
+      return {
+        ...state,
+        Page: {
+          ...state.Page,
+          updatedBreakpoint: false
+        }
+      };
+
+    case DELETE_ACTION:
+      tempArray.splice(indexToRemove, 1);
+      contentArray.splice(indexToRemove, 1);
+      return {
+        ...state,
+        Page: {
+          ...state.Page,
+          layout: tempArray,
+          content: contentArray,
+          updatedBreakpoint: false
+        }
+      };
 
     default:
       return state;

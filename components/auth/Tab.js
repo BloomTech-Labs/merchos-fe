@@ -24,7 +24,6 @@ const Tab = ({ children, tabHandler, isActive }) => {
       current={children}
       onClick={() => tabHandler(children)}
     >
-      {console.log(children, "children")}
       {children}
     </ActiveTab>
   );
