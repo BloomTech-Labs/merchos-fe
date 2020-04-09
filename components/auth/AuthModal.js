@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
 // Components
@@ -62,8 +62,27 @@ const XButton = styled.button`
   }
 `;
 
+const useOutsideModal = (ref) => {
+  
+};
+
 const AuthModal = () => {
   const dispatch = useDispatch();
+  const wrapperRef = useRef(null);
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  const handleClickOutside = (event) => {
+    if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+      modalCloser()
+    }
+  }
 
   const [activeTab, setActiveTab] = useState('Sign In');
   const tabHandler = (data) => {
@@ -80,7 +99,7 @@ const AuthModal = () => {
   };
   return (
     <ModalContainer>
-      <Modal>
+      <Modal ref={wrapperRef}>
         <XButton type='button' onClick={modalCloser}>
           x
         </XButton>

@@ -1,32 +1,32 @@
-import React, { useState, useEffect, Fragment } from "react";
-import { Responsive, WidthProvider } from "react-grid-layout";
-import { connect } from "react-redux";
+import React, { useState, useEffect, Fragment } from 'react';
+import { Responsive, WidthProvider } from 'react-grid-layout';
+import { connect } from 'react-redux';
 import {
   updateLayoutAction,
   onDrop,
   onBreakpointChange,
   onDragStop,
   onResizeStop,
-  deleteItemAction
-} from "../store/actions/ShopBuilderActions";
-import ModalLayout from "../components/ShopBuilder/ModalLayout";
-import SideBar from "../components/ShopBuilder/SideBar";
-import styled, { keyframes } from "styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { faArrowsAltH } from "@fortawesome/free-solid-svg-icons";
+  deleteItemAction,
+} from '../store/actions/ShopBuilderActions';
+import ModalLayout from '../components/ShopBuilder/ModalLayout';
+import SideBar from '../components/ShopBuilder/SideBar';
+import styled, { keyframes } from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faArrowsAltH } from '@fortawesome/free-solid-svg-icons';
 import {
   Item,
   TextBanner,
   Header,
   Image,
   Reset,
-  Carousel
-} from "merch_components";
+  Carousel,
+} from 'merch_components';
 
 // Nav and subsequent components
-import ShopBuilderNav from "../components/ShopBuilder/ShopNavBar";
-import AuthModal from "../components/auth/AuthModal";
+import ShopBuilderNav from '../components/ShopBuilder/ShopNavBar';
+import AuthModal from '../components/auth/AuthModal';
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
@@ -75,7 +75,7 @@ const DropZone = styled.div`
 `;
 
 const ShopContainer = styled.div`
-  ${props => (props.blurContainer ? 'filter: blur(2px);' : '')}
+  ${(props) => (props.blurContainer ? 'filter: blur(2px);' : '')}
 `;
 
 const ClosedSideBarButton = styled.div`
@@ -89,7 +89,7 @@ const ClosedSideBarButton = styled.div`
   padding: 10vw 1vw 1vw 1vw;
 `;
 
-const ShopBuilder = props => {
+const ShopBuilder = (props) => {
   const [displayModal, setDisplayModal] = useState(false);
 
   const [dragId, setDragId] = useState();
@@ -99,27 +99,27 @@ const ShopBuilder = props => {
 
   const generateComponent = (component, item) => {
     switch (component.contentType) {
-      case "product-container":
+      case 'product-container':
         return <Item item={component.content} style={component.style} />;
-      case "banner":
+      case 'banner':
         return <TextBanner message={component.content.message} />;
-      case "store-name":
+      case 'store-name':
         return <Header title={component.content.title} />;
-      case "image":
+      case 'image':
         return (
           <Image
             src={component.content.src}
             style={{
               height: `${item.h * 75}px`,
-              width: "100%",
-              objectFit: "cover"
+              width: '100%',
+              objectFit: 'cover',
             }}
           />
         );
-      case "carousel":
+      case 'carousel':
         return <Carousel images={component.content.imageArray} />;
       default:
-        return "broken";
+        return 'broken';
     }
   };
 
@@ -135,17 +135,17 @@ const ShopBuilder = props => {
     }
   }
 
-  const placeholderSize = id => {
+  const placeholderSize = (id) => {
     switch (id) {
-      case "banner":
+      case 'banner':
         return { w: 12, h: 2, minW: 12, maxW: 12, minH: 2, maxH: 2 };
-      case "product-container":
+      case 'product-container':
         return { w: 3, h: 9, minW: 3, maxW: 6, minH: 9, maxH: 9 };
-      case "store-name":
+      case 'store-name':
         return { w: 12, h: 4, minW: 12, maxW: 12, minH: 4, maxH: 4 };
-      case "image":
+      case 'image':
         return { w: 6, h: 10, minW: 6, maxW: 12, minH: 6, maxH: 12 };
-      case "carousel":
+      case 'carousel':
         return { w: 6, h: 9, minW: 6, maxW: 12, minH: 9, maxH: 9 };
       default:
         return { w: 1, h: 1 };
@@ -189,7 +189,7 @@ const ShopBuilder = props => {
                 style={{
                   height: '5vh',
                   borderRadius: '0 0 45px 45px',
-                  cursor: 'pointer'
+                  cursor: 'pointer',
                 }}
               >
                 close
@@ -207,11 +207,11 @@ const ShopBuilder = props => {
             <ResponsiveGridLayout
               className='layout'
               layouts={{
-                lg: currentLayout
+                lg: currentLayout,
               }}
               breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 360 }}
               cols={{ lg: 12, md: 9, sm: 6, xs: 3 }}
-              onDrop={item => {
+              onDrop={(item) => {
                 props.onDrop(item, dragId, placeholderSize(dragId));
               }}
               measureBeforeMount={true}
@@ -219,7 +219,7 @@ const ShopBuilder = props => {
               isDroppable={true}
               preventCollision={false}
               onBreakpointChange={props.onBreakpointChange}
-              onLayoutChange={currentLayout => {
+              onLayoutChange={(currentLayout) => {
                 props.updateLayoutAction(currentLayout);
               }}
               onDragStop={props.onDragStop}
@@ -229,13 +229,13 @@ const ShopBuilder = props => {
               onDragStart={undefined}
               droppingItem={{
                 i: `${dragId}__dropping-elem__`,
-                ...placeholderSize(dragId)
+                ...placeholderSize(dragId),
               }}
               style={{
                 background: 'white',
                 minHeight: '500px',
                 width: '100vw',
-                paddingTop: '0'
+                paddingTop: '0',
               }}
               autoSize={true}
               rowHeight={75}
@@ -249,18 +249,18 @@ const ShopBuilder = props => {
                         fontSize: '3.8rem',
                         opacity: '0.72',
                         marginRight: '10px',
-                        marginTop: '10px'
+                        marginTop: '10px',
                       }}
                       onClick={() => props.deleteItemAction(index)}
                     />
-                    <div style={{ height: "auto" }}>
+                    <div style={{ height: 'auto' }}>
                       <Reset />
                       {props.state.Page.content.length
                         ? generateComponent(
                             props.state.Page.content[index],
                             gridItem
                           )
-                        : "+"}
+                        : '+'}
                     </div>
                   </GridItemContainer>
                 );
@@ -273,11 +273,11 @@ const ShopBuilder = props => {
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     state: state.workspace,
     userAuthed: state.userData.userIsAuthed,
-    authModalActive: state.authInterface.authModalActive
+    authModalActive: state.authInterface.authModalActive,
   };
 };
 
@@ -287,6 +287,6 @@ export default connect(mapStateToProps, {
   onBreakpointChange,
   onDragStop,
   onResizeStop,
-  deleteItemAction
+  deleteItemAction,
 })(ShopBuilder);
 //changed name of page of shopbuilder back to ShopBuilder

@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import Router from "next/router";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import Router from 'next/router';
+import { useDispatch } from 'react-redux';
 
 // actions
-import { authModalController } from "../../store/actions/userInterface/authModalController";
-import { saveStore } from "../../store/actions/shopServerConnection/shopServerConnection";
+import { authModalController } from '../../store/actions/userInterface/authModalController';
+import { saveStore } from '../../store/actions/shopServerConnection/shopServerConnection';
+import { toastController } from '../../store/actions/userInterface/toastActions';
 
 const NavBar = styled.section`
   display: flex;
@@ -13,11 +14,11 @@ const NavBar = styled.section`
   justify-content: center;
   background: #e3e6ec;
   padding: 10px 20px;
-  box-shadow: ${props =>
-    !props.visible ? "" : "0px 0px 14px rgba(0, 0, 0, 0.31)"};
+  box-shadow: ${(props) =>
+    !props.visible ? '' : '0px 0px 14px rgba(0, 0, 0, 0.31)'};
   position: relative;
   transition: 0.2s;
-  margin-top: ${props => (!props.visible ? "-110px" : "0px")};
+  margin-top: ${(props) => (!props.visible ? '-110px' : '0px')};
   z-index: 6;
 `;
 
@@ -73,7 +74,7 @@ const UserButton = styled.button`
 const OpenNav = styled.button`
   position: fixed;
   transition: 0.2s;
-  top: ${props => (props.visible ? "-50px" : "0px")};
+  top: ${(props) => (props.visible ? '-50px' : '0px')};
   right: 100px;
   border-radius: 0px 0px 25px 25px;
   border: 0px;
@@ -90,7 +91,7 @@ const UserInput = ({ title, buttonHandler }) => {
   };
 
   return (
-    <UserButton type="button" onClick={clickHandler}>
+    <UserButton type='button' onClick={clickHandler}>
       {title}
     </UserButton>
   );
@@ -100,7 +101,7 @@ const ShopNavBar = ({
   userAuthed,
   setSideBarDisplay,
   authModalActive,
-  workspace
+  workspace,
 }) => {
   const dispatch = useDispatch();
 
@@ -114,11 +115,11 @@ const ShopNavBar = ({
 
   const [topVisible, setTopVisible] = useState(true);
   // function for the button/links
-  const linkHandler = action => {
-    if (action === "Preview") return previewButton();
-    if (action === "Sign In") {
+  const linkHandler = (action) => {
+    if (action === 'Preview') return previewButton();
+    if (action === 'Sign In') {
       previewButton();
-      return dispatch(authModalController("open"));
+      return dispatch(authModalController('open'));
     }
 
     // Check if user is authenticated
@@ -126,27 +127,26 @@ const ShopNavBar = ({
       // if they are, allow them to proceed
       // with their action passed in
       switch (action) {
-        case "Back Office":
-          Router.push("/dashboard");
+        case 'Back Office':
+          Router.push('/dashboard');
           break;
-        case "Save":
+        case 'Save':
           dispatch(saveStore(workspace));
           break;
-        case "Publish":
+        case 'Publish':
           break;
         default:
           break;
       }
     } else {
-      // if not console log for now,
-      // but add authentication modal for now
-      alert("user is not authed");
+      // create toast of type 'auth'
+      dispatch(toastController('auth'));
     }
   };
 
   // opens and closes the sidebar/navbar
   const previewButton = () => {
-    setSideBarDisplay(prevState => {
+    setSideBarDisplay((prevState) => {
       // if sidebar doesn't have the same bool as top nav bar
       if (prevState !== topVisible) {
         // return previous state
@@ -157,21 +157,21 @@ const ShopNavBar = ({
         return !prevState;
       }
     });
-    setTopVisible(prevState => !prevState);
+    setTopVisible((prevState) => !prevState);
   };
 
   return (
     <NavBar visible={topVisible}>
       <InnerNavBar>
-        <UserInput title="Back Office" buttonHandler={linkHandler} />
+        <UserInput title='Back Office' buttonHandler={linkHandler} />
         <div>
-          <UserInput title="Save" buttonHandler={linkHandler} />
-          <UserInput title="Preview" buttonHandler={linkHandler} />
-          <UserInput title="Publish" buttonHandler={linkHandler} />
+          <UserInput title='Save' buttonHandler={linkHandler} />
+          <UserInput title='Preview' buttonHandler={linkHandler} />
+          <UserInput title='Publish' buttonHandler={linkHandler} />
         </div>
-        <UserInput title="Sign In" buttonHandler={linkHandler} />
+        <UserInput title='Sign In' buttonHandler={linkHandler} />
       </InnerNavBar>
-      <OpenNav visible={topVisible} type="button" onClick={previewButton}>
+      <OpenNav visible={topVisible} type='button' onClick={previewButton}>
         Exit Preview
       </OpenNav>
     </NavBar>
