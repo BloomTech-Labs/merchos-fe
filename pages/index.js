@@ -41,18 +41,21 @@ const ButtonWrapper = styled.div`
   padding-top: 80px;
 `;
 
-const Anchor = styled.a`
+const Anchor = styled.div`
+  height: 75px;
   font-family: "Nunito", sans-serif;
   font-size: 2.75rem;
   text-decoration: none;
-  padding: 22px 65px;
   margin: 24px;
-  border-radius: 5px;
   cursor: pointer;
 
   &:first-child {
-    color: white;
-    background: #6dd3ff;
+    a {
+      padding: 30px;
+      color: white;
+      background: #6dd3ff;
+      border-radius: 5px;
+    }
   }
 `;
 
@@ -78,20 +81,22 @@ const AuthButton = styled.button`
   border: 1px solid #6dd3ff;
 `;
 
-const Index = () => {
+const LinkStyle = styled(Link)`
+  background: orange;
+  height: 100%;
+  width: 100%;
+`;
 
+const Index = () => {
   const { authModalActive } = useSelector(state => state.authInterface);
   const { userIsAuthed } = useSelector(state => state.userData);
   const dispatch = useDispatch();
 
-
-
   useEffect(() => {
     if (userIsAuthed == true) {
-      Router.push("/dashboard")
+      Router.push("/dashboard");
     }
-
-  }, [userIsAuthed])
+  }, [userIsAuthed]);
 
   return (
     <IndexWrapper>
@@ -99,9 +104,24 @@ const Index = () => {
       <ContentWrapper>
         <Heading>Welcome to the World's Easiest Online-Shop Builder</Heading>
         <ButtonWrapper>
-          <Link href="/shopbuilder">
-            <Anchor title="Start!">Start!</Anchor>
-          </Link>
+          <Anchor
+            onClick={() => {
+              localStorage.clear();
+            }}
+          >
+            <LinkStyle href="/shopbuilder">
+              <a
+                style={{
+                  textDecoration: "none",
+                  color: "white",
+                  display: "block"
+                }}
+                title="Start!"
+              >
+                Start!
+              </a>
+            </LinkStyle>
+          </Anchor>
           <AuthButton
             type="button"
             onClick={() => dispatch(authModalController("open"))}
