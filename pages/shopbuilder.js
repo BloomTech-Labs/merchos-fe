@@ -10,6 +10,7 @@ import {
   deleteItemAction,
 } from "../store/actions/ShopBuilderActions";
 import ModalLayout from "../components/ShopBuilder/ModalLayout";
+import ModalProducts from "../components/ShopBuilder/ModalProducts";
 import SideBar from "../components/ShopBuilder/SideBar";
 import styled, { keyframes } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -75,7 +76,8 @@ const DropZone = styled.div`
 `;
 
 const ShopContainer = styled.div`
-  ${(props) => (props.blurContainer ? "filter: blur(2px);" : "")}
+  ${(props) => (props.blurContainerTheme ? "filter: blur(2px);" : "")}
+  ${(props) => (props.blurContainerEdit ? "filter: blur(2px);" : "")}
 `;
 
 const ClosedSideBarButton = styled.div`
@@ -91,6 +93,8 @@ const ClosedSideBarButton = styled.div`
 
 const ShopBuilder = (props) => {
   const [displayModal, setDisplayModal] = useState(false);
+  const [editProduct, setEditProduct] = useState(false);
+  const [editType, setEditType] = useState("broken");
 
   const [dragId, setDragId] = useState();
   const sidebarLayout = props.state.SideBar.layout;
@@ -188,7 +192,15 @@ const ShopBuilder = (props) => {
       />
       {props.authModalActive && <AuthModal />}
       <ModalLayout displayModal={displayModal} display={setDisplayModal} />
-      <ShopContainer blurContainer={displayModal}>
+      <ModalProducts
+        editProduct={editProduct}
+        display={setEditProduct}
+        editType={editType}
+      />
+      <ShopContainer
+        blurContainerTheme={displayModal}
+        blurContainerEdit={editProduct}
+      >
         <Page>
           {/* side bar that you drag stuff from */}
           {/* side bar can be toggled open and close */}
@@ -259,7 +271,7 @@ const ShopBuilder = (props) => {
               }}
               style={{
                 background: "white",
-                minHeight: "500px",
+                minHeight: "100vh",
                 width: "100vw",
                 paddingTop: "0",
               }}
@@ -286,13 +298,15 @@ const ShopBuilder = (props) => {
                       }}
                       onMouseUp={(e) => {
                         if (
-                          e.clientX === mouseMove[0] ||
+                          e.clientX === mouseMove[0] &&
                           e.clientY === mouseMove[1]
                         ) {
-                          setTimeout(() => {}, 1);
+                          setEditProduct(!editProduct);
+                          setEditType(
+                            props.state.Page.content[index].contentType
+                          );
                         }
                       }}
-                      draggable={false}
                     >
                       <Reset />
                       {props.state.Page.content.length
