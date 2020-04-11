@@ -95,6 +95,7 @@ const ShopBuilder = (props) => {
   const [displayModal, setDisplayModal] = useState(false);
   const [editProduct, setEditProduct] = useState(false);
   const [editType, setEditType] = useState("broken");
+  const [topVisible, setTopVisible] = useState(true);
 
   const [dragId, setDragId] = useState();
   const sidebarLayout = props.state.SideBar.layout;
@@ -189,6 +190,8 @@ const ShopBuilder = (props) => {
         setSideBarDisplay={setSideBarDisplay}
         authModalActive={props.authModalActive}
         workspace={props.state}
+        topVisible={topVisible}
+        setTopVisible={setTopVisible}
       />
       {props.authModalActive && <AuthModal />}
       <ModalLayout displayModal={displayModal} display={setDisplayModal} />
@@ -254,7 +257,9 @@ const ShopBuilder = (props) => {
               }}
               measureBeforeMount={true}
               useCSSTransforms={true}
-              isDroppable={true}
+              isDraggable={topVisible}
+              isDroppable={topVisible}
+              isResizable={topVisible}
               preventCollision={false}
               onBreakpointChange={props.onBreakpointChange}
               onLayoutChange={props.updateLayoutAction}
@@ -284,6 +289,7 @@ const ShopBuilder = (props) => {
                     <FontAwesomeIcon
                       icon={faTimes}
                       style={{
+                        display: `${topVisible ? "initial" : "none"}`,
                         fontSize: "3.8rem",
                         opacity: "0.72",
                         marginRight: "10px",
