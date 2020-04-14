@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { Carousel } from "merch_components";
+import Axios from "axios";
 import {
   Bag,
   Cap,
@@ -10,7 +12,7 @@ import {
   Pants,
   Kids,
 } from "./Icons/icons";
-import Axios from "axios";
+import DisplayProduct from "./DisplayProduct";
 
 const Icons = styled.div`
   margin: 35px 0 0 38px;
@@ -36,40 +38,90 @@ const ProductTitle = styled.div`
   margin-left: 50px;
 `;
 
-const SVG = styled.svg`
+const Button = styled.button`
   margin-right: 30px;
+  ::nth:child(1) {
+    margin-right: 100px;
+  }
   border: 1px solid black;
   width: 60px;
   height: 60px;
-  background: ${({ select }) => (select === true ? "blue" : "white")}
-  fill: black;
+  background: white;
   border-radius: 8px;
   cursor: pointer;
-  pointer-events: none;
+  z-index: 1;
 `;
 
 const SelectProducts = ({ select }) => {
-  const [selected, setSelected] = useState(true);
+  const [selected, setSelected] = useState(false);
+  const [productName, setProductName] = useState("short-sleeve-shirts");
+  const [products, setProducts] = useState([]);
+  const [iterator, setIterator] = useState(2);
+  const [tempArray, setTempArray] = useState([]);
+
+  useEffect(() => {
+    Axios.get(
+      `https://api.scalablepress.com/v2/categories/${productName}`
+    ).then((data) => {
+      console.log(data);
+      setProducts(data.data.products);
+      setTempArray(
+        data.data.products.filter((p, i) => {
+          if (!p.image) {
+            p[i++];
+          } else if (i + 1 < iterator * 5 + 1) {
+            console.log("reach this");
+            return p.image.url;
+          } else {
+            return null;
+          }
+        })
+      );
+    });
+  }, [productName]);
 
   const toggleSelected = () => {
-    select === selected ? setSelected(!selected) : setSelected(!selected);
+    setSelected(ture);
   };
 
+  const handleClick = (e) => {
+    setProductName(e.target.value);
+    console.log(e.target.value);
+  };
   console.log(selected);
+  console.log("temparry", tempArray);
   return (
     <div>
       <ProductHeading>Pick a Product to Sell:</ProductHeading>
       <Icons>
-        <Shirt />
-        <SVG select={select} onClick={toggleSelected}>
+        <Button
+          select={selected}
+          onClick={handleClick}
+          value="short-sleeve-shirts"
+        >
+          <Shirt />
+        </Button>
+        <Button select={selected} onClick={handleClick} value="hats">
           <Cap />
-        </SVG>
-        <OuterWear />
-        <Pants />
-        <Mug />
-        <Bag />
-        <Kids />
-        <Poster />
+        </Button>
+        <Button select={selected} onClick={handleClick} value="outerwear">
+          <OuterWear />
+        </Button>
+        <Button select={selected} onClick={handleClick} value="shorts">
+          <Pants />
+        </Button>
+        <Button select={selected} onClick={handleClick} value="mugs">
+          <Mug />
+        </Button>
+        <Button select={selected} onClick={handleClick} value="small-bags">
+          <Bag />
+        </Button>
+        <Button select={selected} onClick={handleClick} value="youth-t-shirts">
+          <Kids />
+        </Button>
+        <Button select={selected} onClick={handleClick} value="posters">
+          <Poster />
+        </Button>
       </Icons>
       <ProductTitle>
         <h2>Shirt</h2>
@@ -81,6 +133,10 @@ const SelectProducts = ({ select }) => {
         <h2 style={{ marginLeft: "50px" }}>Kid</h2>
         <h2 style={{ marginLeft: "45px" }}>Posters</h2>
       </ProductTitle>
+
+      <div style={{ marginTop: "-116px", zIndex: -100 }}>
+        <Carousel images={tempArray.map((pic) => pic.image.url)} />
+      </div>
     </div>
   );
 };

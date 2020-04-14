@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import SelectProducts from "./SelectProducts";
-import DisplayProduct from "./DisplayProduct";
 import ProductData from "./ProductData";
 
 const CreateProducts = () => {
@@ -28,7 +27,6 @@ const CreateProducts = () => {
       <ProductContainer>
         <CreationModal>
           <SelectProducts />
-          <DisplayProduct />
           <ProductData />
         </CreationModal>
       </ProductContainer>

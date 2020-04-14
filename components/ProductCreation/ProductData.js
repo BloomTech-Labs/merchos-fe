@@ -6,7 +6,7 @@ const ProductData = () => {
     title: "",
     description: "",
     price: 0.0,
-    sale: 0.0
+    sale: 0.0,
   });
 
   const StyledInput = styled.label`
@@ -65,17 +65,18 @@ const ProductData = () => {
 
   const ColorHeading = styled.h2``;
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     e.preventDefault();
+    console.log(e.target.value);
     setData({ [e.target.name]: e.target.value });
   };
 
-  const handleColorChange = color => {
+  const handleColorChange = (color) => {
     setColor(color.hex);
   };
   return (
     <>
-      <StyledForm onSubmit={e => e.preventDefault()}>
+      <StyledForm onSubmit={(e) => e.preventDefault()}>
         <StyledLabel htmlFor="title">
           <Header>Title:</Header>
           <InputSize name="title" value={data.title} onChange={handleChange} />
@@ -87,8 +88,8 @@ const ProductData = () => {
           <Header style={{ marginLeft: "-19px" }}>Description:</Header>
           <InputSize
             name="description"
-            value={data.description}
             onChange={handleChange}
+            value={data.description}
           />
         </StyledLabel>
         <StyledInput htmlFor="price">
@@ -96,7 +97,7 @@ const ProductData = () => {
           <InputSize
             name="price"
             value={data.price}
-            onChange={handleChange}
+            // onChange={handleChange}
             style={{ paddingLeft: "15px" }}
           />
         </StyledInput>
@@ -105,7 +106,7 @@ const ProductData = () => {
           <InputSize
             name="sale"
             value={data.sale}
-            onChange={handleChange}
+            // onChange={handleChange}
             style={{ paddingLeft: "15px" }}
           />
         </StyledInput>

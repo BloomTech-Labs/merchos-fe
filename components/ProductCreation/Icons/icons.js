@@ -3,16 +3,8 @@ import styled from "styled-components";
 
 export const Bag = () => {
   const SVG = styled.svg`
-  margin-right: 20px;
-  border: 1px solid black;
-  width: 60px;
-  height: 60px;
-  background: ${({ selected }) => (selected === true ? "blue" : "white")}
-  fill: black;
-  border-radius: 8px;
-  cursor: pointer;
-  pointer-events: none;
-`;
+    pointer-events: none;
+  `;
   return (
     <SVG
       width="38"
@@ -29,20 +21,14 @@ export const Bag = () => {
   );
 };
 
-export const Cap = () => {
+export const Cap = ({ handleClick }) => {
   const SVG = styled.svg`
-  margin-right: 20px;
-  border: 1px solid black;
-  width: 60px;
-  height: 60px;
-  background: ${({ selected }) => (selected === true ? "blue" : "white")}
-  fill: black;
-  border-radius: 8px;
-  cursor: pointer;
-  pointer-events: none;
-`;
+    pointer-events: none;
+  `;
+
   return (
-    <svg
+    <SVG
+      onClick={handleClick}
       width="59"
       height="49"
       viewBox="-9 0 59 29"
@@ -65,24 +51,28 @@ export const Cap = () => {
         d="M24.1577 20.0714C24.1577 19.9105 24.0938 19.7561 23.9799 19.6423C23.8661 19.5285 23.7118 19.4646 23.5508 19.4646H15.0551C14.8941 19.4646 14.7398 19.5285 14.626 19.6423C14.5122 19.7561 14.4482 19.9105 14.4482 20.0714C14.4482 20.2324 14.5122 20.3867 14.626 20.5005C14.7398 20.6143 14.8941 20.6783 15.0551 20.6783H23.5508C23.7118 20.6783 23.8661 20.6143 23.9799 20.5005C24.0938 20.3867 24.1577 20.2324 24.1577 20.0714Z"
         fill="black"
       />
-    </svg>
+      <rect onClick={() => console.log("clicked again")} />
+    </SVG>
   );
 };
 
 export const Shirt = () => {
   const SVG = styled.svg`
-  margin-right: 20px;
-  border: 1px solid black;
-  width: 60px;
-  height: 60px;
-  background: ${({ selected }) => (selected === true ? "blue" : "white")}
-  fill: black;
-  border-radius: 8px;
-  cursor: pointer;
+  // margin-right: 20px;
+  // border: 1px solid black;
+  // width: 60px;
+  // height: 60px;
+  // background: ${({ selected }) => (selected === true ? "blue" : "white")}
+  // fill: black;
+  // border-radius: 8px;
+  // cursor: pointer;
   pointer-events: none;
+  z-index: 0
+
 `;
   return (
     <SVG
+      value="shirt"
       width="35"
       height="35"
       viewBox="0 0 35 35"
@@ -91,7 +81,7 @@ export const Shirt = () => {
     >
       <path
         d="M34.6816 5.78573C31.1793 2.53174 26.716 0.501603 21.9617 0H13.0371C8.28283 0.501603 3.81953 2.53174 0.317194 5.78573C0.112465 5.99217 -0.00162312 6.27155 1.74515e-05 6.56227V17.4994C1.74515e-05 18.1035 0.489658 18.5931 1.09373 18.5931H6.56229V33.9051C6.56229 34.5091 7.05193 34.9988 7.656 34.9988H27.3428C27.9469 34.9988 28.4365 34.5091 28.4365 33.9051V18.5931H33.9051C34.5091 18.5931 34.9988 18.1035 34.9988 17.4994V6.56227C35.0005 6.27155 34.8863 5.99217 34.6816 5.78573ZM14.2183 2.18742H20.7805V3.28113C20.7805 5.09328 19.3115 6.56227 17.4994 6.56227C15.6873 6.56227 14.2183 5.09328 14.2183 3.28113V2.18742ZM32.8114 16.4057H28.4365V10.9371H26.2491V32.8113H8.74971V10.9371H6.56229V16.4057H2.18744V7.02163C4.97039 4.57978 8.37921 2.96245 12.0308 2.35148V3.28113C12.0308 6.30135 14.4792 8.74969 17.4994 8.74969C20.5196 8.74969 22.968 6.30135 22.968 3.28113V2.35148C26.6208 2.95856 30.0307 4.57636 32.8114 7.02163V16.4057Z"
-        fill="white"
+        fill="black"
       />
     </SVG>
   );
@@ -99,16 +89,8 @@ export const Shirt = () => {
 
 export const Mug = () => {
   const SVG = styled.svg`
-  margin-right: 20px;
-  border: 1px solid black;
-  width: 60px;
-  height: 60px;
-  background: ${({ selected }) => (selected === true ? "blue" : "white")}
-  fill: black;
-  border-radius: 8px;
-  cursor: pointer;
-  pointer-events: none;
-`;
+    pointer-events: none;
+  `;
   return (
     <SVG
       width="32"
@@ -131,16 +113,8 @@ export const Mug = () => {
 
 export const OuterWear = () => {
   const SVG = styled.svg`
-  margin-right: 20px;
-  border: 1px solid black;
-  width: 60px;
-  height: 60px;
-  background: ${({ selected }) => (selected === true ? "blue" : "white")}
-  fill: black;
-  border-radius: 8px;
-  cursor: pointer;
-  pointer-events: none;
-`;
+    pointer-events: none;
+  `;
   return (
     <SVG
       width="41"
@@ -159,16 +133,8 @@ export const OuterWear = () => {
 
 export const Poster = () => {
   const SVG = styled.svg`
-  margin-right: 20px;
-  border: 1px solid black;
-  width: 60px;
-  height: 60px;
-  background: ${({ selected }) => (selected === true ? "blue" : "white")}
-  fill: black;
-  border-radius: 8px;
-  cursor: pointer;
-  pointer-events: none;
-`;
+    pointer-events: none;
+  `;
   return (
     <SVG
       width="43"
@@ -207,16 +173,8 @@ export const Poster = () => {
 
 export const Pants = () => {
   const SVG = styled.svg`
-  margin-right: 20px;
-  border: 1px solid black;
-  width: 60px;
-  height: 60px;
-  background: ${({ selected }) => (selected === true ? "blue" : "white")}
-  fill: black;
-  border-radius: 8px;
-  cursor: pointer;
-  pointer-events: none;
-`;
+    pointer-events: none;
+  `;
   return (
     <SVG
       width="23"
@@ -239,16 +197,8 @@ export const Pants = () => {
 
 export const Kids = () => {
   const SVG = styled.svg`
-  margin-right: 20px;
-  border: 1px solid black;
-  width: 60px;
-  height: 60px;
-  background: ${({ selected }) => (selected === true ? "blue" : "white")}
-  fill: black;
-  border-radius: 8px;
-  cursor: pointer;
-  pointer-events: none;
-`;
+    pointer-events: none;
+  `;
   return (
     <SVG
       id="Capa_1"
