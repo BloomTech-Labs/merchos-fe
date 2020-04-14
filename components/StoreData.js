@@ -3,25 +3,6 @@ import styled from "styled-components";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 import { IoIosSettings, IoIosAddCircle } from "react-icons/io";
 
-const Container = styled.div`
-  width: 85%;
-  padding-right: 3%;
-  margin-right: 5%;
-
-  background: #f3f3ff;
-  box-shadow: inset -2px -2px 6px 2px #fff, inset 2px 2px 6px 2px #787878;
-  border-radius: 75px 75px 0px 0px;
-`;
-const Title = styled.h1`
-  font-size: 4rem;
-  font-weight: 800;
-  display: flex;
-  justify-content: center;
-  padding-top: 2%;
-  color: #0047ff;
-  text-decoration: underline;
-`;
-
 const StoreName = styled.h2`
   font-size: 2rem;
   font-style: bold;
@@ -131,7 +112,7 @@ export default function StoreData(data) {
     if (bool == true) {
       console.log(data.props.id);
       axiosWithAuth()
-        .delete(`/store/${data.props.store_name}`)
+        .delete(`/store/${data.props.store_url}`)
         .catch(error => {
           console.log(error);
         });
@@ -142,7 +123,7 @@ export default function StoreData(data) {
 
   function updateStore(e) {
     axiosWithAuth()
-      .put(`/store/${data.props.store_name}`)
+      .put(`/store/${data.props.store_url}`)
       .then(res => {
         console.log("store edited:", res);
         history.push("/store");
@@ -152,7 +133,7 @@ export default function StoreData(data) {
       });
   }
 
-  // onclick funtion for add store button
+  // onclick function for add a store button
   function addStore(e) {
     console.log("clicked");
     window.location = "/shopbuilder";
@@ -169,8 +150,7 @@ export default function StoreData(data) {
   }
 
   return (
-    <Container>
-      <Title>Stores:</Title>
+    <div>
       <CardHolder>
         <StoreName>
           {data.props.store_name}
@@ -193,6 +173,6 @@ export default function StoreData(data) {
         <IoIosAddCircle cursor="pointer" size="4rem" color="#0047FF" />
         New Store
       </AddNewBtn>
-    </Container>
+    </div>
   );
 }
