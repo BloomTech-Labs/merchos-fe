@@ -13,11 +13,11 @@ const NavBar = styled.section`
   justify-content: center;
   background: #e3e6ec;
   padding: 10px 20px;
-  box-shadow: ${props =>
+  box-shadow: ${(props) =>
     !props.visible ? "" : "0px 0px 14px rgba(0, 0, 0, 0.31)"};
   position: relative;
   transition: 0.2s;
-  margin-top: ${props => (!props.visible ? "-110px" : "0px")};
+  margin-top: ${(props) => (!props.visible ? "-110px" : "0px")};
   z-index: 6;
 `;
 
@@ -73,7 +73,7 @@ const UserButton = styled.button`
 const OpenNav = styled.button`
   position: fixed;
   transition: 0.2s;
-  top: ${props => (props.visible ? "-50px" : "0px")};
+  top: ${(props) => (props.visible ? "-50px" : "0px")};
   right: 100px;
   border-radius: 0px 0px 25px 25px;
   border: 0px;
@@ -100,7 +100,9 @@ const ShopNavBar = ({
   userAuthed,
   setSideBarDisplay,
   authModalActive,
-  workspace
+  workspace,
+  topVisible,
+  setTopVisible,
 }) => {
   const dispatch = useDispatch();
 
@@ -112,9 +114,8 @@ const ShopNavBar = ({
     }
   }, [authModalActive]);
 
-  const [topVisible, setTopVisible] = useState(true);
   // function for the button/links
-  const linkHandler = action => {
+  const linkHandler = (action) => {
     if (action === "Preview") return previewButton();
     if (action === "Sign In") {
       previewButton();
@@ -146,7 +147,7 @@ const ShopNavBar = ({
 
   // opens and closes the sidebar/navbar
   const previewButton = () => {
-    setSideBarDisplay(prevState => {
+    setSideBarDisplay((prevState) => {
       // if sidebar doesn't have the same bool as top nav bar
       if (prevState !== topVisible) {
         // return previous state
@@ -157,7 +158,7 @@ const ShopNavBar = ({
         return !prevState;
       }
     });
-    setTopVisible(prevState => !prevState);
+    setTopVisible((prevState) => !prevState);
   };
 
   return (
