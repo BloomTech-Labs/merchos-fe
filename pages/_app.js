@@ -6,6 +6,7 @@ import initStore from '../store/initStore';
 import { PersistGate } from 'redux-persist/integration/react';
 
 import Toasts from '../components/Toasts';
+import AuthModal from '../components/auth/AuthModal'
 
 import { GlobalStyle } from '../styles/GlobalStyles';
 import '../node_modules/react-grid-layout/css/styles.css';
@@ -25,6 +26,7 @@ class MyApp extends App {
       <Provider store={store}>
         <PersistGate persistor={store.__persistor} loading={null}>
           <GlobalStyle />
+          <AuthModal />
           <Component {...pageProps} />
           <Toasts />
         </PersistGate>

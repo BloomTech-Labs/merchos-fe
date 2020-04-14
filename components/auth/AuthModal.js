@@ -9,7 +9,7 @@ import BottomButton from './BottomButton';
 // Redux actions
 import { authModalController } from '../../store/actions/userInterface/authModalController';
 import { authorizeUser } from '../../store/actions/userAuth/userAuthActions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const ModalContainer = styled.div`
   display: flex;
@@ -20,7 +20,7 @@ const ModalContainer = styled.div`
   background: rgba(0, 0, 0, 0.8);
   overflow: hidden;
   position: fixed;
-  z-index: 10;
+  z-index: 15;
 `;
 
 const Modal = styled.div`
@@ -62,14 +62,15 @@ const XButton = styled.button`
   }
 `;
 
-const useOutsideModal = (ref) => {
-  
-};
-
 const AuthModal = () => {
   const dispatch = useDispatch();
-  const wrapperRef = useRef(null);
 
+  const activeStatus = useSelector(
+    (state) => state.authInterface.authModalActive
+  );
+
+  // close modal if a user clicks outside of it
+  const wrapperRef = useRef(null);
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
 
@@ -80,10 +81,11 @@ const AuthModal = () => {
 
   const handleClickOutside = (event) => {
     if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
-      modalCloser()
+      modalCloser();
     }
-  }
+  };
 
+  // handles the active tab
   const [activeTab, setActiveTab] = useState('Sign In');
   const tabHandler = (data) => {
     setActiveTab(data);
@@ -97,25 +99,30 @@ const AuthModal = () => {
   const modalCloser = () => {
     dispatch(authModalController('close'));
   };
-  return (
-    <ModalContainer>
-      <Modal ref={wrapperRef}>
-        <XButton type='button' onClick={modalCloser}>
-          x
-        </XButton>
-        <TabBar>
-          <Tab tabHandler={tabHandler} isActive={activeTab}>
-            Sign In
-          </Tab>
-          <Tab tabHandler={tabHandler} isActive={activeTab}>
-            Sign Up
-          </Tab>
-        </TabBar>
-        <Form activeTab={activeTab} submitHandler={submitHandler} />
-        <BottomButton activeTab={activeTab} tabHandler={tabHandler} />
-      </Modal>
-    </ModalContainer>
-  );
+
+  if (activeStatus) {
+    return (
+      <ModalContainer>
+        <Modal ref={wrapperRef}>
+          <XButton type='button' onClick={modalCloser}>
+            x
+          </XButton>
+          <TabBar>
+            <Tab tabHandler={tabHandler} isActive={activeTab}>
+              Sign In
+            </Tab>
+            <Tab tabHandler={tabHandler} isActive={activeTab}>
+              Sign Up
+            </Tab>
+          </TabBar>
+          <Form activeTab={activeTab} submitHandler={submitHandler} />
+          <BottomButton activeTab={activeTab} tabHandler={tabHandler} />
+        </Modal>
+      </ModalContainer>
+    );
+  } else {
+    return null
+  }
 };
 
 export default AuthModal;

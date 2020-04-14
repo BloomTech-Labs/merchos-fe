@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import Router from 'next/router';
-import { useDispatch } from 'react-redux';
+import React, { useState, useEffect } from 'react'
+import styled from 'styled-components'
+import Router from 'next/router'
+import { useDispatch, useSelector } from 'react-redux'
 
 // actions
-import { authModalController } from '../../store/actions/userInterface/authModalController';
-import { saveStore } from '../../store/actions/shopServerConnection/shopServerConnection';
-import { toastController } from '../../store/actions/userInterface/toastActions';
+import { authModalController } from '../../store/actions/userInterface/authModalController'
+import { toastController } from '../../store/actions/userInterface/toastActions'
+import { openStoreMetaEditor } from '../../store/actions/userInterface/storeMetaInterface'
 
 const NavBar = styled.section`
   display: flex;
@@ -20,7 +20,7 @@ const NavBar = styled.section`
   transition: 0.2s;
   margin-top: ${(props) => (!props.visible ? '-110px' : '0px')};
   z-index: 6;
-`;
+`
 
 const InnerNavBar = styled.div`
   display: flex;
@@ -30,7 +30,7 @@ const InnerNavBar = styled.div`
   box-shadow: inset 1.69px 3.38px 3.37829px rgba(0, 0, 0, 0.25),
     inset -1.69px -3.38px 3.37829px rgba(255, 255, 255, 0.6);
   border-radius: 25px;
-`;
+`
 
 const UserButton = styled.button`
   box-shadow: 3.38px 3.37829px 3.37829px rgba(0, 0, 0, 0.25),
@@ -69,7 +69,7 @@ const UserButton = styled.button`
         -3.387px -3.37829px 3.37829px rgba(255, 255, 255, 0.6);
     }
   }
-`;
+`
 
 const OpenNav = styled.button`
   position: fixed;
@@ -83,19 +83,19 @@ const OpenNav = styled.button`
     inset -1.69px -3.38px 3.37829px rgba(255, 255, 255, 0.6);
   z-index: 4;
   cursor: pointer;
-`;
+`
 
 const UserInput = ({ title, buttonHandler }) => {
   const clickHandler = () => {
-    buttonHandler(title);
-  };
+    buttonHandler(title)
+  }
 
   return (
     <UserButton type='button' onClick={clickHandler}>
       {title}
     </UserButton>
-  );
-};
+  )
+}
 
 const ShopNavBar = ({
   userAuthed,
@@ -103,24 +103,21 @@ const ShopNavBar = ({
   authModalActive,
   workspace,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   // hides navigations if auth modal is active, the opposite if not
   useEffect(() => {
     if (!authModalActive) {
-      setSideBarDisplay(true);
-      setTopVisible(true);
+      setSideBarDisplay(true)
+      setTopVisible(true)
     }
-  }, [authModalActive]);
+  }, [authModalActive])
 
-  const [topVisible, setTopVisible] = useState(true);
+  const [topVisible, setTopVisible] = useState(true)
   // function for the button/links
   const linkHandler = (action) => {
-    if (action === 'Preview') return previewButton();
-    if (action === 'Sign In') {
-      previewButton();
-      return dispatch(authModalController('open'));
-    }
+    if (action === 'Preview') return previewButton()
+    if (action === 'Sign In') return dispatch(authModalController('open'))
 
     // Check if user is authenticated
     if (userAuthed) {
@@ -128,21 +125,22 @@ const ShopNavBar = ({
       // with their action passed in
       switch (action) {
         case 'Back Office':
-          Router.push('/dashboard');
-          break;
+          Router.push('/dashboard')
+          break
         case 'Save':
-          dispatch(saveStore(workspace));
-          break;
+          dispatch(openStoreMetaEditor())
+          break
         case 'Publish':
-          break;
+          dispatch(openStoreMetaEditor())
+          break
         default:
-          break;
+          break
       }
     } else {
       // create toast of type 'auth'
-      dispatch(toastController('auth'));
+      dispatch(toastController('auth'))
     }
-  };
+  }
 
   // opens and closes the sidebar/navbar
   const previewButton = () => {
@@ -150,24 +148,33 @@ const ShopNavBar = ({
       // if sidebar doesn't have the same bool as top nav bar
       if (prevState !== topVisible) {
         // return previous state
-        return prevState;
+        return prevState
         // else if the sidebar and top bar are the same, return the opposite
       } else if (prevState === topVisible) {
         // then return the opposite
-        return !prevState;
+        return !prevState
       }
-    });
-    setTopVisible((prevState) => !prevState);
-  };
+    })
+    setTopVisible((prevState) => !prevState)
+  }
 
   return (
     <NavBar visible={topVisible}>
       <InnerNavBar>
         <UserInput title='Back Office' buttonHandler={linkHandler} />
         <div>
-          <UserInput title='Save' buttonHandler={linkHandler} />
-          <UserInput title='Preview' buttonHandler={linkHandler} />
-          <UserInput title='Publish' buttonHandler={linkHandler} />
+          <UserInput
+            title='Save'
+            buttonHandler={linkHandler}
+          />
+          <UserInput
+            title='Preview'
+            buttonHandler={linkHandler}
+          />
+          <UserInput
+            title='Publish'
+            buttonHandler={linkHandler}
+          />
         </div>
         <UserInput title='Sign In' buttonHandler={linkHandler} />
       </InnerNavBar>
@@ -175,7 +182,7 @@ const ShopNavBar = ({
         Exit Preview
       </OpenNav>
     </NavBar>
-  );
-};
+  )
+}
 
-export default ShopNavBar;
+export default ShopNavBar

@@ -5,8 +5,8 @@ import styled from 'styled-components';
 
 const ToastList = styled.ul`
   position: fixed;
-  left: 150px;
-  bottom: 10px;
+  right: 15px;
+  top: 125px;
   font-size: 2rem;
 
   li {
