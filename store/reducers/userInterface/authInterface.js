@@ -13,8 +13,10 @@ import {
 
 const initialState = {
   authModalActive: false,
-  authLoading: false,
-  authErr: false
+  loginLoading: false,
+  loginErr: '',
+  regLoading: false,
+  regErr: ''
 };
 
 /**
@@ -30,45 +32,51 @@ export const authInterface = (state = initialState, action) => {
         ...state,
         authModalActive: true
       };
+
     case CLOSE_AUTH_MODAL:
-      return {
-        ...state,
-        authModalActive: false
-      };
+      return initialState;
+
     case USER_LOGIN_TRY:
       return {
         ...state,
-        authLoading: true,
-        authErr: false
+        loginLoading: true,
+        loginErr: ''
       };
+
     case USER_LOGIN_SUCCESS:
       return {
         ...state,
-        authLoading: false
+        loginLoading: false,
+        loginErr: ''
       };
+
     case USER_LOGIN_FAIL:
       return {
         ...state,
-        authLoading: false,
-        authErr: true
+        loginLoading: false,
+        loginErr: action.payload
       };
+
     case USER_REGISTER_TRY:
       return {
         ...state,
-        authLoading: true,
-        authErr: false
+        regLoading: true,
+        regErr: ''
       };
+
     case USER_REGISTER_SUCCESS:
       return {
         ...state,
-        authLoading: false
+        regLoading: false
       };
+
     case USER_REGISTER_FAIL:
       return {
         ...state,
-        authLoading: false,
-        authErr: true
+        regLoading: false,
+        regErr: action.payload
       };
+
     default:
       return state;
   }

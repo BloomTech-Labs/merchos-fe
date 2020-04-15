@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
 // Components
@@ -9,7 +9,7 @@ import BottomButton from './BottomButton';
 // Redux actions
 import { authModalController } from '../../store/actions/userInterface/authModalController';
 import { authorizeUser } from '../../store/actions/userAuth/userAuthActions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const ModalContainer = styled.div`
   display: flex;
@@ -20,7 +20,7 @@ const ModalContainer = styled.div`
   background: rgba(0, 0, 0, 0.8);
   overflow: hidden;
   position: fixed;
-  z-index: 10;
+  z-index: 15;
 `;
 
 const Modal = styled.div`
@@ -44,29 +44,47 @@ const TabBar = styled.ul`
 `;
 
 const XButton = styled.button`
-  border: 1px solid #82daff;
   background: transparent;
   position: absolute;
-  border-radius: 50%;
   color: #82daff;
-  font-size: 1.5rem;
-  top: 5px;
-  right: 5px;
+  font-size: 2.5rem;
+  top: 2px;
+  right: 4px;
   cursor: pointer;
   transition: 0.2s;
 
   // testing hover animation
   &:hover {
     color: blue;
-    border: 1px solid blue;
   }
 `;
 
 const AuthModal = () => {
   const dispatch = useDispatch();
 
+  const activeStatus = useSelector(
+    (state) => state.authInterface.authModalActive
+  );
+
+  // close modal if a user clicks outside of it
+  const wrapperRef = useRef(null);
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  const handleClickOutside = (event) => {
+    if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+      modalCloser();
+    }
+  };
+
+  // handles the active tab
   const [activeTab, setActiveTab] = useState('Sign In');
-  const tabHandler = data => {
+  const tabHandler = (data) => {
     setActiveTab(data);
   };
 
@@ -74,28 +92,34 @@ const AuthModal = () => {
     e.preventDefault();
     dispatch(authorizeUser(activeTab, data));
   };
-  return (
-    <ModalContainer>
-      <Modal>
-        <XButton
-          type='button'
-          onClick={() => dispatch(authModalController('close'))}
-        >
-          x
-        </XButton>
-        <TabBar>
-          <Tab tabHandler={tabHandler} isActive={activeTab}>
-            Sign In
-          </Tab>
-          <Tab tabHandler={tabHandler} isActive={activeTab}>
-            Sign Up
-          </Tab>
-        </TabBar>
-        <Form activeTab={activeTab} submitHandler={submitHandler} />
-        <BottomButton activeTab={activeTab} tabHandler={tabHandler} />
-      </Modal>
-    </ModalContainer>
-  );
+
+  const modalCloser = () => {
+    dispatch(authModalController('close'));
+  };
+
+  if (activeStatus) {
+    return (
+      <ModalContainer>
+        <Modal ref={wrapperRef}>
+          <XButton type='button' onClick={modalCloser}>
+            x
+          </XButton>
+          <TabBar>
+            <Tab tabHandler={tabHandler} isActive={activeTab}>
+              Sign In
+            </Tab>
+            <Tab tabHandler={tabHandler} isActive={activeTab}>
+              Sign Up
+            </Tab>
+          </TabBar>
+          <Form activeTab={activeTab} submitHandler={submitHandler} />
+          <BottomButton activeTab={activeTab} tabHandler={tabHandler} />
+        </Modal>
+      </ModalContainer>
+    );
+  } else {
+    return null
+  }
 };
 
 export default AuthModal;
