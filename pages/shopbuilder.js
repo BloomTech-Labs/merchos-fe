@@ -154,12 +154,11 @@ const ShopBuilder = (props) => {
 
   return (
     <Fragment>
-      <StoreMetaForm />
+      <StoreMetaForm workspace={props.state} />
       <ShopBuilderNav
         userAuthed={props.userAuthed}
         setSideBarDisplay={setSideBarDisplay}
         authModalActive={props.authModalActive}
-        workspace={props.state}
       />
       <ModalLayout displayModal={displayModal} display={setDisplayModal} />
       <ShopContainer blurContainer={displayModal}>

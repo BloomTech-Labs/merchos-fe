@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import Router from 'next/router'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 // actions
 import { authModalController } from '../../store/actions/userInterface/authModalController'
 import { toastController } from '../../store/actions/userInterface/toastActions'
-import { openStoreMetaEditor } from '../../store/actions/userInterface/storeMetaInterface'
+import {
+  openStoreMetaEditor,
+  closeStoreMetaEditor,
+} from '../../store/actions/userInterface/storeMetaInterface'
 
 const NavBar = styled.section`
   display: flex;
@@ -97,12 +100,7 @@ const UserInput = ({ title, buttonHandler }) => {
   )
 }
 
-const ShopNavBar = ({
-  userAuthed,
-  setSideBarDisplay,
-  authModalActive,
-  workspace,
-}) => {
+const ShopNavBar = ({ userAuthed, setSideBarDisplay, authModalActive }) => {
   const dispatch = useDispatch()
 
   // hides navigations if auth modal is active, the opposite if not
@@ -144,6 +142,7 @@ const ShopNavBar = ({
 
   // opens and closes the sidebar/navbar
   const previewButton = () => {
+    dispatch(closeStoreMetaEditor())
     setSideBarDisplay((prevState) => {
       // if sidebar doesn't have the same bool as top nav bar
       if (prevState !== topVisible) {
@@ -163,18 +162,9 @@ const ShopNavBar = ({
       <InnerNavBar>
         <UserInput title='Back Office' buttonHandler={linkHandler} />
         <div>
-          <UserInput
-            title='Save'
-            buttonHandler={linkHandler}
-          />
-          <UserInput
-            title='Preview'
-            buttonHandler={linkHandler}
-          />
-          <UserInput
-            title='Publish'
-            buttonHandler={linkHandler}
-          />
+          <UserInput title='Save' buttonHandler={linkHandler} />
+          <UserInput title='Preview' buttonHandler={linkHandler} />
+          <UserInput title='Publish' buttonHandler={linkHandler} />
         </div>
         <UserInput title='Sign In' buttonHandler={linkHandler} />
       </InnerNavBar>

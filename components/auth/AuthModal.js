@@ -44,21 +44,18 @@ const TabBar = styled.ul`
 `;
 
 const XButton = styled.button`
-  border: 1px solid #82daff;
   background: transparent;
   position: absolute;
-  border-radius: 50%;
   color: #82daff;
-  font-size: 1.5rem;
-  top: 5px;
-  right: 5px;
+  font-size: 2.5rem;
+  top: 2px;
+  right: 4px;
   cursor: pointer;
   transition: 0.2s;
 
   // testing hover animation
   &:hover {
     color: blue;
-    border: 1px solid blue;
   }
 `;
 

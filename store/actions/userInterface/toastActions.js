@@ -13,6 +13,10 @@ export const toastController = (type) => (dispatch) => {
     message = 'You must be logged in to do that';
   }
 
+  if (type === 'storeSaved') {
+    message = 'Your store has been saved'
+  }
+
   dispatch({ type: ADD_TOAST_VALUES, payload: { id, message } });
   setTimeout(() => {
     dispatch({ type: REMOVE_TOAST_VALUES, payload: id });
