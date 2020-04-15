@@ -36,6 +36,7 @@ export const storeMetaInterface = (state = initialState, action) => {
         ...state,
         loading: false,
         errors: '',
+        interfaceActive: false
       }
     case SAVE_STORE_FAIL:
       return {
