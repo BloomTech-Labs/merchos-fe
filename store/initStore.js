@@ -34,7 +34,7 @@ export default (initialState, { isServer, req, debug, storeKey }) => {
     const persistConfig = {
       key: 'nextjs',
       storage,
-      blacklist: ['authInterface', 'toastController']
+      blacklist: ['authInterface', 'toastController', 'storeMetaInterface']
     };
 
     // we'll pass in the configurations and the root reducer
