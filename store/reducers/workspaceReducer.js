@@ -8,7 +8,7 @@ import { DELETE_ACTION } from "../actions/ShopBuilderActions";
 import {
   BasicLayout,
   BlankLayout,
-  BasicLayoutContent
+  BasicLayoutContent,
 } from "../../components/ShopBuilder/Layouts/BasicLayout";
 
 // icons
@@ -25,7 +25,7 @@ const initialState = {
     ],
     content: [],
     updatedBreakpoint: true,
-    date: Date.now().toPrecision()
+    date: Date.now().toPrecision(),
   },
   SideBar: {
     id: "SideBar",
@@ -33,31 +33,47 @@ const initialState = {
       {
         id: "banner",
         content: "banner",
-        icon: BannerIcon
+        icon: BannerIcon,
       },
       {
         id: "product-container",
         content: "products",
-        icon: ProductIcon
+        icon: ProductIcon,
       },
       {
         id: "store-name",
-        content: "store header"
+        content: "store header",
       },
       {
         id: "image",
-        content: "image"
+        content: "image",
       },
       {
         id: "carousel",
-        content: "carousel"
+        content: "carousel",
+      },
+      {
+        id: "button",
+        content: "button",
+      },
+      {
+        id: "linkbar",
+        content: "linkbar",
+      },
+      {
+        id: "navigation",
+        content: "navigation",
+      },
+      {
+        id: "footer",
+        content: "footer",
       },
       {
         id: "theme",
-        content: "theme"
-      }
-    ]
-  }
+        content: "theme",
+      },
+    ],
+  },
 };
 
 const workspaceReducer = (state = initialState, action) => {
@@ -68,7 +84,7 @@ const workspaceReducer = (state = initialState, action) => {
     dragId,
     indexToRemove,
     resizeOld,
-    resizeNew
+    resizeNew,
   } = action.payload || {};
 
   const tempArray = Array.from(state.Page.layout);
@@ -86,8 +102,8 @@ const workspaceReducer = (state = initialState, action) => {
               ...state.Page,
               layout: BasicLayout,
               content: BasicLayoutContent,
-              date: Date.now().toPrecision()
-            }
+              date: Date.now().toPrecision(),
+            },
           };
         case "Blank Layout":
           return {
@@ -96,8 +112,8 @@ const workspaceReducer = (state = initialState, action) => {
               ...state.Page,
               layout: BlankLayout,
               content: contentArray,
-              date: Date.now().toPrecision()
-            }
+              date: Date.now().toPrecision(),
+            },
           };
         default:
           return state;
@@ -109,8 +125,8 @@ const workspaceReducer = (state = initialState, action) => {
           Page: {
             ...state.Page,
             layout: layoutUpdate,
-            updatedBreakpoint: true
-          }
+            updatedBreakpoint: true,
+          },
         };
       } else {
         return state;
@@ -120,7 +136,7 @@ const workspaceReducer = (state = initialState, action) => {
       const insertContent = {
         content: {},
         contentType: "no content",
-        id: `${dragId}-${Date.now().toPrecision()}`
+        id: `${dragId}-${Date.now().toPrecision()}`,
       };
       switch (dragId) {
         case "banner":
@@ -143,13 +159,29 @@ const workspaceReducer = (state = initialState, action) => {
           insertContent.contentType = "carousel";
           break;
 
+        case "button":
+          insertContent.contentType = "button";
+          break;
+
+        case "linkbar":
+          insertContent.contentType = "linkbar";
+          break;
+
+        case "navigation":
+          insertContent.contentType = "navigation";
+          break;
+
+        case "footer":
+          insertContent.contentType = "footer";
+          break;
+
         default:
           break;
       }
       contentArray.push(insertContent);
       tempArray.push({
         ...itemWithLimits,
-        i: `${state.Page.layout.length}`
+        i: `${state.Page.layout.length}`,
       });
       return {
         ...state,
@@ -157,24 +189,24 @@ const workspaceReducer = (state = initialState, action) => {
           ...state.Page,
           content: contentArray,
           layout: tempArray,
-          updatedBreakpoint: false
-        }
+          updatedBreakpoint: false,
+        },
       };
     case BREAKPOINT_CHANGE:
       return {
         ...state,
         Page: {
           ...state.Page,
-          updatedBreakpoint: true
-        }
+          updatedBreakpoint: true,
+        },
       };
     case DRAG_STOP:
       return {
         ...state,
         Page: {
           ...state.Page,
-          updatedBreakpoint: false
-        }
+          updatedBreakpoint: false,
+        },
       };
 
     case RESIZE_STOP:
@@ -182,8 +214,8 @@ const workspaceReducer = (state = initialState, action) => {
         ...state,
         Page: {
           ...state.Page,
-          updatedBreakpoint: false
-        }
+          updatedBreakpoint: false,
+        },
       };
 
     case DELETE_ACTION:
@@ -195,8 +227,8 @@ const workspaceReducer = (state = initialState, action) => {
           ...state.Page,
           layout: tempArray,
           content: contentArray,
-          updatedBreakpoint: false
-        }
+          updatedBreakpoint: false,
+        },
       };
 
     default:

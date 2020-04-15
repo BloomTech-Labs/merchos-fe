@@ -11,6 +11,7 @@ export const selectLayoutAction = layoutType => dispatch => {
 };
 
 export const updateLayoutAction = layoutUpdate => dispatch => {
+  console.log("LAYOUT_UPDATED: ", layoutUpdate);
   dispatch({ type: UPDATE_LAYOUT, payload: { layoutUpdate } });
 };
 
@@ -26,12 +27,14 @@ export const onBreakpointChange = () => dispatch => {
   dispatch({ type: BREAKPOINT_CHANGE });
 };
 
-export const onDragStop = () => dispatch => {
-  dispatch({ type: DRAG_STOP });
+export const onDragStop = (dragOld, dragNew) => dispatch => {
+  if (dragOld.x !== dragNew.x || dragOld.y !== dragNew.y) {
+    dispatch({ type: DRAG_STOP });
+  }
 };
 
 export const onResizeStop = (resizeOld, resizeNew) => dispatch => {
-  if (resizeOld.w != resizeNew.w || resizeOld.h != resizeNew.h) {
+  if (resizeOld.w !== resizeNew.w || resizeOld.h !== resizeNew.h) {
     dispatch({ type: RESIZE_STOP });
   }
 };

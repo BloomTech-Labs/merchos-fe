@@ -18,10 +18,10 @@ const NavBar = styled.section`
   background: #e3e6ec;
   padding: 10px 20px;
   box-shadow: ${(props) =>
-    !props.visible ? '' : '0px 0px 14px rgba(0, 0, 0, 0.31)'};
+    !props.visible ? "" : "0px 0px 14px rgba(0, 0, 0, 0.31)"};
   position: relative;
   transition: 0.2s;
-  margin-top: ${(props) => (!props.visible ? '-110px' : '0px')};
+  margin-top: ${(props) => (!props.visible ? "-110px" : "0px")};
   z-index: 6;
 `
 
@@ -77,7 +77,7 @@ const UserButton = styled.button`
 const OpenNav = styled.button`
   position: fixed;
   transition: 0.2s;
-  top: ${(props) => (props.visible ? '-50px' : '0px')};
+  top: ${(props) => (props.visible ? "-50px" : "0px")};
   right: 100px;
   border-radius: 0px 0px 25px 25px;
   border: 0px;
@@ -100,8 +100,12 @@ const UserInput = ({ title, buttonHandler }) => {
   )
 }
 
-const ShopNavBar = ({ userAuthed, setSideBarDisplay, authModalActive }) => {
-  const dispatch = useDispatch()
+const ShopNavBar = ({
+  userAuthed,
+  setSideBarDisplay,
+  authModalActive
+}) => {
+  const dispatch = useDispatch();
 
   // hides navigations if auth modal is active, the opposite if not
   useEffect(() => {

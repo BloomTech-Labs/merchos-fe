@@ -8,13 +8,14 @@ import {
   onDragStop,
   onResizeStop,
   deleteItemAction,
-} from '../store/actions/ShopBuilderActions'
-import ModalLayout from '../components/ShopBuilder/ModalLayout'
-import SideBar from '../components/ShopBuilder/SideBar'
-import styled, { keyframes } from 'styled-components'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTimes } from '@fortawesome/free-solid-svg-icons'
-import { faArrowsAltH } from '@fortawesome/free-solid-svg-icons'
+} from "../store/actions/ShopBuilderActions";
+import ModalLayout from "../components/ShopBuilder/ModalLayout";
+import ModalProducts from "../components/ShopBuilder/ModalProducts";
+import SideBar from "../components/ShopBuilder/SideBar";
+import styled, { keyframes } from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faArrowsAltH } from "@fortawesome/free-solid-svg-icons";
 import {
   Item,
   TextBanner,
@@ -22,7 +23,11 @@ import {
   Image,
   Reset,
   Carousel,
-} from 'merch_components'
+  Button,
+  LinkBar,
+  Navigation,
+  Footer,
+} from "merch_components";
 
 // Nav and subsequent components
 import ShopBuilderNav from '../components/ShopBuilder/ShopNavBar'
@@ -35,10 +40,6 @@ const GridItemContainer = styled.div`
   object-fit: contain;
   background: white;
   text-align: right;
-`
-
-const Button = styled.button`
-  font-size: 1.5rem;
 `
 
 const Page = styled.div`
@@ -75,8 +76,9 @@ const DropZone = styled.div`
 `
 
 const ShopContainer = styled.div`
-  ${(props) => (props.blurContainer ? 'filter: blur(2px);' : '')}
-`
+  ${(props) => (props.blurContainerTheme ? "filter: blur(2px);" : "")}
+  ${(props) => (props.blurContainerEdit ? "filter: blur(2px);" : "")}
+`;
 
 const ClosedSideBarButton = styled.div`
   background: #aaacb1;
@@ -90,7 +92,10 @@ const ClosedSideBarButton = styled.div`
 `
 
 const ShopBuilder = (props) => {
-  const [displayModal, setDisplayModal] = useState(false)
+  const [displayModal, setDisplayModal] = useState(false);
+  const [editProduct, setEditProduct] = useState(false);
+  const [editType, setEditType] = useState("broken");
+  const [topVisible, setTopVisible] = useState(true);
 
   const [dragId, setDragId] = useState()
   const sidebarLayout = props.state.SideBar.layout
@@ -111,42 +116,68 @@ const ShopBuilder = (props) => {
             src={component.content.src}
             style={{
               height: `${item.h * 75}px`,
-              width: '100%',
-              objectFit: 'cover',
+              width: "100%",
+              objectFit: "cover",
             }}
           />
-        )
-      case 'carousel':
-        return <Carousel images={component.content.imageArray} />
+        );
+      case "carousel":
+        return <Carousel images={component.content.imageArray} />;
+      case "button":
+        return <Button name="Button" style={{ margin: "0 auto" }} />;
+      case "linkbar":
+        return <LinkBar links={["facebook"]} />;
+      case "navigation":
+        return (
+          <Navigation
+            links={[{ name: "Home" }, { name: "Products" }, { name: "About" }]}
+          />
+        );
+      case "footer":
+        return (
+          <Footer
+            links={[{ name: "Home" }, { name: "Products" }, { name: "About" }]}
+          />
+        );
       default:
         return 'broken'
     }
   }
 
   // function to open and close sidebar
-  const [SideBarDisplay, setSideBarDisplay] = useState(true)
+  const [SideBarDisplay, setSideBarDisplay] = useState(true);
+  const [mouseMove, setMouseMove] = useState([0, 0]);
+
   function openClose() {
     if (SideBarDisplay) {
-      setSideBarDisplay(false)
-      document.getElementById('dropZone').style.marginLeft = '3vw'
+      setSideBarDisplay(false);
+      document.getElementById("dropZone").style.marginLeft = "3vw";
     } else {
-      setSideBarDisplay(true)
-      document.getElementById('dropZone').style.marginLeft = '9vw'
+      setSideBarDisplay(true);
+      document.getElementById("dropZone").style.marginLeft = "9vw";
     }
   }
 
   const placeholderSize = (id) => {
     switch (id) {
-      case 'banner':
-        return { w: 12, h: 2, minW: 12, maxW: 12, minH: 2, maxH: 2 }
-      case 'product-container':
-        return { w: 3, h: 9, minW: 3, maxW: 6, minH: 9, maxH: 9 }
-      case 'store-name':
-        return { w: 12, h: 4, minW: 12, maxW: 12, minH: 4, maxH: 4 }
-      case 'image':
-        return { w: 6, h: 10, minW: 6, maxW: 12, minH: 6, maxH: 12 }
-      case 'carousel':
-        return { w: 6, h: 9, minW: 6, maxW: 12, minH: 9, maxH: 9 }
+      case "banner":
+        return { w: 12, h: 2, minW: 12, maxW: 12, minH: 2, maxH: 2 };
+      case "product-container":
+        return { w: 3, h: 9, minW: 3, maxW: 6, minH: 9, maxH: 9 };
+      case "store-name":
+        return { w: 12, h: 4, minW: 12, maxW: 12, minH: 4, maxH: 4 };
+      case "image":
+        return { w: 8, h: 10, minW: 6, maxW: 12, minH: 6, maxH: 12 };
+      case "carousel":
+        return { w: 6, h: 9, minW: 6, maxW: 12, minH: 9, maxH: 9 };
+      case "button":
+        return { w: 3, h: 4, minW: 3, maxW: 3, minH: 4, maxH: 4 };
+      case "linkbar":
+        return { w: 12, h: 9, minW: 12, maxW: 12, minH: 9, maxH: 9 };
+      case "navigation":
+        return { w: 12, h: 2, minW: 12, maxW: 12, minH: 2, maxH: 2 };
+      case "footer":
+        return { w: 12, h: 2, minW: 12, maxW: 12, minH: 2, maxH: 2 };
       default:
         return { w: 1, h: 1 }
     }
@@ -159,9 +190,20 @@ const ShopBuilder = (props) => {
         userAuthed={props.userAuthed}
         setSideBarDisplay={setSideBarDisplay}
         authModalActive={props.authModalActive}
+        workspace={props.state}
+        topVisible={topVisible}
+        setTopVisible={setTopVisible}
       />
       <ModalLayout displayModal={displayModal} display={setDisplayModal} />
-      <ShopContainer blurContainer={displayModal}>
+      <ModalProducts
+        editProduct={editProduct}
+        display={setEditProduct}
+        editType={editType}
+      />
+      <ShopContainer
+        blurContainerTheme={displayModal}
+        blurContainerEdit={editProduct}
+      >
         <Page>
           {/* side bar that you drag stuff from */}
           {/* side bar can be toggled open and close */}
@@ -186,9 +228,9 @@ const ShopBuilder = (props) => {
               <SideBarTitle
                 onClick={() => openClose()}
                 style={{
-                  height: '5vh',
-                  borderRadius: '0 0 45px 45px',
-                  cursor: 'pointer',
+                  height: "5vh",
+                  borderRadius: "0 0 45px 45px",
+                  cursor: "pointer",
                 }}
               >
                 close
@@ -202,26 +244,28 @@ const ShopBuilder = (props) => {
             </ClosedSideBarButton>
           )}
           {/* area where you assemble the shop builder */}
-          <DropZone id='dropZone'>
+          <DropZone id="dropZone">
             <ResponsiveGridLayout
-              className='layout'
+              className="layout"
               layouts={{
                 lg: currentLayout,
               }}
-              breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 360 }}
+              breakpoints={{ lg: 1000, md: 996, sm: 768, xs: 360 }}
               cols={{ lg: 12, md: 9, sm: 6, xs: 3 }}
               onDrop={(item) => {
-                props.onDrop(item, dragId, placeholderSize(dragId))
+                props.onDrop(item, dragId, placeholderSize(dragId));
               }}
               measureBeforeMount={true}
               useCSSTransforms={true}
-              isDroppable={true}
+              isDraggable={topVisible}
+              isDroppable={topVisible}
+              isResizable={topVisible}
               preventCollision={false}
               onBreakpointChange={props.onBreakpointChange}
-              onLayoutChange={(currentLayout) => {
-                props.updateLayoutAction(currentLayout)
-              }}
-              onDragStop={props.onDragStop}
+              onLayoutChange={props.updateLayoutAction}
+              onDragStop={(...itemCallback) =>
+                props.onDragStop(itemCallback[1], itemCallback[2])
+              }
               onResizeStop={(...itemCallback) =>
                 props.onResizeStop(itemCallback[1], itemCallback[2])
               }
@@ -231,10 +275,10 @@ const ShopBuilder = (props) => {
                 ...placeholderSize(dragId),
               }}
               style={{
-                background: 'white',
-                minHeight: '500px',
-                width: '100vw',
-                paddingTop: '0',
+                background: "white",
+                minHeight: "100vh",
+                width: "100vw",
+                paddingTop: "0",
               }}
               autoSize={true}
               rowHeight={75}
@@ -245,14 +289,31 @@ const ShopBuilder = (props) => {
                     <FontAwesomeIcon
                       icon={faTimes}
                       style={{
-                        fontSize: '3.8rem',
-                        opacity: '0.72',
-                        marginRight: '10px',
-                        marginTop: '10px',
+                        display: `${topVisible ? "initial" : "none"}`,
+                        fontSize: "3.8rem",
+                        opacity: "0.72",
+                        marginRight: "10px",
+                        marginTop: "10px",
                       }}
                       onClick={() => props.deleteItemAction(index)}
                     />
-                    <div style={{ height: 'auto' }}>
+                    <div
+                      style={{ height: "auto" }}
+                      onMouseDown={(e) => {
+                        setMouseMove([e.clientX, e.clientY]);
+                      }}
+                      onMouseUp={(e) => {
+                        if (
+                          e.clientX === mouseMove[0] &&
+                          e.clientY === mouseMove[1]
+                        ) {
+                          setEditProduct(!editProduct);
+                          setEditType(
+                            props.state.Page.content[index].contentType
+                          );
+                        }
+                      }}
+                    >
                       <Reset />
                       {props.state.Page.content.length
                         ? generateComponent(
@@ -275,9 +336,9 @@ const ShopBuilder = (props) => {
 const mapStateToProps = (state) => {
   return {
     state: state.workspace,
-    userAuthed: state.userData.userIsAuthed,
-  }
-}
+    userAuthed: state.userData.userIsAuthed
+  };
+};
 
 export default connect(mapStateToProps, {
   updateLayoutAction,
@@ -286,5 +347,5 @@ export default connect(mapStateToProps, {
   onDragStop,
   onResizeStop,
   deleteItemAction,
-})(ShopBuilder)
+})(ShopBuilder);
 //changed name of page of shopbuilder back to ShopBuilder
