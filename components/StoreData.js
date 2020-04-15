@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Router from "next/router";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 import { IoIosSettings, IoIosAddCircle } from "react-icons/io";
 
@@ -122,21 +123,13 @@ export default function StoreData(data) {
   }
 
   function updateStore(e) {
-    axiosWithAuth()
-      .put(`/store/${data.props.store_url}`)
-      .then(res => {
-        console.log("store edited:", res);
-        history.push("/store");
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    Router.push("/shopbuilder");
   }
 
   // onclick function for add a store button
   function addStore(e) {
     console.log("clicked");
-    window.location = "/shopbuilder";
+    Router.push("/shopbuilder");
   }
 
   // on click to display menu items
