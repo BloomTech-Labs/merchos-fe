@@ -3,6 +3,8 @@ import styled from "styled-components";
 import Router from "next/router";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 import { IoIosSettings, IoIosAddCircle } from "react-icons/io";
+import { createStore, editStore } from "../store/actions/storeActions";
+import { useDispatch } from "react-redux";
 
 const StoreName = styled.h2`
   font-size: 2rem;
@@ -106,6 +108,7 @@ const MenuItems = styled.div`
 `;
 
 export default function StoreData(data) {
+  const dispatch = useDispatch();
   function deleteStore() {
     const bool = confirm(
       "Are you sure that you would like to delete your store?"
@@ -123,11 +126,18 @@ export default function StoreData(data) {
   }
 
   function updateStore(e) {
+    dispatch(
+      editStore({
+        storeName: data.props.store_name,
+        storeUrl: data.props.store_url
+      })
+    );
     Router.push("/shopbuilder");
   }
 
   // onclick function for add a store button
   function addStore(e) {
+    dispatch(createStore());
     console.log("clicked");
     Router.push("/shopbuilder");
   }
