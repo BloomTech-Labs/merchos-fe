@@ -26,7 +26,6 @@ const initialState = {
   Page: {
     id: "Page",
     title: "Workspace",
-    storeName: "Click to edit store name",
     layoutType: ["Blank Layout", "Basic Layout"],
     layout: [
       //This is where the page columns are held which is the layout of the page

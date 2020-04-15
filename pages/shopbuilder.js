@@ -1,6 +1,6 @@
-import React, { useState, useEffect, Fragment } from "react";
-import { Responsive, WidthProvider } from "react-grid-layout";
-import { connect } from "react-redux";
+import React, { useState, useEffect, Fragment } from 'react'
+import { Responsive, WidthProvider } from 'react-grid-layout'
+import { connect } from 'react-redux'
 import {
   updateLayoutAction,
   onDrop,
@@ -30,22 +30,22 @@ import {
 } from "merch_components";
 
 // Nav and subsequent components
-import ShopBuilderNav from "../components/ShopBuilder/ShopNavBar";
-import AuthModal from "../components/auth/AuthModal";
+import ShopBuilderNav from '../components/ShopBuilder/ShopNavBar'
+import StoreMetaForm from '../components/ShopBuilder/storeMetadataForm'
 
-const ResponsiveGridLayout = WidthProvider(Responsive);
+const ResponsiveGridLayout = WidthProvider(Responsive)
 
 //STYLES
 const GridItemContainer = styled.div`
   object-fit: contain;
   background: white;
   text-align: right;
-`;
+`
 
 const Page = styled.div`
   width: 100%;
   display: flex;
-`;
+`
 
 const SideBarContainer = styled.div`
   display: flex;
@@ -54,8 +54,8 @@ const SideBarContainer = styled.div`
   background: #eee;
   box-shadow: -2px -2px 6px 2px #fff, 2px 2px 6px 2px #8e9093;
   position: fixed;
-  z-index: 900;
-`;
+  z-index: 8;
+`
 
 const SideBarTitle = styled.div`
   background: #464646;
@@ -65,7 +65,7 @@ const SideBarTitle = styled.div`
   padding: 13%;
   text-align: center;
   height: 60px;
-`;
+`
 
 const DropZone = styled.div`
   width: 100%;
@@ -73,7 +73,7 @@ const DropZone = styled.div`
   min-height: 500px;
   margin-left: 9vw;
   margin-right: 2vw;
-`;
+`
 
 const ShopContainer = styled.div`
   ${(props) => (props.blurContainerTheme ? "filter: blur(2px);" : "")}
@@ -89,7 +89,7 @@ const ClosedSideBarButton = styled.div`
   border-radius: 0 45px 45px 0;
   box-shadow: -2px -2px 6px 2px #fff, 2px 2px 6px 2px #8e9093;
   padding: 10vw 1vw 1vw 1vw;
-`;
+`
 
 const ShopBuilder = (props) => {
   const [displayModal, setDisplayModal] = useState(false);
@@ -97,20 +97,20 @@ const ShopBuilder = (props) => {
   const [editType, setEditType] = useState("broken");
   const [topVisible, setTopVisible] = useState(true);
 
-  const [dragId, setDragId] = useState();
-  const sidebarLayout = props.state.SideBar.layout;
+  const [dragId, setDragId] = useState()
+  const sidebarLayout = props.state.SideBar.layout
 
-  const currentLayout = props.state.Page.layout;
+  const currentLayout = props.state.Page.layout
 
   const generateComponent = (component, item) => {
     switch (component.contentType) {
-      case "product-container":
-        return <Item item={component.content} style={component.style} />;
-      case "banner":
-        return <TextBanner message={component.content.message} />;
-      case "store-name":
-        return <Header title={component.content.title} />;
-      case "image":
+      case 'product-container':
+        return <Item item={component.content} style={component.style} />
+      case 'banner':
+        return <TextBanner message={component.content.message} />
+      case 'store-name':
+        return <Header title={component.content.title} />
+      case 'image':
         return (
           <Image
             src={component.content.src}
@@ -140,9 +140,9 @@ const ShopBuilder = (props) => {
           />
         );
       default:
-        return "broken";
+        return 'broken'
     }
-  };
+  }
 
   // function to open and close sidebar
   const [SideBarDisplay, setSideBarDisplay] = useState(true);
@@ -179,12 +179,13 @@ const ShopBuilder = (props) => {
       case "footer":
         return { w: 12, h: 2, minW: 12, maxW: 12, minH: 2, maxH: 2 };
       default:
-        return { w: 1, h: 1 };
+        return { w: 1, h: 1 }
     }
-  };
+  }
 
   return (
     <Fragment>
+      <StoreMetaForm workspace={props.state} />
       <ShopBuilderNav
         userAuthed={props.userAuthed}
         setSideBarDisplay={setSideBarDisplay}
@@ -193,7 +194,6 @@ const ShopBuilder = (props) => {
         topVisible={topVisible}
         setTopVisible={setTopVisible}
       />
-      {props.authModalActive && <AuthModal />}
       <ModalLayout displayModal={displayModal} display={setDisplayModal} />
       <ModalProducts
         editProduct={editProduct}
@@ -223,7 +223,7 @@ const ShopBuilder = (props) => {
                     setDragId={setDragId}
                     setDisplayModal={setDisplayModal}
                   />
-                );
+                )
               })}
               <SideBarTitle
                 onClick={() => openClose()}
@@ -320,24 +320,23 @@ const ShopBuilder = (props) => {
                             props.state.Page.content[index],
                             gridItem
                           )
-                        : "+"}
+                        : '+'}
                     </div>
                   </GridItemContainer>
-                );
+                )
               })}
             </ResponsiveGridLayout>
           </DropZone>
         </Page>
       </ShopContainer>
     </Fragment>
-  );
-};
+  )
+}
 
 const mapStateToProps = (state) => {
   return {
     state: state.workspace,
-    userAuthed: state.userData.userIsAuthed,
-    authModalActive: state.authInterface.authModalActive,
+    userAuthed: state.userData.userIsAuthed
   };
 };
 

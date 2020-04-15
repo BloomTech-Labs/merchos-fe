@@ -17,6 +17,7 @@ export default (initialState, { isServer, req, debug, storeKey }) => {
 
   // Redux middlewares
   const middlewares = [thunk, logger];
+
   const enhancers = [applyMiddleware(...middlewares)];
 
   // initialize store creation
@@ -32,7 +33,8 @@ export default (initialState, { isServer, req, debug, storeKey }) => {
     // set store config
     const persistConfig = {
       key: 'nextjs',
-      storage
+      storage,
+      blacklist: ['authInterface', 'toastController', 'storeMetaInterface']
     };
 
     // we'll pass in the configurations and the root reducer
