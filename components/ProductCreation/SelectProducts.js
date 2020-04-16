@@ -12,7 +12,6 @@ import {
   Pants,
   Kids,
 } from "./Icons/icons";
-import DisplayProduct from "./DisplayProduct";
 
 const Icons = styled.div`
   margin: 35px 0 0 38px;

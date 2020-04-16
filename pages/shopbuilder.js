@@ -32,7 +32,7 @@ import {
 
 // Nav and subsequent components
 import ShopBuilderNav from "../components/ShopBuilder/ShopNavBar";
-import AuthModal from "../components/auth/AuthModal";
+import StoreMetaForm from "../components/ShopBuilder/storeMetadataForm";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
@@ -55,7 +55,7 @@ const SideBarContainer = styled.div`
   background: #eee;
   box-shadow: -2px -2px 6px 2px #fff, 2px 2px 6px 2px #8e9093;
   position: fixed;
-  z-index: 900;
+  z-index: 8;
 `;
 
 const SideBarTitle = styled.div`
@@ -202,6 +202,7 @@ const ShopBuilder = (props) => {
 
   return (
     <Fragment>
+      <StoreMetaForm workspace={props.state} />
       <ShopBuilderNav
         userAuthed={props.userAuthed}
         setSideBarDisplay={setSideBarDisplay}
@@ -210,7 +211,6 @@ const ShopBuilder = (props) => {
         topVisible={topVisible}
         setTopVisible={setTopVisible}
       />
-      {props.authModalActive && <AuthModal />}
       <ModalLayout displayModal={displayModal} display={setDisplayModal} />
       <ModalProducts
         editProduct={editProduct}
@@ -372,7 +372,6 @@ const mapStateToProps = (state) => {
   return {
     state: state.workspace,
     userAuthed: state.userData.userIsAuthed,
-    authModalActive: state.authInterface.authModalActive,
   };
 };
 

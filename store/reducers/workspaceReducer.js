@@ -11,16 +11,22 @@ import {
   BlankLayout,
   BasicLayoutContent,
 } from "../../components/ShopBuilder/Layouts/BasicLayout";
+import { EDIT_STORE, CREATE_STORE } from "../actions/storeActions";
 
 // icons
 import BannerIcon from "../../assets/banner.png";
 import ProductIcon from "../../assets/product.png";
 
 const initialState = {
+  StoreData: {
+    isNew: true,
+    isEdited: false,
+    storeName: "",
+    storeUrl: "",
+  },
   Page: {
     id: "Page",
     title: "Workspace",
-    storeName: "Click to edit store name",
     layoutType: ["Blank Layout", "Basic Layout"],
     layout: [
       //This is where the page columns are held which is the layout of the page
@@ -86,13 +92,36 @@ const workspaceReducer = (state = initialState, action) => {
     dragId,
     indexToRemove,
     gridItemLocation,
-    clickStatus,
+    storeName,
+    storeUrl,
   } = action.payload || {};
 
   const tempArray = Array.from(state.Page.layout);
   let contentArray = Array.from(state.Page.content);
 
   switch (action.type) {
+    case EDIT_STORE:
+      return {
+        ...state,
+        StoreData: {
+          ...state.StoreData,
+          isNew: false,
+          isEdited: true,
+          storeName,
+          storeUrl,
+        },
+      };
+    case CREATE_STORE:
+      return {
+        ...state,
+        StoreData: {
+          ...state.StoreData,
+          isNew: true,
+          isEdited: false,
+          storeName: "",
+          storeUrl: "",
+        },
+      };
     case SELECT_LAYOUT:
       localStorage.clear();
       contentArray = [];
