@@ -6,6 +6,7 @@ import { DRAG_STOP } from "../actions/ShopBuilderActions";
 import { RESIZE_STOP } from "../actions/ShopBuilderActions";
 import { DELETE_ACTION } from "../actions/ShopBuilderActions";
 import { STATIC_ACTION } from "../actions/ShopBuilderActions";
+import { SET_IMAGE_ACTION } from "../actions/ShopBuilderActions";
 import {
   BasicLayout,
   BlankLayout,
@@ -94,6 +95,7 @@ const workspaceReducer = (state = initialState, action) => {
     gridItemLocation,
     storeName,
     storeUrl,
+    imageSrc,
   } = action.payload || {};
 
   const tempArray = Array.from(state.Page.layout);
@@ -277,6 +279,15 @@ const workspaceReducer = (state = initialState, action) => {
         },
       };
 
+    case SET_IMAGE_ACTION:
+      contentArray[gridItemLocation].content.src = imageSrc;
+      return {
+        ...state,
+        Page: {
+          ...state.Page,
+          content: contentArray,
+        },
+      };
     default:
       return state;
   }

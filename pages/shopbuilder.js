@@ -130,7 +130,11 @@ const ShopBuilder = (props) => {
       case "image":
         return (
           <Image
-            src={component.content.src}
+            src={
+              component.content.src
+                ? URL.createObjectURL(component.content.src)
+                : component.content.src
+            }
             style={{
               height: `${item.h * 75}px`,
               width: "100%",
@@ -344,7 +348,7 @@ const ShopBuilder = (props) => {
                             setEditType(
                               props.state.Page.content[index].contentType
                             );
-                            setEditId(props.state.Page.content[index].id);
+                            setEditId(gridItem.i);
                           }
                         }
                       }}

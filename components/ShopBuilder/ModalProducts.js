@@ -1,4 +1,6 @@
 import React from "react";
+import { connect } from "react-redux";
+import { setImageAction } from "../../store/actions/ShopBuilderActions";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -22,9 +24,7 @@ const Modal = styled.div`
 
 const ModalProducts = (props) => {
   function handlFiles(e) {
-    console.log("HERE");
-    const files = e.target.files;
-    console.log("FILES: ", files);
+    props.setImageAction(e.target.files[0], Number(props.editId));
   }
 
   function editModalType() {
@@ -58,4 +58,4 @@ const ModalProducts = (props) => {
   );
 };
 
-export default ModalProducts;
+export default connect(null, { setImageAction })(ModalProducts);

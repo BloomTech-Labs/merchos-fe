@@ -6,6 +6,7 @@ export const DRAG_STOP = "DRAG_STOP";
 export const RESIZE_STOP = "RESIZE_STOP";
 export const DELETE_ACTION = "DELETE_ACTION";
 export const STATIC_ACTION = "STATIC_ACTION";
+export const SET_IMAGE_ACTION = "SET_IMAGE_ACTION";
 
 export const selectLayoutAction = (layoutType) => (dispatch) => {
   dispatch({ type: SELECT_LAYOUT, payload: { layoutType } });
@@ -46,4 +47,8 @@ export const deleteItemAction = (indexToRemove) => (dispatch) => {
 
 export const setStaticAction = (gridItemLocation) => (dispatch) => {
   dispatch({ type: STATIC_ACTION, payload: { gridItemLocation } });
+};
+
+export const setImageAction = (imageSrc, gridItemLocation) => (dispatch) => {
+  dispatch({ type: SET_IMAGE_ACTION, payload: { imageSrc, gridItemLocation } });
 };
