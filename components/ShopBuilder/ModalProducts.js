@@ -21,6 +21,31 @@ const Modal = styled.div`
 `;
 
 const ModalProducts = (props) => {
+  function handlFiles(e) {
+    console.log("HERE");
+    const files = e.target.files;
+    console.log("FILES: ", files);
+  }
+
+  function editModalType() {
+    switch (props.editType) {
+      case "image":
+        return (
+          <label>
+            Choose File:
+            <input
+              type="file"
+              accept="image/png, image/jpeg"
+              name={props.editId}
+              onChange={(e) => handlFiles(e)}
+            />
+          </label>
+        );
+      default:
+        return <div>broken</div>;
+    }
+  }
+
   return (
     <Container
       editProduct={props.editProduct}
@@ -28,7 +53,7 @@ const ModalProducts = (props) => {
         props.display((prevState) => !prevState);
       }}
     >
-      <Modal>{props.editType}</Modal>
+      <Modal>{editModalType()}</Modal>
     </Container>
   );
 };

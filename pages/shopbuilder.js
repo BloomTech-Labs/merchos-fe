@@ -8,6 +8,7 @@ import {
   onDragStop,
   onResizeStop,
   deleteItemAction,
+  setStaticAction,
 } from "../store/actions/ShopBuilderActions";
 import ModalLayout from "../components/ShopBuilder/ModalLayout";
 import ModalProducts from "../components/ShopBuilder/ModalProducts";
@@ -95,6 +96,7 @@ const ShopBuilder = (props) => {
   const [displayModal, setDisplayModal] = useState(false);
   const [editProduct, setEditProduct] = useState(false);
   const [editType, setEditType] = useState("broken");
+  const [editId, setEditId] = useState("broken");
   const [topVisible, setTopVisible] = useState(true);
 
   const [dragId, setDragId] = useState();
@@ -105,11 +107,26 @@ const ShopBuilder = (props) => {
   const generateComponent = (component, item) => {
     switch (component.contentType) {
       case "product-container":
-        return <Item item={component.content} style={component.style} />;
+        return (
+          <div style={{ fontSize: "1.5rem", textAlign: "left" }}>
+            {`Static: ${item.static ? "true" : "false"}`}
+            <Item item={component.content} style={component.style} />
+          </div>
+        );
       case "banner":
-        return <TextBanner message={component.content.message} />;
+        return (
+          <div style={{ fontSize: "1.5rem", textAlign: "left" }}>
+            {`Static: ${item.static ? "true" : "false"}`}
+            <TextBanner message={component.content.message} />
+          </div>
+        );
       case "store-name":
-        return <Header title={component.content.title} />;
+        return (
+          <div style={{ fontSize: "1.5rem", textAlign: "left" }}>
+            {`Static: ${item.static ? "true" : "false"}`}
+            <Header title={component.content.title} />
+          </div>
+        );
       case "image":
         return (
           <Image
@@ -199,6 +216,7 @@ const ShopBuilder = (props) => {
         editProduct={editProduct}
         display={setEditProduct}
         editType={editType}
+        editId={editId}
       />
       <ShopContainer
         blurContainerTheme={displayModal}
@@ -284,8 +302,18 @@ const ShopBuilder = (props) => {
               rowHeight={75}
             >
               {currentLayout.map((gridItem, index) => {
+                console.log("GRID_ITEM_I: ", gridItem.i);
+                console.log("GRID_ITEM_I_TYPE: ", typeof gridItem.i);
                 return (
                   <GridItemContainer key={gridItem.i}>
+                    {/* <button
+                      onClick={() => {
+                        props.setStaticAction(index);
+                        // console.trace();
+                      }}
+                    >
+                      e
+                    </button> */}
                     <FontAwesomeIcon
                       icon={faTimes}
                       style={{
@@ -307,10 +335,17 @@ const ShopBuilder = (props) => {
                           e.clientX === mouseMove[0] &&
                           e.clientY === mouseMove[1]
                         ) {
-                          setEditProduct(!editProduct);
-                          setEditType(
-                            props.state.Page.content[index].contentType
-                          );
+                          // props.setStaticAction(index, true);
+                          if (
+                            props.state.Page.content[index].contentType !==
+                            "store-name"
+                          ) {
+                            setEditProduct(!editProduct);
+                            setEditType(
+                              props.state.Page.content[index].contentType
+                            );
+                            setEditId(props.state.Page.content[index].id);
+                          }
                         }
                       }}
                     >
@@ -348,5 +383,6 @@ export default connect(mapStateToProps, {
   onDragStop,
   onResizeStop,
   deleteItemAction,
+  setStaticAction,
 })(ShopBuilder);
 //changed name of page of shopbuilder back to ShopBuilder

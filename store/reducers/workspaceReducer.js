@@ -5,6 +5,7 @@ import { BREAKPOINT_CHANGE } from "../actions/ShopBuilderActions";
 import { DRAG_STOP } from "../actions/ShopBuilderActions";
 import { RESIZE_STOP } from "../actions/ShopBuilderActions";
 import { DELETE_ACTION } from "../actions/ShopBuilderActions";
+import { STATIC_ACTION } from "../actions/ShopBuilderActions";
 import {
   BasicLayout,
   BlankLayout,
@@ -84,8 +85,8 @@ const workspaceReducer = (state = initialState, action) => {
     itemWithLimits,
     dragId,
     indexToRemove,
-    resizeOld,
-    resizeNew,
+    gridItemLocation,
+    clickStatus,
   } = action.payload || {};
 
   const tempArray = Array.from(state.Page.layout);
@@ -229,6 +230,21 @@ const workspaceReducer = (state = initialState, action) => {
           layout: tempArray,
           content: contentArray,
           updatedBreakpoint: false,
+        },
+      };
+
+    case STATIC_ACTION:
+      if (tempArray[gridItemLocation].static) {
+        tempArray[gridItemLocation].static = false;
+      } else {
+        tempArray[gridItemLocation].static = true;
+      }
+      console.log("LAYOUT_STATIC: ", tempArray);
+      return {
+        ...state,
+        Page: {
+          ...state.Page,
+          layout: tempArray,
         },
       };
 
