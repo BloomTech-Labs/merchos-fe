@@ -7,7 +7,7 @@ import { RESIZE_STOP } from "../actions/ShopBuilderActions";
 import { DELETE_ACTION } from "../actions/ShopBuilderActions";
 import { STATIC_ACTION } from "../actions/ShopBuilderActions";
 import { SET_IMAGE_ACTION } from "../actions/ShopBuilderActions";
-import { RESET_CONTENT_ACTION } from "../actions/ShopBuilderActions";
+import { SET_CAROUSEL_ACTION } from "../actions/ShopBuilderActions";
 import {
   BasicLayout,
   BlankLayout,
@@ -97,6 +97,7 @@ const workspaceReducer = (state = initialState, action) => {
     storeName,
     storeUrl,
     imageSrc,
+    imageArr,
   } = action.payload || {};
 
   const tempArray = Array.from(state.Page.layout);
@@ -265,21 +266,6 @@ const workspaceReducer = (state = initialState, action) => {
         },
       };
 
-    case STATIC_ACTION:
-      if (tempArray[gridItemLocation].static) {
-        tempArray[gridItemLocation].static = false;
-      } else {
-        tempArray[gridItemLocation].static = true;
-      }
-      console.log("LAYOUT_STATIC: ", tempArray);
-      return {
-        ...state,
-        Page: {
-          ...state.Page,
-          layout: tempArray,
-        },
-      };
-
     case SET_IMAGE_ACTION:
       contentArray[gridItemLocation].content.src = imageSrc;
       return {
@@ -290,8 +276,8 @@ const workspaceReducer = (state = initialState, action) => {
         },
       };
 
-    case RESET_CONTENT_ACTION:
-      contentArray[gridItemLocation].content = {};
+    case SET_CAROUSEL_ACTION:
+      contentArray[gridItemLocation].content.imageArray = imageArr;
       return {
         ...state,
         Page: {

@@ -5,16 +5,14 @@ export const BREAKPOINT_CHANGE = "BREAKPOINT_CHANGE";
 export const DRAG_STOP = "DRAG_STOP";
 export const RESIZE_STOP = "RESIZE_STOP";
 export const DELETE_ACTION = "DELETE_ACTION";
-export const STATIC_ACTION = "STATIC_ACTION";
 export const SET_IMAGE_ACTION = "SET_IMAGE_ACTION";
-export const RESET_CONTENT_ACTION = "RESET_CONTENT_ACTION";
+export const SET_CAROUSEL_ACTION = "SET_CAROUSEL_ACTION";
 
 export const selectLayoutAction = (layoutType) => (dispatch) => {
   dispatch({ type: SELECT_LAYOUT, payload: { layoutType } });
 };
 
 export const updateLayoutAction = (layoutUpdate) => (dispatch) => {
-  console.log("LAYOUT_UPDATED: ", layoutUpdate);
   dispatch({ type: UPDATE_LAYOUT, payload: { layoutUpdate } });
 };
 
@@ -46,14 +44,13 @@ export const deleteItemAction = (indexToRemove) => (dispatch) => {
   dispatch({ type: DELETE_ACTION, payload: { indexToRemove } });
 };
 
-export const setStaticAction = (gridItemLocation) => (dispatch) => {
-  dispatch({ type: STATIC_ACTION, payload: { gridItemLocation } });
-};
-
 export const setImageAction = (imageSrc, gridItemLocation) => (dispatch) => {
   dispatch({ type: SET_IMAGE_ACTION, payload: { imageSrc, gridItemLocation } });
 };
 
-export const resetContentAction = (gridItemLocation) => (dispatch) => {
-  dispatch({ type: RESET_CONTENT_ACTION, payload: { gridItemLocation } });
+export const setCarouselAction = (imageArr, gridItemLocation) => (dispatch) => {
+  dispatch({
+    type: SET_CAROUSEL_ACTION,
+    payload: { imageArr, gridItemLocation },
+  });
 };

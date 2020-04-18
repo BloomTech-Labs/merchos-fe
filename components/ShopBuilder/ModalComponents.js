@@ -1,6 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
-import { setImageAction } from "../../store/actions/ShopBuilderActions";
+import {
+  setImageAction,
+  setCarouselAction,
+} from "../../store/actions/ShopBuilderActions";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -22,12 +25,19 @@ const Modal = styled.div`
   margin: 15% 50%;
 `;
 
-const ModalProducts = (props) => {
-  function handlFiles(e) {
+const ModalComponents = (props) => {
+  function handleImage(e) {
     props.setImageAction(
       URL.createObjectURL(e.target.files[0]),
       Number(props.editId)
     );
+  }
+  function handleCarousel(e) {
+    const tempImageArr = [];
+    [...e.target.files].map((file) => {
+      tempImageArr.push(URL.createObjectURL(file));
+    });
+    props.setCarouselAction(tempImageArr, Number(props.editId));
   }
 
   function editModalType() {
@@ -40,12 +50,25 @@ const ModalProducts = (props) => {
               type="file"
               accept="image/png, image/jpeg"
               name={props.editId}
-              onChange={(e) => handlFiles(e)}
+              onChange={(e) => handleImage(e)}
+            />
+          </label>
+        );
+      case "carousel":
+        return (
+          <label>
+            Choose Files:
+            <input
+              type="file"
+              accept="image/png, image/jpeg"
+              name={props.editId}
+              onChange={(e) => handleCarousel(e)}
+              multiple
             />
           </label>
         );
       default:
-        return <div>broken</div>;
+        return <div>No component available</div>;
     }
   }
 
@@ -61,4 +84,6 @@ const ModalProducts = (props) => {
   );
 };
 
-export default connect(null, { setImageAction })(ModalProducts);
+export default connect(null, { setImageAction, setCarouselAction })(
+  ModalComponents
+);

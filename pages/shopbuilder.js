@@ -8,16 +8,13 @@ import {
   onDragStop,
   onResizeStop,
   deleteItemAction,
-  setStaticAction,
-  resetContentAction,
 } from "../store/actions/ShopBuilderActions";
 import ModalLayout from "../components/ShopBuilder/ModalLayout";
-import ModalProducts from "../components/ShopBuilder/ModalProducts";
+import ModalComponents from "../components/ShopBuilder/ModalComponents";
 import SideBar from "../components/ShopBuilder/SideBar";
 import styled, { keyframes } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { faArrowsAltH } from "@fortawesome/free-solid-svg-icons";
 import {
   Item,
   TextBanner,
@@ -95,7 +92,7 @@ const ClosedSideBarButton = styled.div`
 
 const ShopBuilder = (props) => {
   const [displayModal, setDisplayModal] = useState(false);
-  const [editProduct, setEditProduct] = useState(false);
+  const [editComponent, setEditComponent] = useState(false);
   const [editType, setEditType] = useState("broken");
   const [editId, setEditId] = useState("broken");
   const [topVisible, setTopVisible] = useState(true);
@@ -130,17 +127,45 @@ const ShopBuilder = (props) => {
         );
       case "image":
         return (
-          <Image
-            src={component.content.src}
-            style={{
-              height: `${item.h * 75}px`,
-              width: "100%",
-              objectFit: "cover",
+          <div
+            onMouseDown={(e) => {
+              setMouseMove([e.clientX, e.clientY]);
             }}
-          />
+            onMouseUp={(e) => {
+              if (e.clientX === mouseMove[0] && e.clientY === mouseMove[1]) {
+                setEditComponent(!editComponent);
+                setEditType(component.contentType);
+                setEditId(item.i);
+              }
+            }}
+          >
+            <Image
+              src={component.content.src}
+              style={{
+                height: `${item.h * 75}px`,
+                width: "100%",
+                objectFit: "cover",
+              }}
+            />
+          </div>
         );
       case "carousel":
-        return <Carousel images={component.content.imageArray} />;
+        return (
+          <div>
+            <div>
+              <button
+                onClick={() => {
+                  setEditComponent(!editComponent);
+                  setEditType(component.contentType);
+                  setEditId(item.i);
+                }}
+              >
+                Edit Carousel
+              </button>
+            </div>
+            <Carousel images={component.content.imageArray} />
+          </div>
+        );
       case "button":
         return <Button name="Button" style={{ margin: "0 auto" }} />;
       case "linkbar":
@@ -213,15 +238,15 @@ const ShopBuilder = (props) => {
         setTopVisible={setTopVisible}
       />
       <ModalLayout displayModal={displayModal} display={setDisplayModal} />
-      <ModalProducts
-        editProduct={editProduct}
-        display={setEditProduct}
+      <ModalComponents
+        editProduct={editComponent}
+        display={setEditComponent}
         editType={editType}
         editId={editId}
       />
       <ShopContainer
         blurContainerTheme={displayModal}
-        blurContainerEdit={editProduct}
+        blurContainerEdit={editComponent}
       >
         <Page>
           {/* side bar that you drag stuff from */}
@@ -303,18 +328,8 @@ const ShopBuilder = (props) => {
               rowHeight={75}
             >
               {currentLayout.map((gridItem, index) => {
-                console.log("GRID_ITEM_I: ", gridItem.i);
-                console.log("GRID_ITEM_I_TYPE: ", typeof gridItem.i);
                 return (
                   <GridItemContainer key={gridItem.i}>
-                    {/* <button
-                      onClick={() => {
-                        props.setStaticAction(index);
-                        // console.trace();
-                      }}
-                    >
-                      e
-                    </button> */}
                     <FontAwesomeIcon
                       icon={faTimes}
                       style={{
@@ -326,30 +341,7 @@ const ShopBuilder = (props) => {
                       }}
                       onClick={() => props.deleteItemAction(index)}
                     />
-                    <div
-                      style={{ height: "auto" }}
-                      onMouseDown={(e) => {
-                        setMouseMove([e.clientX, e.clientY]);
-                      }}
-                      onMouseUp={(e) => {
-                        if (
-                          e.clientX === mouseMove[0] &&
-                          e.clientY === mouseMove[1]
-                        ) {
-                          // props.setStaticAction(index, true);
-                          if (
-                            props.state.Page.content[index].contentType !==
-                            "store-name"
-                          ) {
-                            setEditProduct(!editProduct);
-                            setEditType(
-                              props.state.Page.content[index].contentType
-                            );
-                            setEditId(gridItem.i);
-                          }
-                        }
-                      }}
-                    >
+                    <div style={{ height: "auto" }}>
                       <Reset />
                       {props.state.Page.content.length
                         ? generateComponent(
@@ -383,7 +375,5 @@ export default connect(mapStateToProps, {
   onDragStop,
   onResizeStop,
   deleteItemAction,
-  setStaticAction,
-  resetContentAction,
 })(ShopBuilder);
 //changed name of page of shopbuilder back to ShopBuilder
