@@ -9,6 +9,7 @@ import {
   onResizeStop,
   deleteItemAction,
   setStaticAction,
+  resetContentAction,
 } from "../store/actions/ShopBuilderActions";
 import ModalLayout from "../components/ShopBuilder/ModalLayout";
 import ModalProducts from "../components/ShopBuilder/ModalProducts";
@@ -130,11 +131,7 @@ const ShopBuilder = (props) => {
       case "image":
         return (
           <Image
-            src={
-              component.content.src
-                ? URL.createObjectURL(component.content.src)
-                : component.content.src
-            }
+            src={component.content.src}
             style={{
               height: `${item.h * 75}px`,
               width: "100%",
@@ -387,5 +384,6 @@ export default connect(mapStateToProps, {
   onResizeStop,
   deleteItemAction,
   setStaticAction,
+  resetContentAction,
 })(ShopBuilder);
 //changed name of page of shopbuilder back to ShopBuilder

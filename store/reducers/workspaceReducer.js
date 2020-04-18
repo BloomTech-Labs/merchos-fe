@@ -7,6 +7,7 @@ import { RESIZE_STOP } from "../actions/ShopBuilderActions";
 import { DELETE_ACTION } from "../actions/ShopBuilderActions";
 import { STATIC_ACTION } from "../actions/ShopBuilderActions";
 import { SET_IMAGE_ACTION } from "../actions/ShopBuilderActions";
+import { RESET_CONTENT_ACTION } from "../actions/ShopBuilderActions";
 import {
   BasicLayout,
   BlankLayout,
@@ -288,6 +289,17 @@ const workspaceReducer = (state = initialState, action) => {
           content: contentArray,
         },
       };
+
+    case RESET_CONTENT_ACTION:
+      contentArray[gridItemLocation].content = {};
+      return {
+        ...state,
+        Page: {
+          ...state.Page,
+          content: contentArray,
+        },
+      };
+
     default:
       return state;
   }

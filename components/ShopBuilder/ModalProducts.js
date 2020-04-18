@@ -24,7 +24,10 @@ const Modal = styled.div`
 
 const ModalProducts = (props) => {
   function handlFiles(e) {
-    props.setImageAction(e.target.files[0], Number(props.editId));
+    props.setImageAction(
+      URL.createObjectURL(e.target.files[0]),
+      Number(props.editId)
+    );
   }
 
   function editModalType() {
