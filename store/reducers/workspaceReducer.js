@@ -5,10 +5,13 @@ import { BREAKPOINT_CHANGE } from "../actions/ShopBuilderActions";
 import { DRAG_STOP } from "../actions/ShopBuilderActions";
 import { RESIZE_STOP } from "../actions/ShopBuilderActions";
 import { DELETE_ACTION } from "../actions/ShopBuilderActions";
+import { STATIC_ACTION } from "../actions/ShopBuilderActions";
+import { SET_IMAGE_ACTION } from "../actions/ShopBuilderActions";
+import { SET_CAROUSEL_ACTION } from "../actions/ShopBuilderActions";
 import {
   BasicLayout,
   BlankLayout,
-  BasicLayoutContent
+  BasicLayoutContent,
 } from "../../components/ShopBuilder/Layouts/BasicLayout";
 import { EDIT_STORE, CREATE_STORE } from "../actions/storeActions";
 
@@ -21,7 +24,7 @@ const initialState = {
     isNew: true,
     isEdited: false,
     storeName: "",
-    storeUrl: ""
+    storeUrl: "",
   },
   Page: {
     id: "Page",
@@ -32,7 +35,7 @@ const initialState = {
     ],
     content: [],
     updatedBreakpoint: true,
-    date: Date.now().toPrecision()
+    date: Date.now().toPrecision(),
   },
   SideBar: {
     id: "SideBar",
@@ -40,47 +43,47 @@ const initialState = {
       {
         id: "banner",
         content: "banner",
-        icon: BannerIcon
+        icon: BannerIcon,
       },
       {
         id: "product-container",
         content: "products",
-        icon: ProductIcon
+        icon: ProductIcon,
       },
       {
         id: "store-name",
-        content: "store header"
+        content: "store header",
       },
       {
         id: "image",
-        content: "image"
+        content: "image",
       },
       {
         id: "carousel",
-        content: "carousel"
+        content: "carousel",
       },
       {
         id: "button",
-        content: "button"
+        content: "button",
       },
       {
         id: "linkbar",
-        content: "linkbar"
+        content: "linkbar",
       },
       {
         id: "navigation",
-        content: "navigation"
+        content: "navigation",
       },
       {
         id: "footer",
-        content: "footer"
+        content: "footer",
       },
       {
         id: "theme",
-        content: "theme"
-      }
-    ]
-  }
+        content: "theme",
+      },
+    ],
+  },
 };
 
 const workspaceReducer = (state = initialState, action) => {
@@ -90,10 +93,11 @@ const workspaceReducer = (state = initialState, action) => {
     itemWithLimits,
     dragId,
     indexToRemove,
-    resizeOld,
-    resizeNew,
+    gridItemLocation,
     storeName,
-    storeUrl
+    storeUrl,
+    imageSrc,
+    imageArr,
   } = action.payload || {};
 
   const tempArray = Array.from(state.Page.layout);
@@ -108,8 +112,8 @@ const workspaceReducer = (state = initialState, action) => {
           isNew: false,
           isEdited: true,
           storeName,
-          storeUrl
-        }
+          storeUrl,
+        },
       };
     case CREATE_STORE:
       return {
@@ -119,8 +123,8 @@ const workspaceReducer = (state = initialState, action) => {
           isNew: true,
           isEdited: false,
           storeName: "",
-          storeUrl: ""
-        }
+          storeUrl: "",
+        },
       };
     case SELECT_LAYOUT:
       localStorage.clear();
@@ -133,8 +137,8 @@ const workspaceReducer = (state = initialState, action) => {
               ...state.Page,
               layout: BasicLayout,
               content: BasicLayoutContent,
-              date: Date.now().toPrecision()
-            }
+              date: Date.now().toPrecision(),
+            },
           };
         case "Blank Layout":
           return {
@@ -143,8 +147,8 @@ const workspaceReducer = (state = initialState, action) => {
               ...state.Page,
               layout: BlankLayout,
               content: contentArray,
-              date: Date.now().toPrecision()
-            }
+              date: Date.now().toPrecision(),
+            },
           };
         default:
           return state;
@@ -156,8 +160,8 @@ const workspaceReducer = (state = initialState, action) => {
           Page: {
             ...state.Page,
             layout: layoutUpdate,
-            updatedBreakpoint: true
-          }
+            updatedBreakpoint: true,
+          },
         };
       } else {
         return state;
@@ -167,7 +171,7 @@ const workspaceReducer = (state = initialState, action) => {
       const insertContent = {
         content: {},
         contentType: "no content",
-        id: `${dragId}-${Date.now().toPrecision()}`
+        id: `${dragId}-${Date.now().toPrecision()}`,
       };
       switch (dragId) {
         case "banner":
@@ -212,7 +216,7 @@ const workspaceReducer = (state = initialState, action) => {
       contentArray.push(insertContent);
       tempArray.push({
         ...itemWithLimits,
-        i: `${state.Page.layout.length}`
+        i: `${state.Page.layout.length}`,
       });
       return {
         ...state,
@@ -220,24 +224,24 @@ const workspaceReducer = (state = initialState, action) => {
           ...state.Page,
           content: contentArray,
           layout: tempArray,
-          updatedBreakpoint: false
-        }
+          updatedBreakpoint: false,
+        },
       };
     case BREAKPOINT_CHANGE:
       return {
         ...state,
         Page: {
           ...state.Page,
-          updatedBreakpoint: true
-        }
+          updatedBreakpoint: true,
+        },
       };
     case DRAG_STOP:
       return {
         ...state,
         Page: {
           ...state.Page,
-          updatedBreakpoint: false
-        }
+          updatedBreakpoint: false,
+        },
       };
 
     case RESIZE_STOP:
@@ -245,8 +249,8 @@ const workspaceReducer = (state = initialState, action) => {
         ...state,
         Page: {
           ...state.Page,
-          updatedBreakpoint: false
-        }
+          updatedBreakpoint: false,
+        },
       };
 
     case DELETE_ACTION:
@@ -258,8 +262,28 @@ const workspaceReducer = (state = initialState, action) => {
           ...state.Page,
           layout: tempArray,
           content: contentArray,
-          updatedBreakpoint: false
-        }
+          updatedBreakpoint: false,
+        },
+      };
+
+    case SET_IMAGE_ACTION:
+      contentArray[gridItemLocation].content.src = imageSrc;
+      return {
+        ...state,
+        Page: {
+          ...state.Page,
+          content: contentArray,
+        },
+      };
+
+    case SET_CAROUSEL_ACTION:
+      contentArray[gridItemLocation].content.imageArray = imageArr;
+      return {
+        ...state,
+        Page: {
+          ...state.Page,
+          content: contentArray,
+        },
       };
 
     default:
