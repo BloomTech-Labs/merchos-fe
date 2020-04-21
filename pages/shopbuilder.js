@@ -90,12 +90,24 @@ const ClosedSideBarButton = styled.div`
   padding: 10vw 1vw 1vw 1vw;
 `;
 
+const CarouselButtonContainer = styled.div`
+  display: ${(props) =>
+    props.topVisible && props.carouselButtonVisible ? "initial" : "none"};
+`;
+
+const EditCarouselButton = styled.button`
+  position: absolute;
+  left: 0;
+`;
+
 const ShopBuilder = (props) => {
   const [displayModal, setDisplayModal] = useState(false);
   const [editComponent, setEditComponent] = useState(false);
   const [editType, setEditType] = useState("broken");
   const [editId, setEditId] = useState("broken");
   const [topVisible, setTopVisible] = useState(true);
+  const [mouseMove, setMouseMove] = useState([0, 0]);
+  const [carouselButtonVisible, setCarouselButtonVisible] = useState(false);
 
   const [dragId, setDragId] = useState();
   const sidebarLayout = props.state.SideBar.layout;
@@ -105,26 +117,11 @@ const ShopBuilder = (props) => {
   const generateComponent = (component, item) => {
     switch (component.contentType) {
       case "product-container":
-        return (
-          <div style={{ fontSize: "1.5rem", textAlign: "left" }}>
-            {`Static: ${item.static ? "true" : "false"}`}
-            <Item item={component.content} style={component.style} />
-          </div>
-        );
+        return <Item item={component.content} style={component.style} />;
       case "banner":
-        return (
-          <div style={{ fontSize: "1.5rem", textAlign: "left" }}>
-            {`Static: ${item.static ? "true" : "false"}`}
-            <TextBanner message={component.content.message} />
-          </div>
-        );
+        return <TextBanner message={component.content.message} />;
       case "store-name":
-        return (
-          <div style={{ fontSize: "1.5rem", textAlign: "left" }}>
-            {`Static: ${item.static ? "true" : "false"}`}
-            <Header title={component.content.title} />
-          </div>
-        );
+        return <Header title={component.content.title} />;
       case "image":
         return (
           <div
@@ -151,9 +148,15 @@ const ShopBuilder = (props) => {
         );
       case "carousel":
         return (
-          <div>
-            <div>
-              <button
+          <div
+            onMouseEnter={() => setCarouselButtonVisible(true)}
+            onMouseLeave={() => setCarouselButtonVisible(false)}
+          >
+            <CarouselButtonContainer
+              topVisible={topVisible}
+              carouselButtonVisible={carouselButtonVisible}
+            >
+              <EditCarouselButton
                 onClick={() => {
                   setEditComponent(!editComponent);
                   setEditType(component.contentType);
@@ -161,8 +164,8 @@ const ShopBuilder = (props) => {
                 }}
               >
                 Edit Carousel
-              </button>
-            </div>
+              </EditCarouselButton>
+            </CarouselButtonContainer>
             <Carousel images={component.content.imageArray} />
           </div>
         );
@@ -189,7 +192,6 @@ const ShopBuilder = (props) => {
 
   // function to open and close sidebar
   const [SideBarDisplay, setSideBarDisplay] = useState(true);
-  const [mouseMove, setMouseMove] = useState([0, 0]);
 
   function openClose() {
     if (SideBarDisplay) {
