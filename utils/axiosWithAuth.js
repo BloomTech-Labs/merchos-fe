@@ -7,4 +7,12 @@ export const axiosWithAuth = () => {
   });
 };
 
+export const axiosWithKey = () => axios.Create({
+  baseURL: process.env.SCALABLE_API,
+  auth: {
+      username: "",
+      password: process.env.REACT_APP_SCALABLE_API_KEY
+  }
+})
+
 
