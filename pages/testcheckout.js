@@ -47,7 +47,7 @@ const TestCheckout = () => {
   return (
     <div>
       <Head>
-        <Link>
+        <Link onClick={() => window.history.back()}>
           <IoIosArrowBack size="4rem" color="#0751ff" />
           Back To Shop
         </Link>
