@@ -3,6 +3,8 @@ import styled from "styled-components";
 import Router from "next/router";
 import { IoIosArrowBack } from "react-icons/io";
 
+import ItemList from "../components/ItemListCheckout";
+
 const Head = styled.div`
   display: flex;
   width: 45%;
@@ -19,6 +21,7 @@ const Link = styled.h3`
   align-items: center;
   justify-content: flex-start;
   color: #0751ff;
+  cursor: pointer;
 `;
 
 const Title = styled.h1`
@@ -35,12 +38,14 @@ const Items = styled.h3`
   font-weight: 800;
   display: flex;
   justify-content: start;
+  margin-top: 1%;
   margin-left: 2%;
   color: #000000;
 `;
 
-const ItemCard = styled.div`
-  height: ;
+const ItemContainer = styled.div`
+  margin-top: 1%;
+  margin-left: 2%;
 `;
 
 const TestCheckout = () => {
@@ -54,6 +59,9 @@ const TestCheckout = () => {
         <Title>Checkout</Title>
       </Head>
       <Items>Items:</Items>
+      <ItemContainer>
+        <ItemList />
+      </ItemContainer>
     </div>
   );
 };
