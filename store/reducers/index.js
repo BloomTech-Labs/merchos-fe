@@ -7,6 +7,7 @@ import { shopServerConnection } from './shopServerConnection/shopServerConnectio
 import workspaceReducer from './workspaceReducer'
 import { toastController } from './userInterface/toastController'
 import { storeMetaInterface } from './userInterface/storeMetaInterface'
+import { cartCheckoutReducer } from './cartCheckout/cartCheckout'
 
 export const rootReducer = combineReducers({
   workspace: workspaceReducer,
@@ -15,4 +16,5 @@ export const rootReducer = combineReducers({
   userData,
   toastController,
   storeMetaInterface,
+  cartCheckoutReducer,
 })
