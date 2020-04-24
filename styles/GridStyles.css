@@ -1,5 +1,5 @@
 .react-grid-item > .react-resizable-handle::after {
-  content: "";
+  content: url("../assets/banner.png");
   position: absolute;
   right: 3px;
   bottom: 3px;

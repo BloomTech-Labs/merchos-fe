@@ -5,7 +5,11 @@ import { useDispatch } from "react-redux";
 
 // actions
 import { authModalController } from "../../store/actions/userInterface/authModalController";
-import { saveStore } from "../../store/actions/shopServerConnection/shopServerConnection";
+import { toastController } from "../../store/actions/userInterface/toastActions";
+import {
+  openStoreMetaEditor,
+  closeStoreMetaEditor,
+} from "../../store/actions/userInterface/storeMetaInterface";
 
 const NavBar = styled.section`
   display: flex;
@@ -13,11 +17,11 @@ const NavBar = styled.section`
   justify-content: center;
   background: #e3e6ec;
   padding: 10px 20px;
-  box-shadow: ${props =>
+  box-shadow: ${(props) =>
     !props.visible ? "" : "0px 0px 14px rgba(0, 0, 0, 0.31)"};
   position: relative;
   transition: 0.2s;
-  margin-top: ${props => (!props.visible ? "-110px" : "0px")};
+  margin-top: ${(props) => (!props.visible ? "-110px" : "0px")};
   z-index: 6;
 `;
 
@@ -73,7 +77,7 @@ const UserButton = styled.button`
 const OpenNav = styled.button`
   position: fixed;
   transition: 0.2s;
-  top: ${props => (props.visible ? "-50px" : "0px")};
+  top: ${(props) => (props.visible ? "-50px" : "0px")};
   right: 100px;
   border-radius: 0px 0px 25px 25px;
   border: 0px;
@@ -100,7 +104,8 @@ const ShopNavBar = ({
   userAuthed,
   setSideBarDisplay,
   authModalActive,
-  workspace
+  topVisible,
+  setTopVisible,
 }) => {
   const dispatch = useDispatch();
 
@@ -112,14 +117,11 @@ const ShopNavBar = ({
     }
   }, [authModalActive]);
 
-  const [topVisible, setTopVisible] = useState(true);
+  // const [topVisible, setTopVisible] = useState(true)
   // function for the button/links
-  const linkHandler = action => {
+  const linkHandler = (action) => {
     if (action === "Preview") return previewButton();
-    if (action === "Sign In") {
-      previewButton();
-      return dispatch(authModalController("open"));
-    }
+    if (action === "Sign In") return dispatch(authModalController("open"));
 
     // Check if user is authenticated
     if (userAuthed) {
@@ -130,23 +132,24 @@ const ShopNavBar = ({
           Router.push("/dashboard");
           break;
         case "Save":
-          dispatch(saveStore(workspace));
+          dispatch(openStoreMetaEditor());
           break;
         case "Publish":
+          dispatch(openStoreMetaEditor());
           break;
         default:
           break;
       }
     } else {
-      // if not console log for now,
-      // but add authentication modal for now
-      alert("user is not authed");
+      // create toast of type 'auth'
+      dispatch(toastController("auth"));
     }
   };
 
   // opens and closes the sidebar/navbar
   const previewButton = () => {
-    setSideBarDisplay(prevState => {
+    dispatch(closeStoreMetaEditor());
+    setSideBarDisplay((prevState) => {
       // if sidebar doesn't have the same bool as top nav bar
       if (prevState !== topVisible) {
         // return previous state
@@ -157,7 +160,7 @@ const ShopNavBar = ({
         return !prevState;
       }
     });
-    setTopVisible(prevState => !prevState);
+    setTopVisible((prevState) => !prevState);
   };
 
   return (
