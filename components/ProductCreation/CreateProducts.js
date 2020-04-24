@@ -27,7 +27,6 @@ const CreateProducts = () => {
       <ProductContainer>
         <CreationModal>
           <SelectProducts />
-          <ProductData />
         </CreationModal>
       </ProductContainer>
     </div>
