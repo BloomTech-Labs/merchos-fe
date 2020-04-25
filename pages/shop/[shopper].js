@@ -7,12 +7,10 @@ import styled from "styled-components";
 import { Reset } from "merch_components";
 
 const Page = styled.div`
-  width: 100%;
-  display: flex;
+  width: 100vw;
 `;
 
 const GridItemContainer = styled.div`
-  object-fit: contain;
   background: white;
   text-align: right;
 `;
@@ -24,10 +22,8 @@ const fetcher = (args) => {
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
 const shopper = (props) => {
-  const server = process.env.BACKEND_URL;
   const router = useRouter();
   const { shopper } = router.query;
-  console.log("SHOPPER: ", shopper);
   const { data, error } = useSWR(
     `${process.env.BACKEND_URL}/store/${shopper}`,
     fetcher
@@ -40,19 +36,26 @@ const shopper = (props) => {
   if (!data) {
     return <div>loading...</div>;
   }
+
   const layoutArrayString = data.data.page.info.layout;
   const contentArrayString = data.data.page.info.content;
 
   const layoutObject = layoutArrayString
     .slice(1, -1)
-    .split(/^{.*}/g)
+    .replace(/","/g, /" "/)
+    .replace(/\//g, "")
+    .split(" ")
     .map((column) => {
+      //for some reason need to JSON.parse(column) twice to get it to work, this
+      //one and the line on layouts lg
       return JSON.parse(column);
     });
 
   const contentObject = contentArrayString
     .slice(1, -1)
-    .split(/^{.*}/g)
+    .replace(/","/g, /" "/)
+    .replace(/\//g, "")
+    .split(" ")
     .map((column) => {
       return JSON.parse(column);
     });
@@ -62,7 +65,9 @@ const shopper = (props) => {
       <ResponsiveGridLayout
         className="layout"
         layouts={{
-          lg: layoutObject
+          lg: [...layoutObject].map((column) => {
+            return JSON.parse(column);
+          })
         }}
         breakpoints={{ lg: 1000, md: 996, sm: 768, xs: 360 }}
         cols={{ lg: 12, md: 9, sm: 6, xs: 3 }}
@@ -71,6 +76,7 @@ const shopper = (props) => {
         isDraggable={false}
         isDroppable={false}
         isResizable={false}
+        preventCollision={false}
         style={{
           background: "white",
           minHeight: "100vh",
