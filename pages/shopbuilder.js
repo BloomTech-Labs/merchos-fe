@@ -7,10 +7,11 @@ import {
   onBreakpointChange,
   onDragStop,
   onResizeStop,
-  deleteItemAction
+  deleteItemAction,
 } from "../store/actions/ShopBuilderActions";
 import ModalLayout from "../components/ShopBuilder/ModalLayout";
 import ModalComponents from "../components/ShopBuilder/ModalComponents";
+import CreateProducts from "../components/ProductCreation/CreateProducts";
 import SideBar from "../components/ShopBuilder/SideBar";
 import styled, { keyframes } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -180,7 +181,7 @@ const ShopBuilder = (props) => {
                 style={{
                   height: "5vh",
                   borderRadius: "0 0 45px 45px",
-                  cursor: "pointer"
+                  cursor: "pointer",
                 }}
               >
                 close
@@ -198,7 +199,7 @@ const ShopBuilder = (props) => {
             <ResponsiveGridLayout
               className="layout"
               layouts={{
-                lg: currentLayout
+                lg: currentLayout,
               }}
               breakpoints={{ lg: 1000, md: 996, sm: 768, xs: 360 }}
               cols={{ lg: 12, md: 9, sm: 6, xs: 3 }}
@@ -222,13 +223,13 @@ const ShopBuilder = (props) => {
               onDragStart={undefined}
               droppingItem={{
                 i: `${dragId}__dropping-elem__`,
-                ...placeholderSize(dragId)
+                ...placeholderSize(dragId),
               }}
               style={{
                 background: "white",
                 minHeight: "100vh",
                 width: "100vw",
-                paddingTop: "0"
+                paddingTop: "0",
               }}
               autoSize={true}
               rowHeight={75}
@@ -243,7 +244,7 @@ const ShopBuilder = (props) => {
                         fontSize: "3.8rem",
                         opacity: "0.72",
                         marginRight: "10px",
-                        marginTop: "10px"
+                        marginTop: "10px",
                       }}
                       onClick={() => props.deleteItemAction(index)}
                     />
@@ -278,7 +279,7 @@ const ShopBuilder = (props) => {
 const mapStateToProps = (state) => {
   return {
     state: state.workspace,
-    userAuthed: state.userData.userIsAuthed
+    userAuthed: state.userData.userIsAuthed,
   };
 };
 
@@ -288,6 +289,6 @@ export default connect(mapStateToProps, {
   onBreakpointChange,
   onDragStop,
   onResizeStop,
-  deleteItemAction
+  deleteItemAction,
 })(ShopBuilder);
 //changed name of page of shopbuilder back to ShopBuilder

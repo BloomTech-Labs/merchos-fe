@@ -9,7 +9,7 @@ export const Bag = () => {
     <SVG
       width="38"
       height="40"
-      viewBox="-10 0 58 40"
+      viewBox="-6 0 48 40"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -31,7 +31,7 @@ export const Cap = ({ handleClick }) => {
       onClick={handleClick}
       width="59"
       height="49"
-      viewBox="-9 0 59 29"
+      viewBox="-3 0 69 29"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -58,24 +58,14 @@ export const Cap = ({ handleClick }) => {
 
 export const Shirt = () => {
   const SVG = styled.svg`
-  // margin-right: 20px;
-  // border: 1px solid black;
-  // width: 60px;
-  // height: 60px;
-  // background: ${({ selected }) => (selected === true ? "blue" : "white")}
-  // fill: black;
-  // border-radius: 8px;
-  // cursor: pointer;
-  pointer-events: none;
-  z-index: 0
-
-`;
+    pointer-events: none;
+  `;
   return (
     <SVG
       value="shirt"
       width="35"
       height="35"
-      viewBox="0 0 35 35"
+      viewBox="-2 0 40 35"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -95,7 +85,7 @@ export const Mug = () => {
     <SVG
       width="32"
       height="32"
-      viewBox="-10 0 52 32"
+      viewBox="-4 0 35 32"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -115,11 +105,12 @@ export const OuterWear = () => {
   const SVG = styled.svg`
     pointer-events: none;
   `;
+
   return (
     <SVG
       width="41"
       height="41"
-      viewBox="0 -4 41 51"
+      viewBox=" 2 -4 41 51"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -139,7 +130,7 @@ export const Poster = () => {
     <SVG
       width="43"
       height="52"
-      viewBox="-10 -4 60 52"
+      viewBox="-4 -4 60 52"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -179,7 +170,7 @@ export const Pants = () => {
     <SVG
       width="23"
       height="40"
-      viewBox="0 -10 24 57"
+      viewBox="2 -10 20 57"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -204,7 +195,7 @@ export const Kids = () => {
       id="Capa_1"
       // enable-background="new 0 0 512 512"
       height="45"
-      viewBox="-30 -30 612 612"
+      viewBox="-10 -30 612 612"
       width="45"
       xmlns="http://www.w3.org/2000/svg"
     >

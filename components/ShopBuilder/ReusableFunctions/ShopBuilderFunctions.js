@@ -8,7 +8,7 @@ import {
   Button,
   LinkBar,
   Navigation,
-  Footer
+  Footer,
 } from "merch_components";
 import styled from "styled-components";
 
@@ -36,7 +36,33 @@ export const generateComponent = (
 ) => {
   switch (component.contentType) {
     case "product-container":
-      return <Item item={component.content} style={component.style} />;
+      return (
+        <div
+          onMouseDown={
+            builderMode
+              ? (e) => {
+                  setMouseMove([e.clientX, e.clientY]);
+                }
+              : false
+          }
+          onMouseUp={
+            builderMode
+              ? (e) => {
+                  if (
+                    e.clientX === mouseMove[0] &&
+                    e.clientY === mouseMove[1]
+                  ) {
+                    setEditComponent((prevState) => !prevState);
+                    setEditType(component.contentType);
+                    setEditId(item.i);
+                  }
+                }
+              : false
+          }
+        >
+          <Item item={component.content} style={component.style} />
+        </div>
+      );
     case "banner":
       return <TextBanner message={component.content.message} />;
     case "store-name":
@@ -71,7 +97,7 @@ export const generateComponent = (
             style={{
               height: `${item.h * 75}px`,
               width: "100%",
-              objectFit: "cover"
+              objectFit: "cover",
             }}
           />
         </div>
