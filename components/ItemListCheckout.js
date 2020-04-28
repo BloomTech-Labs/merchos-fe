@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Router from "next/router";
 import ItemOptions from "../components/ItemOptions";
+import ItemTotal from "../components/ItemTotal";
 
 const ItemContainer = styled.div`
   height: 250px;
@@ -38,6 +39,13 @@ const ItemDescription = styled.text`
   margin-left: 2%;
 `;
 
+const ItemTotalCol = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 215px;
+  margin-top: 2%;
+`;
+
 const ItemListCheckout = () => {
   return (
     <div>
@@ -51,6 +59,9 @@ const ItemListCheckout = () => {
           </ItemDescription>
           <ItemOptions />
         </ItemInfoCol>
+        <ItemTotalCol>
+          <ItemTotal />
+        </ItemTotalCol>
       </ItemContainer>
     </div>
   );
