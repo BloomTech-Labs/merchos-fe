@@ -1,92 +1,58 @@
 import {
-    SUBMIT_DESIGN_FOR_REVIEW_START,
-    SUBMIT_DESIGN_FOR_REVIEW_SUCCESS,
-    SUBMIT_DESIGN_FOR_REVIEW_FAILED,
-    RETRIEVE_DESIGN_START,
-    RETRIEVE_DESIGN_SUCCESS,
-    RETRIEVE_DESIGN_FAILED,
-    SUBMIT_FOR_QUOTE_START,
-    SUBMIT_FOR_QUOTE_SUCCESS,
-    SUBMIT_FOR_QUOTE_FAILED,
-    RETRIEVE_ORDER_STATUS_START,
-    RETRIEVE_ORDER_STATUS_SUCCESS,
-    RETRIEVE_ORDER_STATUS_FAILED
+  GET_STORE_PRODUCTS_START,
+  GET_STORE_PRODUCTS_SUCCESS,
+  GET_STORE_PRODUCTS_FAILED,
+  DELETE_PRODUCT_START,
+  DELETE_PRODUCT_SUCCESS,
+  DELETE_PRODUCT_FAILED,
 } from "../../actions/scalablePress/scalablePress";
 
 const initialState = {
-    isSubmittingDesign: false,
-    isRetrievingDesign: false,
-    isSubmittingQuote: false,
-    isRetrievingOrderStatus: false,
-    error: ''
-}
+  products: [],
+  isRetrievingProducts: false,
+  isDeletingProduct: false,
+  error: "",
+};
 
 export function scalableReducer(state = initialState, action) {
-    switch (action.type) {
-        case SUBMIT_DESIGN_FOR_REVIEW_START:
-            return {
-                ...state,
-                isSubmittingDesign: true
-            }
-        case SUBMIT_DESIGN_FOR_REVIEW_SUCCESS:
-            return {
-                ...state,
-                isSubmittingDesign: false
-            }
-        case SUBMIT_DESIGN_FOR_REVIEW_FAILED:
-            return {
-                ...state,
-                isSubmittingDesign: false,
-                error: action.payload
-            }
-        case RETRIEVE_DESIGN_START:
-            return {
-                ...state,
-                isRetrievingDesign: true
-            }
-        case RETRIEVE_DESIGN_SUCCESS:
-            return {
-                ...state,
-                isRetrievingDesign: false
-            }
-        case RETRIEVE_DESIGN_FAILED:
-            return {
-                ...state,
-                isRetrievingDesign: false,
-                error: action.payload
-            }
-
-        case SUBMIT_FOR_QUOTE_START:
-            return {
-                ...state,
-                isSubmittingDesign: true
-            }
-        case SUBMIT_FOR_QUOTE_SUCCESS:
-            return {
-                ...state,
-                isSubmittingDesign: false
-            }
-        case SUBMIT_FOR_QUOTE_FAILED:
-            return {
-                ...state,
-                isSubmittingDesign: false,
-                error: action.payload
-            }
-        case RETRIEVE_ORDER_STATUS_START:
-            return {
-                ...state,
-                isRetrievingDesign: true
-            }
-        case RETRIEVE_ORDER_STATUS_SUCCESS:
-            return {
-                ...state,
-                isRetrievingDesign: false
-            }
-        case RETRIEVE_ORDER_STATUS_FAILED:
-            return {
-                ...state,
-                isRetrievingDesign: false,
-                error: action.payload
-            }
-    }
+  switch (action.type) {
+    case GET_STORE_PRODUCTS_START:
+      return {
+        ...state,
+        isRetrievingProducts: true,
+      };
+    case GET_STORE_PRODUCTS_SUCCESS:
+      return {
+        ...state,
+        isRetrievingProducts: false,
+        products: action.payload,
+      };
+    case GET_STORE_PRODUCTS_FAILED:
+      return {
+        ...state,
+        isRetrievingProducts: false,
+        error: action.payload,
+      };
+    case DELETE_PRODUCT_START:
+      return {
+        ...state,
+        isDeletingProduct: true,
+      };
+    case DELETE_PRODUCT_SUCCESS:
+      return {
+        ...state,
+        isDeletingProduct: false,
+        products: state.products.filter(
+          (product) => product.id !== action.payload
+        ),
+      };
+    case DELETE_PRODUCT_FAILED:
+      return {
+        ...state,
+        isDeletingProduct: false,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
 }
