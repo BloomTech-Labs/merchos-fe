@@ -5,10 +5,14 @@ import {
   DELETE_PRODUCT_START,
   DELETE_PRODUCT_SUCCESS,
   DELETE_PRODUCT_FAILED,
+  ADD_PRODUCT_TO_STORE_START,
+  ADD_PRODUCT_TO_STORE_SUCCESS,
+  ADD_PRODUCT_TO_STORE_FAILED,
 } from "../../actions/scalablePress/scalablePress";
 
 const initialState = {
   products: [],
+  storeProducts: [],
   isRetrievingProducts: false,
   isDeletingProduct: false,
   error: "",
@@ -16,6 +20,23 @@ const initialState = {
 
 export function scalableReducer(state = initialState, action) {
   switch (action.type) {
+    case ADD_PRODUCT_TO_STORE_START:
+      return {
+        ...state,
+        isAddingToStore: true,
+      };
+    case ADD_PRODUCT_TO_STORE_SUCCESS:
+      return {
+        ...state,
+        isAddingToStore: false,
+        storeProducts: [...storeProducts, action.payload],
+      };
+    case ADD_PRODUCT_TO_STORE_FAILED:
+      return {
+        ...state,
+        isAddingToStore: false,
+        error: action.payload,
+      };
     case GET_STORE_PRODUCTS_START:
       return {
         ...state,

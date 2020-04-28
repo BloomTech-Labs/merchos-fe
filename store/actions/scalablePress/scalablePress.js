@@ -15,6 +15,22 @@ export const DELETE_PRODUCT_START = "DELETE_PRODUCT_START";
 export const DELETE_PRODUCT_SUCCESS = "DELETE_PRODUCT_SUCCESS";
 export const DELETE_PRODUCT_FAILED = "DELETE_PRODUCT_FAILED";
 
+export const ADD_PRODUCT_TO_STORE_START = "ADD_PRODUCT_TO_STORE_START";
+export const ADD_PRODUCT_TO_STORE_SUCCESS = "ADD_PRODUCT_TO_STORE_SUCCESS";
+export const ADD_PRODUCT_TO_STORE_FAILED = "ADD_PRODUCT_TO_STORE_FAILED";
+
+export const addProductToStore = (product) => (dispatch) => {
+  dispatch({ type: ADD_PRODUCT_TO_STORE_START });
+  if (!product.product_id || !product.color) {
+    dispatch({
+      type: ADD_PRODUCT_TO_STORE_FAILED,
+      payload: "Information is missing from the product. please add (color, product).",
+    });
+  } else {
+    dispatch({ type: ADD_PRODUCT_TO_STORE_SUCCESS, payload: product });
+  }
+};
+
 export const getStoreProducts = (store_id) => (dispatch) => {
   dispatch({ type: GET_STORE_PRODUCTS_START });
   axiosWithKey()
