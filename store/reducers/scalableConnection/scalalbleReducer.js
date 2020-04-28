@@ -11,8 +11,8 @@ import {
 } from "../../actions/scalablePress/scalablePress";
 
 const initialState = {
-  products: [],
-  storeProducts: [],
+  displayProducts: [], // products to display on webpages.
+  storeProducts: [], // local products stored before they are sent off
   isRetrievingProducts: false,
   isDeletingProduct: false,
   error: "",
@@ -46,7 +46,7 @@ export function scalableReducer(state = initialState, action) {
       return {
         ...state,
         isRetrievingProducts: false,
-        products: action.payload,
+        displayProducts: action.payload,
       };
     case GET_STORE_PRODUCTS_FAILED:
       return {
@@ -63,7 +63,7 @@ export function scalableReducer(state = initialState, action) {
       return {
         ...state,
         isDeletingProduct: false,
-        products: state.products.filter(
+        displayProducts: state.displayProducts.filter(
           (product) => product.id !== action.payload
         ),
       };
