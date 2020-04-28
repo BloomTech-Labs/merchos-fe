@@ -1,12 +1,12 @@
-import React from "react";
-import CreateProducts from "../components/ProductCreation/CreateProducts";
+// import React from "react";
+// import CreateProducts from "../components/ProductCreation/CreateProducts";
 
-const Modal = () => {
-  return (
-    <div>
-      <CreateProducts />
-    </div>
-  );
-};
+// const Modal = () => {
+//   return (
+//     <div>
+//       <CreateProducts />
+//     </div>
+//   );
+// };
 
-export default Modal;
+// export default Modal;

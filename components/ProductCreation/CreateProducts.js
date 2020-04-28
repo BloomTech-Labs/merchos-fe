@@ -1,14 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import SelectProducts from "./SelectProducts";
-import ProductData from "./ProductData";
 
 const CreateProducts = () => {
   const ProductContainer = styled.div`
     width: 100%;
     height: 100vh;
-    border: 1px solid black;
-    background: rgba(0, 0, 0, 0.9);
+    background: rgba(0, 0, 0, 0.5);
   `;
 
   const CreationModal = styled.div`
@@ -18,8 +16,7 @@ const CreateProducts = () => {
     left: 50%;
     transform: translate(-50%, -50%);
     background: white;
-    width: 27%;
-    height: 72%;
+    height: 74vh;
     border-radius: 30px;
   `;
   return (

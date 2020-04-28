@@ -63,14 +63,10 @@ const ProductproductData = ({ imageName }) => {
     sale: 0.0,
   });
 
-  console.log("imageName", productData.title);
-
   const handleChange = (e) => {
     setProductData({ [e.target.name]: e.target.value });
   };
 
-  console.log("title", productData.title);
-  console.log("description", productData.description);
   return (
     <>
       <StyledForm onSubmit={(e) => e.preventDefault()}>

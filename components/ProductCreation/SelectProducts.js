@@ -24,7 +24,7 @@ const ProductHeading = styled.h2`
   font-size: 25px;
   position: relative;
   left: 30%;
-  width: 35%;
+  width: 36%;
   border-bottom: 1px solid black;
   font-weight: bold;
   margin-top: 10px;
@@ -54,7 +54,7 @@ const ImageName = styled.h1`
   font-size: 20px;
   position: absolute;
   width: 100%;
-  top: 17%;
+  top: 20%;
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
@@ -78,9 +78,6 @@ const SelectProducts = ({ select }) => {
           if (!p.image) {
             p[i++];
           } else if (i + 1 < iterator * 5 + 1) {
-            console.log("reach this");
-            // console.log(imageName);
-            // console.log(p.name);
             setProductId([p.id]);
             return p.name;
           } else {
@@ -91,20 +88,13 @@ const SelectProducts = ({ select }) => {
     });
   }, [productName]);
 
-  // console.log(imageName);
   const images = [];
   const pnames = [];
-  // console.log("productId", productId);
 
   const getImages = () => {
     products.map((ps, i) => {
-      console.log(i);
-
       images.push(ps.image.url);
       pnames.push(ps.name);
-      // console.log(images);
-      console.log(pnames);
-      // console.log(ps.image.url);
     });
   };
   getImages();
@@ -114,40 +104,29 @@ const SelectProducts = ({ select }) => {
   const imageName = [];
   for (let name of names) {
     imageName.push(name.name);
-    console.log("names", name.name);
-    console.log("imageName", imageName);
-    // return imageName;
   }
-  console.log("product.name", products.values());
 
-  // let count = 0;
   let imageTitle = "";
   const callback = (e) => {
     for (let i = 0; i < images.length; i++) {
       if (count === i) {
-        console.log("pnames", pnames[i]);
         imageTitle += pnames[i];
       }
     }
   };
-  // console.log(imageName);
 
   const handleClick = (e) => {
     setProductName(e.target.value);
-    console.log(e.target.value);
   };
 
   const increment = () => {
-    // console.log("count", count);
     if (count >= images.length - 1) {
       setCount(0);
     } else {
       setCount(count + 1);
     }
-
-    console.log("count", count);
   };
-  console.log("count", count);
+
   const decrement = () => {
     if (count <= 0) {
       setCount(images.length - 1);
@@ -155,8 +134,7 @@ const SelectProducts = ({ select }) => {
       setCount(count - 1);
     }
   };
-  // console.log(selected);
-  console.log("temparry", products);
+
   return (
     <div>
       <ProductHeading>Pick a Product to Sell:</ProductHeading>

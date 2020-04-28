@@ -5,6 +5,7 @@ import {
   setCarouselAction,
 } from "../../store/actions/ShopBuilderActions";
 import styled from "styled-components";
+import CreateProducts from "../ProductCreation/CreateProducts";
 
 const Container = styled.div`
   ${(props) => (props.editProduct ? "" : "display: none;")}
@@ -26,6 +27,7 @@ const Modal = styled.div`
 `;
 
 const ModalComponents = (props) => {
+  console.log("props", props);
   function handleImage(e) {
     props.setImageAction(
       URL.createObjectURL(e.target.files[0]),
@@ -52,6 +54,7 @@ const ModalComponents = (props) => {
               name={props.editId}
               onChange={(e) => handleImage(e)}
             />
+            <button>x</button>
           </label>
         );
       case "carousel":
@@ -66,6 +69,12 @@ const ModalComponents = (props) => {
               multiple
             />
           </label>
+        );
+      case "product-container":
+        return (
+          <div onClick={(e) => e.stopPropagation()}>
+            <CreateProducts />;
+          </div>
         );
       default:
         return <div>No component available</div>;

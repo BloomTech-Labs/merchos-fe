@@ -11,6 +11,7 @@ import {
 } from "../store/actions/ShopBuilderActions";
 import ModalLayout from "../components/ShopBuilder/ModalLayout";
 import ModalComponents from "../components/ShopBuilder/ModalComponents";
+import CreateProducts from "../components/ProductCreation/CreateProducts";
 import SideBar from "../components/ShopBuilder/SideBar";
 import styled, { keyframes } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -100,6 +101,14 @@ const EditCarouselButton = styled.button`
   left: 0;
 `;
 
+const CP = styled.div`
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  background: rgba(0, 0, 0, 0.7);
+`;
+
 const ShopBuilder = (props) => {
   const [displayModal, setDisplayModal] = useState(false);
   const [editComponent, setEditComponent] = useState(false);
@@ -117,7 +126,22 @@ const ShopBuilder = (props) => {
   const generateComponent = (component, item) => {
     switch (component.contentType) {
       case "product-container":
-        return <Item item={component.content} style={component.style} />;
+        return (
+          <div
+            onMouseDown={(e) => {
+              setMouseMove([e.clientX, e.clientY]);
+            }}
+            onMouseUp={(e) => {
+              if (e.clientX === mouseMove[0] && e.clientY === mouseMove[1]) {
+                setEditComponent((prevState) => !prevState);
+                setEditType(component.contentType);
+                setEditId(item.i);
+              }
+            }}
+          >
+            <Item item={component.content} style={component.style} />
+          </div>
+        );
       case "banner":
         return <TextBanner message={component.content.message} />;
       case "store-name":
@@ -131,7 +155,7 @@ const ShopBuilder = (props) => {
             onMouseUp={(e) => {
               if (e.clientX === mouseMove[0] && e.clientY === mouseMove[1]) {
                 setEditComponent(!editComponent);
-                setEditType(component.contentType);
+                console.log(setEditType(component.contentType));
                 setEditId(item.i);
               }
             }}
