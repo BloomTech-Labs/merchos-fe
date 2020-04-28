@@ -54,7 +54,7 @@ const ImageName = styled.h1`
   font-size: 20px;
   position: absolute;
   width: 100%;
-  top: 20%;
+  top: 17%;
   left: 50%;
   transform: translateX(-50%);
   text-align: center;

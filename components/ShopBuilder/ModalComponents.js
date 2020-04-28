@@ -54,7 +54,6 @@ const ModalComponents = (props) => {
               name={props.editId}
               onChange={(e) => handleImage(e)}
             />
-            <button>x</button>
           </label>
         );
       case "carousel":

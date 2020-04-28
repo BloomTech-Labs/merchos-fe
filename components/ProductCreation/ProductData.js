@@ -55,7 +55,7 @@ const Submit = styled.button`
 const Header = styled.h3`
   font-weight: bold;
 `;
-const ProductproductData = ({ imageName }) => {
+const ProductData = ({ imageName }) => {
   const [productData, setProductData] = useState({
     title: imageName,
     description: "",
@@ -115,4 +115,4 @@ const ProductproductData = ({ imageName }) => {
   );
 };
 
-export default ProductproductData;
+export default ProductData;
