@@ -19,14 +19,22 @@ export const cartCheckoutReducer = (state = initialState, action) => {
     case ADD_TO_CART:
       return {
         ...state,
+        cart: [...state.cart, action.payload],
       }
     case REMOVE_FROM_CART:
       return {
         ...state,
+        cart: state.cart.filter((item) => item.itemIdInCart !== action.payload),
       }
     case UPDATE_CART_ITEM:
       return {
         ...state,
+        cart: state.cart.map((item) => {
+          if (item.itemIdInCart === action.payload.itemIdInCart) {
+            return action.payload
+          }
+          return item
+        }),
       }
     default:
       return state
