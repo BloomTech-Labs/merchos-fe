@@ -66,9 +66,11 @@ const TestCheckout = () => {
         <div>
           <Items>Items:</Items>
           <ItemContainer>
-            {cart.map(item => (
-              <ItemList key={item.itemIdInCart} data={item} />
-            ))}
+            {cart.length > 0
+              ? cart.map(item => (
+                  <ItemList key={item.itemIdInCart} data={item} />
+                ))
+              : "Your cart is empty"}
           </ItemContainer>
         </div>
         <Totals />

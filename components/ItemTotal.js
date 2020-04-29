@@ -14,28 +14,21 @@ const OriginalPrice = styled.text`
   font-size: 2.5rem;
 `;
 
-const RemoveItem = styled.text`
+const RemoveItem = styled.button`
   color: #0751ff;
   font-size: 2rem;
   padding-top: 75%;
   cursor: pointer;
 `;
 
-const ItemTotal = () => {
-  const itemDelete = e => {
-    const bool = confirm(
-      "Are you sure that you would like to remove this item?"
-    );
-    if (bool == true) {
-    }
-    e.preventDefault();
-    removeCartItem(itemIdInCart);
-  };
+const ItemTotal = props => {
+  console.log({ props });
+
   return (
     <div>
       <TotalContainer>
         <OriginalPrice>$13.99</OriginalPrice>
-        <RemoveItem onClick={itemDelete}>Remove</RemoveItem>
+        <RemoveItem onClick={props.deleteItem}>Remove</RemoveItem>
       </TotalContainer>
     </div>
   );

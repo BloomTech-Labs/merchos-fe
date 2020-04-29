@@ -3,6 +3,12 @@ import styled from "styled-components";
 import Router from "next/router";
 import ItemOptions from "../components/ItemOptions";
 import ItemTotal from "../components/ItemTotal";
+import { useDispatch } from "react-redux";
+
+import {
+  removeCartItem,
+  updateItemInCart
+} from "../store/actions/storeCheckout/storeCheckout";
 
 const ItemContainer = styled.div`
   height: 250px;
@@ -47,21 +53,36 @@ const ItemTotalCol = styled.div`
 `;
 
 const ItemListCheckout = props => {
+  const dispatch = useDispatch();
+
   console.log(props);
-  const deleteItem = item => {
-    console.log(props.data);
+  const deleteItem = () => {
+    dispatch(removeCartItem(props.data));
   };
+
+  // {
+  //   itemIdInCart: 1,
+  //   itemiImage: "",
+  //   itemTitle: "A Really Cool Shirt",
+  //   itemDescription:
+  //     "A really cool shirt! This is the best item ever. You will look really cool when you wear it. High quality, buy it now!",
+  //   itemQty: 1,
+  //   itemSize: "MD",
+  //   itemColor: "Orange",
+  //   itemPrice: 13.99
+  // }
+
   return (
     <div>
       <ItemContainer>
         <ItemImage />
         <ItemInfoCol>
-          <ItemTitle>{props.data.ItemTitle}</ItemTitle>
-          <ItemDescription>{props.data.ItemDescription}</ItemDescription>
-          <ItemOptions />
+          <ItemTitle>{props.data.itemTitle}</ItemTitle>
+          <ItemDescription>{props.data.itemDescription}</ItemDescription>
+          <ItemOptions item={props.data} />
         </ItemInfoCol>
         <ItemTotalCol>
-          <ItemTotal />
+          <ItemTotal deleteItem={deleteItem} />
         </ItemTotalCol>
       </ItemContainer>
     </div>

@@ -18,9 +18,9 @@ const initialState = {
       itemPrice: 13.99
     },
     {
-      itemIdInCart: 1,
+      itemIdInCart: 2,
       itemiImage: "",
-      itemTitle: "A Really Cool Shirt",
+      itemTitle: "A Really Cool Hat",
       itemDescription:
         "A really cool shirt! This is the best item ever. You will look really cool when you wear it. High quality, buy it now!",
       itemQty: 2,
@@ -29,7 +29,7 @@ const initialState = {
       itemPrice: 13.99
     },
     {
-      itemIdInCart: 1,
+      itemIdInCart: 3,
       itemiImage: "",
       itemTitle: "A Really Cool Shirt",
       itemDescription:
