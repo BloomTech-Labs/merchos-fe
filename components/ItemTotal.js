@@ -1,22 +1,34 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { removeCartItem } from "../store/actions/storeCheckout/storeCheckout";
 
 const TotalContainer = styled.div`
   display: flex;
+  flex-direction: column;
   width: 210px;
-  justify-content: flex-end;
+  align-items: flex-end;
 `;
 
 const OriginalPrice = styled.text`
-  color: #00000;
-  font-size: 2rem;
+  color: #73be6d;
+  font-size: 2.5rem;
 `;
 
-const ItemTotal = () => {
+const RemoveItem = styled.button`
+  color: #0751ff;
+  font-size: 2rem;
+  padding-top: 75%;
+  cursor: pointer;
+`;
+
+const ItemTotal = props => {
+  console.log({ props });
+
   return (
     <div>
       <TotalContainer>
-        <OriginalPrice>$16.99</OriginalPrice>
+        <OriginalPrice>$13.99</OriginalPrice>
+        <RemoveItem onClick={props.deleteItem}>Remove</RemoveItem>
       </TotalContainer>
     </div>
   );
