@@ -46,17 +46,18 @@ const ItemTotalCol = styled.div`
   margin-top: 2%;
 `;
 
-const ItemListCheckout = () => {
+const ItemListCheckout = props => {
+  console.log(props);
+  const deleteItem = item => {
+    console.log(props.data);
+  };
   return (
     <div>
       <ItemContainer>
         <ItemImage />
         <ItemInfoCol>
-          <ItemTitle> A Really Cool Shirt</ItemTitle>
-          <ItemDescription>
-            A really cool shirt! This is the best item ever. You should look
-            really cool when you wear it. High quality, buy it now!
-          </ItemDescription>
+          <ItemTitle>{props.data.ItemTitle}</ItemTitle>
+          <ItemDescription>{props.data.ItemDescription}</ItemDescription>
           <ItemOptions />
         </ItemInfoCol>
         <ItemTotalCol>
