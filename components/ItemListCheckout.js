@@ -22,7 +22,6 @@ const ItemImage = styled.div`
   width: 240px;
   border: solid gray 1px;
   margin-left: 2%;
-  margin-top: 2%;
 `;
 
 const ItemInfoCol = styled.div`
@@ -55,22 +54,9 @@ const ItemTotalCol = styled.div`
 const ItemListCheckout = props => {
   const dispatch = useDispatch();
 
-  console.log(props);
   const deleteItem = () => {
     dispatch(removeCartItem(props.data));
   };
-
-  // {
-  //   itemIdInCart: 1,
-  //   itemiImage: "",
-  //   itemTitle: "A Really Cool Shirt",
-  //   itemDescription:
-  //     "A really cool shirt! This is the best item ever. You will look really cool when you wear it. High quality, buy it now!",
-  //   itemQty: 1,
-  //   itemSize: "MD",
-  //   itemColor: "Orange",
-  //   itemPrice: 13.99
-  // }
 
   return (
     <div>

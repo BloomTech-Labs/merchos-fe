@@ -1,4 +1,5 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 
 import styled from 'styled-components'
 
@@ -7,30 +8,69 @@ const CheckoutPrice = styled.div`
   flex-direction: column;
   width: 25%;
   align-items: center;
+  border: 1px solid black;
+  margin-right: 1%;
+  padding: 10px 25px;
+  position: sticky;
+  top: 15px;
+`
+
+const SubTotalWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 3rem;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  padding: 25px;
+  margin: 25px;
+  width: 100%;
+
+  h3 {
+    padding: 5px;
+    font-size: 2.5rem;
+  }
+
+  h4 {
+    padding: 10px 0px;
+    font-weight: bold;
+  }
+`
+
+const TotalWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  font-size: 2.5rem;
+
+  .final-total {
+    font-weight: bold;
+    padding-bottom: 15px;
+  }
 `
 
 const Totals = () => {
+  const { checkout } = useSelector((state) => state.cartCheckoutReducer)
+  console.log(checkout)
   return (
     <CheckoutPrice>
-      <div>
-        <h3>
-          Items: <span>$130</span>
-        </h3>
+      <SubTotalWrapper>
         <h4>
-          SubTotal: <span>$130</span>
+          Subtotal: <span>${checkout.subTotal}</span>
         </h4>
-      </div>
-      <div>
         <h3>
-          Shipping: <span>$5</span>
+          Shipping: <span>${checkout.shipping}</span>
         </h3>
         <h3>
-          Items: <span>$0</span>
+          Tax: <span>${checkout.taxes}</span>
         </h3>
-        <h3>
-          Total: <span>$135</span>
+      </SubTotalWrapper>
+      <TotalWrapper>
+        <h3 className='final-total'>
+          Total: <span>${checkout.total}</span>
         </h3>
-      </div>
+      </TotalWrapper>
     </CheckoutPrice>
   )
 }
