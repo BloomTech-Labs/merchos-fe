@@ -16,8 +16,13 @@ const CreateProducts = () => {
     left: 50%;
     transform: translate(-50%, -50%);
     background: white;
-    height: 74vh;
+    height: 70vh;
     border-radius: 30px;
+
+    @media (max-width: 1920px) {
+      height: 80vh;
+      top: 40%;
+    }
   `;
   return (
     <div>

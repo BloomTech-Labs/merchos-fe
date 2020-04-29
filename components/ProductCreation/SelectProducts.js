@@ -15,9 +15,13 @@ import {
 } from "./Icons/icons";
 
 const Icons = styled.div`
-  margin: 35px 0 0 38px;
+  margin: 3.5rem 0 0 3.8rem;
   display: flex;
   flex-direction: row;
+
+  @media (max-width: 1920px) {
+    margin-top: 1.5rem;
+  }
 `;
 
 const ProductHeading = styled.h2`
@@ -42,7 +46,6 @@ const Button = styled.button`
   margin-right: 30px;
   border: 1px solid black;
   width: 50px;
-  // height: 60px;
   outline: none;
   background: white;
   border-radius: 8px;
@@ -54,10 +57,22 @@ const ImageName = styled.h1`
   font-size: 20px;
   position: absolute;
   width: 100%;
-  top: 17%;
+  top: 20%;
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
+`;
+
+const CarouselContainer = styled.div`
+  margin: -12rem auto 0 auto;
+  z-index: -100;
+  width: 80%;
+
+  @media (max-width: 1920px) {
+    margin: -13rem auto 0 auto;
+    width: 70%;
+    z-index: -100;
+  }
 `;
 
 const SelectProducts = ({ select }) => {
@@ -169,16 +184,16 @@ const SelectProducts = ({ select }) => {
         </Button>
       </Icons>
       <ProductTitle>
-        <h2 style={{ marginLeft: "-6px" }}>Shirt</h2>
-        <h2 style={{ marginLeft: "52px" }}>Hat</h2>
-        <h2 style={{ marginLeft: "30px" }}>OuterWear</h2>
-        <h2 style={{ marginLeft: "17px" }}>Shorts</h2>
-        <h2 style={{ marginLeft: "37px" }}>Mug</h2>
-        <h2 style={{ marginLeft: "47px" }}>Bag</h2>
-        <h2 style={{ marginLeft: "53px" }}>Kid</h2>
-        <h2 style={{ marginLeft: "42px" }}>Posters</h2>
+        <h2 style={{ marginLeft: "-.6rem" }}>Shirt</h2>
+        <h2 style={{ marginLeft: "5.2rem" }}>Hat</h2>
+        <h2 style={{ marginLeft: "3rem" }}>OuterWear</h2>
+        <h2 style={{ marginLeft: "1.7rem" }}>Shorts</h2>
+        <h2 style={{ marginLeft: "3.7rem" }}>Mug</h2>
+        <h2 style={{ marginLeft: "4.7rem" }}>Bag</h2>
+        <h2 style={{ marginLeft: "5.3rem" }}>Kid</h2>
+        <h2 style={{ marginLeft: "4.2rem" }}>Posters</h2>
       </ProductTitle>
-      <div style={{ marginTop: "-90px", zIndex: -100 }}>
+      <CarouselContainer>
         {callback()}
 
         <div>
@@ -191,7 +206,7 @@ const SelectProducts = ({ select }) => {
           incrementCB={increment}
           decrementCB={decrement}
         />
-      </div>
+      </CarouselContainer>
       <ProductData />
     </div>
   );

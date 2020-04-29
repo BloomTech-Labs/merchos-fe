@@ -39,6 +39,10 @@ const InputSize = styled.input`
   height: 30px;
   width: 100%;
   margin-bottom: 20px;
+
+  @media (max-width: 1920px) {
+    margin-bottom: 10px;
+  }
 `;
 
 const Submit = styled.button`
