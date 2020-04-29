@@ -20,24 +20,24 @@ const initialState = {
     {
       itemIdInCart: 2,
       itemiImage: "",
-      itemTitle: "A Really Cool Hat",
+      itemTitle: "Swag Dragon Belt",
       itemDescription:
         "A really cool shirt! This is the best item ever. You will look really cool when you wear it. High quality, buy it now!",
       itemQty: 2,
-      itemSize: "Lg",
+      itemSize: "LG",
       itemColor: "Black",
-      itemPrice: 13.99
+      itemPrice: 19.99
     },
     {
       itemIdInCart: 3,
       itemiImage: "",
-      itemTitle: "A Really Cool Shirt",
+      itemTitle: "Hip T-Shirt",
       itemDescription:
         "A really cool shirt! This is the best item ever. You will look really cool when you wear it. High quality, buy it now!",
       itemQty: 1,
       itemSize: "LG",
       itemColor: "White",
-      itemPrice: 13.99
+      itemPrice: 9.99
     }
   ],
   checkout: {
