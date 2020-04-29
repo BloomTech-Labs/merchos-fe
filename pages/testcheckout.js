@@ -1,9 +1,10 @@
-import React from "react";
-import styled from "styled-components";
-import Router from "next/router";
-import { IoIosArrowBack } from "react-icons/io";
+import React from 'react'
+import styled from 'styled-components'
+import Router from 'next/router'
+import { IoIosArrowBack } from 'react-icons/io'
 
-import ItemList from "../components/ItemListCheckout";
+import ItemList from '../components/ItemListCheckout'
+import Totals from '../components/cartCheckout/totals'
 
 const Head = styled.div`
   display: flex;
@@ -12,7 +13,7 @@ const Head = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-left: 2%;
-`;
+`
 
 const Link = styled.h3`
   font-size: 2rem;
@@ -22,7 +23,7 @@ const Link = styled.h3`
   justify-content: flex-start;
   color: #0751ff;
   cursor: pointer;
-`;
+`
 
 const Title = styled.h1`
   font-size: 4rem;
@@ -31,7 +32,7 @@ const Title = styled.h1`
   justify-content: center;
   padding-top: 2%;
   color: #000000;
-`;
+`
 
 const Items = styled.h3`
   font-size: 3rem;
@@ -41,29 +42,34 @@ const Items = styled.h3`
   margin-top: 1%;
   margin-left: 2%;
   color: #000000;
-`;
+`
 
 const ItemContainer = styled.div`
   margin-top: 1%;
   margin-left: 2%;
-`;
+`
 
 const TestCheckout = () => {
   return (
     <div>
       <Head>
         <Link onClick={() => window.history.back()}>
-          <IoIosArrowBack size="4rem" color="#0751ff" />
+          <IoIosArrowBack size='4rem' color='#0751ff' />
           Back To Shop
         </Link>
         <Title>Checkout</Title>
       </Head>
-      <Items>Items:</Items>
-      <ItemContainer>
-        <ItemList />
-      </ItemContainer>
+      <div>
+        <div>
+          <Items>Items:</Items>
+          <ItemContainer>
+            <ItemList />
+          </ItemContainer>
+        </div>
+        <Totals />
+      </div>
     </div>
-  );
-};
+  )
+}
 
-export default TestCheckout;
+export default TestCheckout

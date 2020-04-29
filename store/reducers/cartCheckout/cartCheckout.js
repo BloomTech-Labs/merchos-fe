@@ -20,11 +20,25 @@ export const cartCheckoutReducer = (state = initialState, action) => {
       return {
         ...state,
         cart: [...state.cart, action.payload],
+        checkout: {
+          ...state.checkout,
+          subTotal: state.checkout.subTotal += action.payload.subtotal,
+          taxes: state.checkout.taxes += action.payload.taxes,
+          shipping: state.checkout.shipping += action.payload.shipping,
+          total: state.checkout.total += action.payload.total,
+        }
       }
     case REMOVE_FROM_CART:
       return {
         ...state,
-        cart: state.cart.filter((item) => item.itemIdInCart !== action.payload),
+        cart: state.cart.filter((item) => item.itemIdInCart !== action.payload.itemIdInCart),
+        checkout: {
+          ...state.checkout,
+          subTotal: state.checkout.subTotal -= action.payload.subtotal,
+          taxes: state.checkout.taxes -= action.payload.taxes,
+          shipping: state.checkout.shipping -= action.payload.shipping,
+          total: state.checkout.total -= action.payload.total,
+        }
       }
     case UPDATE_CART_ITEM:
       return {

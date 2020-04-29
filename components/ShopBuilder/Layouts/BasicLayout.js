@@ -2,18 +2,18 @@ export const BasicLayoutContent = [
   {
     style: {},
     content: {
-      message: 'i"m a banner i"m a banner i"m a banner'
+      message: 'i"m a banner i"m a banner i"m a banner',
     },
     contentType: "banner",
-    id: `banner-${Date.now().toPrecision()}`
+    id: `banner-${Date.now().toPrecision()}`,
   },
   {
     style: {},
     content: {
-      title: "Store Header"
+      title: "Store Header",
     },
     contentType: "store-name",
-    id: `store-name-${Date.now().toPrecision()}`
+    id: `store-name-${Date.now().toPrecision()}`,
   },
   {
     style: {},
@@ -21,62 +21,62 @@ export const BasicLayoutContent = [
       imageArray: [
         "https://images.dog.ceo/breeds/clumber/n02101556_7617.jpg",
         "https://images.unsplash.com/photo-1495954147468-729898cbe8aa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80",
-        "https://images.dog.ceo/breeds/setter-english/n02100735_10175.jpg"
-      ]
+        "https://images.dog.ceo/breeds/setter-english/n02100735_10175.jpg",
+      ],
     },
     contentType: "carousel",
-    id: `carousel-${Date.now().toPrecision()}`
+    id: `carousel-${Date.now().toPrecision()}`,
   },
   {
     style: {},
     content: {},
     contentType: "product-container",
-    id: `product-container-${Date.now().toPrecision()}`
+    id: `product-container-${Date.now().toPrecision()}`,
   },
   {
     style: {},
     content: {},
     contentType: "product-container",
-    id: `product-container-${Date.now().toPrecision()}`
+    id: `product-container-${Date.now().toPrecision()}`,
   },
   {
     style: {},
     content: {},
     contentType: "product-container",
-    id: `product-container-${Date.now().toPrecision()}`
+    id: `product-container-${Date.now().toPrecision()}`,
   },
   {
     style: {},
     content: {},
     contentType: "product-container",
-    id: `product-container-${Date.now().toPrecision()}`
+    id: `product-container-${Date.now().toPrecision()}`,
   },
   {
     style: {},
     content: {},
     contentType: "product-container",
-    id: `product-container-${Date.now().toPrecision()}`
+    id: `product-container-${Date.now().toPrecision()}`,
   },
   {
     style: {},
     content: {},
     contentType: "product-container",
-    id: `product-container-${Date.now().toPrecision()}`
+    id: `product-container-${Date.now().toPrecision()}`,
   },
   {
     style: {},
     content: {},
     contentType: "product-container",
-    id: `product-container-${Date.now().toPrecision()}`
+    id: `product-container-${Date.now().toPrecision()}`,
   },
   {
     style: {},
     content: {
-      src: "https://i.imgur.com/bnbVBob.jpg"
+      src: "https://i.imgur.com/bnbVBob.jpg",
     },
     contentType: "image",
-    id: `image-${Date.now().toPrecision()}`
-  }
+    id: `image-${Date.now().toPrecision()}`,
+  },
 ];
 
 export const contentExample = [
@@ -85,17 +85,17 @@ export const contentExample = [
       <form>
         <input />
       </form>
-    )
+    ),
   },
   { content: "b" },
   { content: "c" },
-  { content: "d" }
+  { content: "d" },
 ];
 
 export const ProductExample3 = [
   { x: 0, y: 0, w: 1, h: 2, content: "g" },
   { x: 1, y: 0, w: 3, h: 2, content: "h" },
-  { x: 4, y: 0, w: 1, h: 2, content: "i" }
+  { x: 4, y: 0, w: 1, h: 2, content: "i" },
 ];
 
 export const BlankLayout = [
@@ -114,5 +114,5 @@ export const BasicLayout = [
   { minW: 3, maxW: 6, minH: 9, maxH: 9, w: 3, h: 9, x: 3, y: 10, i: "7" },
   { minW: 3, maxW: 6, minH: 9, maxH: 9, w: 3, h: 9, x: 6, y: 10, i: "8" },
   { minW: 3, maxW: 6, minH: 9, maxH: 9, w: 3, h: 9, x: 9, y: 10, i: "9" },
-  { minW: 6, maxW: 12, minH: 6, maxH: 12, w: 6, h: 9, x: 0, y: 24, i: "10" }
+  { minW: 6, maxW: 12, minH: 6, maxH: 12, w: 6, h: 9, x: 0, y: 24, i: "10" },
 ];

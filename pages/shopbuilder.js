@@ -1,6 +1,6 @@
-import React, { useState, useEffect, Fragment } from 'react'
-import { Responsive, WidthProvider } from 'react-grid-layout'
-import { connect } from 'react-redux'
+import React, { useState, useEffect, Fragment } from "react";
+import { Responsive, WidthProvider } from "react-grid-layout";
+import { connect } from "react-redux";
 import {
   updateLayoutAction,
   onDrop,
@@ -10,42 +10,32 @@ import {
   deleteItemAction,
 } from "../store/actions/ShopBuilderActions";
 import ModalLayout from "../components/ShopBuilder/ModalLayout";
-import ModalProducts from "../components/ShopBuilder/ModalProducts";
+import ModalComponents from "../components/ShopBuilder/ModalComponents";
+import CreateProducts from "../components/ProductCreation/CreateProducts";
 import SideBar from "../components/ShopBuilder/SideBar";
 import styled, { keyframes } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { faArrowsAltH } from "@fortawesome/free-solid-svg-icons";
-import {
-  Item,
-  TextBanner,
-  Header,
-  Image,
-  Reset,
-  Carousel,
-  Button,
-  LinkBar,
-  Navigation,
-  Footer,
-} from "merch_components";
+import { Reset } from "merch_components";
 
 // Nav and subsequent components
-import ShopBuilderNav from '../components/ShopBuilder/ShopNavBar'
-import StoreMetaForm from '../components/ShopBuilder/storeMetadataForm'
+import ShopBuilderNav from "../components/ShopBuilder/ShopNavBar";
+import StoreMetaForm from "../components/ShopBuilder/storeMetadataForm";
+import { generateComponent } from "../components/ShopBuilder/ReusableFunctions/ShopBuilderFunctions";
 
-const ResponsiveGridLayout = WidthProvider(Responsive)
+const ResponsiveGridLayout = WidthProvider(Responsive);
 
 //STYLES
 const GridItemContainer = styled.div`
   object-fit: contain;
   background: white;
   text-align: right;
-`
+`;
 
 const Page = styled.div`
   width: 100%;
   display: flex;
-`
+`;
 
 const SideBarContainer = styled.div`
   display: flex;
@@ -55,7 +45,7 @@ const SideBarContainer = styled.div`
   box-shadow: -2px -2px 6px 2px #fff, 2px 2px 6px 2px #8e9093;
   position: fixed;
   z-index: 8;
-`
+`;
 
 const SideBarTitle = styled.div`
   background: #464646;
@@ -65,7 +55,7 @@ const SideBarTitle = styled.div`
   padding: 13%;
   text-align: center;
   height: 60px;
-`
+`;
 
 const DropZone = styled.div`
   width: 100%;
@@ -73,7 +63,7 @@ const DropZone = styled.div`
   min-height: 500px;
   margin-left: 9vw;
   margin-right: 2vw;
-`
+`;
 
 const ShopContainer = styled.div`
   ${(props) => (props.blurContainerTheme ? "filter: blur(2px);" : "")}
@@ -89,64 +79,24 @@ const ClosedSideBarButton = styled.div`
   border-radius: 0 45px 45px 0;
   box-shadow: -2px -2px 6px 2px #fff, 2px 2px 6px 2px #8e9093;
   padding: 10vw 1vw 1vw 1vw;
-`
+`;
 
 const ShopBuilder = (props) => {
   const [displayModal, setDisplayModal] = useState(false);
-  const [editProduct, setEditProduct] = useState(false);
+  const [editComponent, setEditComponent] = useState(false);
   const [editType, setEditType] = useState("broken");
+  const [editId, setEditId] = useState("broken");
   const [topVisible, setTopVisible] = useState(true);
+  const [carouselButtonVisible, setCarouselButtonVisible] = useState(false);
+  const [mouseMove, setMouseMove] = useState([0, 0]);
 
-  const [dragId, setDragId] = useState()
-  const sidebarLayout = props.state.SideBar.layout
+  const [dragId, setDragId] = useState();
+  const sidebarLayout = props.state.SideBar.layout;
 
-  const currentLayout = props.state.Page.layout
-
-  const generateComponent = (component, item) => {
-    switch (component.contentType) {
-      case 'product-container':
-        return <Item item={component.content} style={component.style} />
-      case 'banner':
-        return <TextBanner message={component.content.message} />
-      case 'store-name':
-        return <Header title={component.content.title} />
-      case 'image':
-        return (
-          <Image
-            src={component.content.src}
-            style={{
-              height: `${item.h * 75}px`,
-              width: "100%",
-              objectFit: "cover",
-            }}
-          />
-        );
-      case "carousel":
-        return <Carousel images={component.content.imageArray} />;
-      case "button":
-        return <Button name="Button" style={{ margin: "0 auto" }} />;
-      case "linkbar":
-        return <LinkBar links={["facebook"]} />;
-      case "navigation":
-        return (
-          <Navigation
-            links={[{ name: "Home" }, { name: "Products" }, { name: "About" }]}
-          />
-        );
-      case "footer":
-        return (
-          <Footer
-            links={[{ name: "Home" }, { name: "Products" }, { name: "About" }]}
-          />
-        );
-      default:
-        return 'broken'
-    }
-  }
+  const currentLayout = props.state.Page.layout;
 
   // function to open and close sidebar
   const [SideBarDisplay, setSideBarDisplay] = useState(true);
-  const [mouseMove, setMouseMove] = useState([0, 0]);
 
   function openClose() {
     if (SideBarDisplay) {
@@ -179,9 +129,9 @@ const ShopBuilder = (props) => {
       case "footer":
         return { w: 12, h: 2, minW: 12, maxW: 12, minH: 2, maxH: 2 };
       default:
-        return { w: 1, h: 1 }
+        return { w: 1, h: 1 };
     }
-  }
+  };
 
   return (
     <Fragment>
@@ -195,14 +145,15 @@ const ShopBuilder = (props) => {
         setTopVisible={setTopVisible}
       />
       <ModalLayout displayModal={displayModal} display={setDisplayModal} />
-      <ModalProducts
-        editProduct={editProduct}
-        display={setEditProduct}
+      <ModalComponents
+        editProduct={editComponent}
+        display={setEditComponent}
         editType={editType}
+        editId={editId}
       />
       <ShopContainer
         blurContainerTheme={displayModal}
-        blurContainerEdit={editProduct}
+        blurContainerEdit={editComponent}
       >
         <Page>
           {/* side bar that you drag stuff from */}
@@ -223,7 +174,7 @@ const ShopBuilder = (props) => {
                     setDragId={setDragId}
                     setDisplayModal={setDisplayModal}
                   />
-                )
+                );
               })}
               <SideBarTitle
                 onClick={() => openClose()}
@@ -297,46 +248,38 @@ const ShopBuilder = (props) => {
                       }}
                       onClick={() => props.deleteItemAction(index)}
                     />
-                    <div
-                      style={{ height: "auto" }}
-                      onMouseDown={(e) => {
-                        setMouseMove([e.clientX, e.clientY]);
-                      }}
-                      onMouseUp={(e) => {
-                        if (
-                          e.clientX === mouseMove[0] &&
-                          e.clientY === mouseMove[1]
-                        ) {
-                          setEditProduct(!editProduct);
-                          setEditType(
-                            props.state.Page.content[index].contentType
-                          );
-                        }
-                      }}
-                    >
+                    <div style={{ height: "auto" }}>
                       <Reset />
                       {props.state.Page.content.length
                         ? generateComponent(
                             props.state.Page.content[index],
-                            gridItem
+                            gridItem,
+                            topVisible,
+                            setEditComponent,
+                            setEditType,
+                            setEditId,
+                            carouselButtonVisible,
+                            setCarouselButtonVisible,
+                            mouseMove,
+                            setMouseMove
                           )
-                        : '+'}
+                        : "+"}
                     </div>
                   </GridItemContainer>
-                )
+                );
               })}
             </ResponsiveGridLayout>
           </DropZone>
         </Page>
       </ShopContainer>
     </Fragment>
-  )
-}
+  );
+};
 
 const mapStateToProps = (state) => {
   return {
     state: state.workspace,
-    userAuthed: state.userData.userIsAuthed
+    userAuthed: state.userData.userIsAuthed,
   };
 };
 

@@ -31,7 +31,7 @@ const ItemTitle = styled.h3`
   margin-left: 2%;
 `;
 
-const ItemDescription = styled.text`
+const ItemDescription = styled.p`
   font-size: 1.5rem;
   line-height: 1.3;
   margin-top: 2%;

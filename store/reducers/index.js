@@ -8,12 +8,14 @@ import workspaceReducer from './workspaceReducer'
 import { toastController } from './userInterface/toastController'
 import { storeMetaInterface } from './userInterface/storeMetaInterface'
 import { cartCheckoutReducer } from './cartCheckout/cartCheckout'
+import {scalableReducer}from './scalableConnection/scalalbleReducer'
 
 export const rootReducer = combineReducers({
   workspace: workspaceReducer,
   shopServerConnection,
   authInterface,
   userData,
+  scalableReducer,
   toastController,
   storeMetaInterface,
   cartCheckoutReducer,

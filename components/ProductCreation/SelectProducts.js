@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import ProductData from "./ProductData";
 import { Carousel } from "merch_components";
 import Axios from "axios";
 import {
@@ -23,7 +24,7 @@ const ProductHeading = styled.h2`
   font-size: 25px;
   position: relative;
   left: 30%;
-  width: 35%;
+  width: 36%;
   border-bottom: 1px solid black;
   font-weight: bold;
   margin-top: 10px;
@@ -39,16 +40,24 @@ const ProductTitle = styled.div`
 
 const Button = styled.button`
   margin-right: 30px;
-  ::nth:child(1) {
-    margin-right: 100px;
-  }
   border: 1px solid black;
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  // height: 60px;
+  outline: none;
   background: white;
   border-radius: 8px;
   cursor: pointer;
   z-index: 1;
+`;
+
+const ImageName = styled.h1`
+  font-size: 20px;
+  position: absolute;
+  width: 100%;
+  top: 17%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
 `;
 
 const SelectProducts = ({ select }) => {
@@ -56,21 +65,21 @@ const SelectProducts = ({ select }) => {
   const [productName, setProductName] = useState("short-sleeve-shirts");
   const [products, setProducts] = useState([]);
   const [iterator, setIterator] = useState(2);
-  const [tempArray, setTempArray] = useState([]);
+  const [productId, setProductId] = useState([]);
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
     Axios.get(
       `https://api.scalablepress.com/v2/categories/${productName}`
     ).then((data) => {
       console.log(data);
-      setProducts(data.data.products);
-      setTempArray(
+      setProducts(
         data.data.products.filter((p, i) => {
           if (!p.image) {
             p[i++];
           } else if (i + 1 < iterator * 5 + 1) {
-            console.log("reach this");
-            return p.image.url;
+            setProductId([p.id]);
+            return p.name;
           } else {
             return null;
           }
@@ -79,16 +88,53 @@ const SelectProducts = ({ select }) => {
     });
   }, [productName]);
 
-  const toggleSelected = () => {
-    setSelected(ture);
+  const images = [];
+  const pnames = [];
+
+  const getImages = () => {
+    products.map((ps, i) => {
+      images.push(ps.image.url);
+      pnames.push(ps.name);
+    });
+  };
+  getImages();
+
+  const names = products.values();
+
+  const imageName = [];
+  for (let name of names) {
+    imageName.push(name.name);
+  }
+
+  let imageTitle = "";
+  const callback = (e) => {
+    for (let i = 0; i < images.length; i++) {
+      if (count === i) {
+        imageTitle += pnames[i];
+      }
+    }
   };
 
   const handleClick = (e) => {
     setProductName(e.target.value);
-    console.log(e.target.value);
   };
-  console.log(selected);
-  console.log("temparry", tempArray);
+
+  const increment = () => {
+    if (count >= images.length - 1) {
+      setCount(0);
+    } else {
+      setCount(count + 1);
+    }
+  };
+
+  const decrement = () => {
+    if (count <= 0) {
+      setCount(images.length - 1);
+    } else {
+      setCount(count - 1);
+    }
+  };
+
   return (
     <div>
       <ProductHeading>Pick a Product to Sell:</ProductHeading>
@@ -123,19 +169,30 @@ const SelectProducts = ({ select }) => {
         </Button>
       </Icons>
       <ProductTitle>
-        <h2>Shirt</h2>
-        <h2 style={{ marginLeft: "49px" }}>Hat</h2>
-        <h2 style={{ marginLeft: "37px" }}>OuterWear</h2>
-        <h2 style={{ marginLeft: "15px" }}>Pants</h2>
-        <h2 style={{ marginLeft: "41px" }}>Mug</h2>
-        <h2 style={{ marginLeft: "50px" }}>Bag</h2>
-        <h2 style={{ marginLeft: "50px" }}>Kid</h2>
-        <h2 style={{ marginLeft: "45px" }}>Posters</h2>
+        <h2 style={{ marginLeft: "-6px" }}>Shirt</h2>
+        <h2 style={{ marginLeft: "52px" }}>Hat</h2>
+        <h2 style={{ marginLeft: "30px" }}>OuterWear</h2>
+        <h2 style={{ marginLeft: "17px" }}>Shorts</h2>
+        <h2 style={{ marginLeft: "37px" }}>Mug</h2>
+        <h2 style={{ marginLeft: "47px" }}>Bag</h2>
+        <h2 style={{ marginLeft: "53px" }}>Kid</h2>
+        <h2 style={{ marginLeft: "42px" }}>Posters</h2>
       </ProductTitle>
+      <div style={{ marginTop: "-90px", zIndex: -100 }}>
+        {callback()}
 
-      <div style={{ marginTop: "-116px", zIndex: -100 }}>
-        <Carousel images={tempArray.map((pic) => pic.image.url)} />
+        <div>
+          <ImageName>{imageTitle}</ImageName>
+        </div>
+
+        <Carousel
+          images={images}
+          count={count}
+          incrementCB={increment}
+          decrementCB={decrement}
+        />
       </div>
+      <ProductData />
     </div>
   );
 };

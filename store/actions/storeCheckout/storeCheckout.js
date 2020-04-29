@@ -10,8 +10,8 @@ export const addCartItem = (item) => (dispatch) => {
   dispatch({ type: ADD_TO_CART, payload: product })
 }
 export const removeCartItem = (item) => (dispatch) =>
-  dispatch({ type: REMOVE_FROM_CART, payload: item.itemIdInCart })
+  dispatch({ type: REMOVE_FROM_CART, payload: item })
 
 export const updateItemInCart = (item) => dispatch => {
-  dispatch({type: UPDATE_CART_ITEM, payload: item.itemIdInCart })
+  dispatch({type: UPDATE_CART_ITEM, payload: item })
 }
