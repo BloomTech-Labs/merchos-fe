@@ -99,6 +99,7 @@ const DropLogout = styled.h1`
   align-items: center;
   text-align: center;
   justify-content: center;
+  cursor: pointer;
 
   color: #871a04;
 
@@ -142,7 +143,7 @@ const Navbar = props => {
         <li>
           <ProfileBtn>
             {" "}
-            Alberta
+            Account
             <IoMdContact size="4rem" color="#565656" />
           </ProfileBtn>
         </li>
