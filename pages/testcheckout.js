@@ -49,6 +49,12 @@ const ItemContainer = styled.div`
   margin-left: 2%;
 `
 
+const Content = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+`
+
 const TestCheckout = () => {
   return (
     <div>
@@ -59,7 +65,7 @@ const TestCheckout = () => {
         </Link>
         <Title>Checkout</Title>
       </Head>
-      <div>
+      <Content>
         <div>
           <Items>Items:</Items>
           <ItemContainer>
@@ -67,7 +73,7 @@ const TestCheckout = () => {
           </ItemContainer>
         </div>
         <Totals />
-      </div>
+      </Content>
     </div>
   )
 }
