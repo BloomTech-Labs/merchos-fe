@@ -15,6 +15,18 @@ const ToastList = styled.ul`
     padding: 10px 20px;
     margin: 20px 0px;
     border-radius: 5px;
+    color: white;
+    animation: 1s fade;
+  }
+
+  @keyframes fade {
+    0% {
+      opacity: 0.0;
+    }
+
+    100% {
+      opacity: 1.0;
+    }
   }
 `;
 

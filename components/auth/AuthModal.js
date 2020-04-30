@@ -66,22 +66,6 @@ const AuthModal = () => {
     (state) => state.authInterface.authModalActive
   );
 
-  // close modal if a user clicks outside of it
-  const wrapperRef = useRef(null);
-  useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
-
-  const handleClickOutside = (event) => {
-    if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
-      modalCloser();
-    }
-  };
-
   // handles the active tab
   const [activeTab, setActiveTab] = useState('Sign In');
   const tabHandler = (data) => {
@@ -100,8 +84,8 @@ const AuthModal = () => {
   if (activeStatus) {
     return (
       <ModalContainer>
-        <Modal ref={wrapperRef}>
-          <XButton type='button' onClick={modalCloser}>
+        <Modal>
+          <XButton type='button' onClick={modalCloser} id='auth-modal-x'>
             x
           </XButton>
           <TabBar>

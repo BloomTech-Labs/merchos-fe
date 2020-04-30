@@ -81,7 +81,7 @@ const AuthButton = styled.button`
   border: 1px solid #6dd3ff;
 `;
 
-const LinkStyle = styled(Link)`
+const LinkStyle = styled.a`
   background: orange;
   height: 100%;
   width: 100%;
@@ -109,8 +109,8 @@ const Index = () => {
               localStorage.clear();
             }}
           >
-            <LinkStyle href="/shopbuilder">
-              <a
+            <Link href="/shopbuilder">
+              <LinkStyle
                 style={{
                   textDecoration: "none",
                   color: "white",
@@ -119,8 +119,8 @@ const Index = () => {
                 title="Start!"
               >
                 Start!
-              </a>
-            </LinkStyle>
+              </LinkStyle>
+            </Link>
           </Anchor>
           <AuthButton
             type="button"

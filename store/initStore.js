@@ -16,7 +16,7 @@ export default (initialState, { isServer, req, debug, storeKey }) => {
   }
 
   // Redux middlewares
-  const middlewares = [thunk, logger];
+  const middlewares = [thunk];
 
   const enhancers = [applyMiddleware(...middlewares)];
 
