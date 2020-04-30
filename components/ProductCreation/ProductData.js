@@ -1,5 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import styled from "styled-components";
+import { connect } from "react-redux";
+import { updateItem } from "../../store/actions/ShopBuilderActions";
 
 const StyledInput = styled.label`
   font-size: 25px;
@@ -59,46 +62,52 @@ const Submit = styled.button`
 const Header = styled.h3`
   font-weight: bold;
 `;
-const ProductData = ({ imageName }) => {
+const ProductData = (props) => {
+  const [colors, setColors] = useState([]);
+
+  const { image, name } = props;
+
+  console.log("image", image);
   const [productData, setProductData] = useState({
-    title: imageName,
-    description: "",
-    price: 0.0,
-    sale: 0.0,
+    itemName: "",
+    itemCost: 0.0,
+    saleCost: 0.0,
+    onSale: false,
+    imageSrc: image,
   });
 
   const handleChange = (e) => {
-    setProductData({ [e.target.name]: e.target.value });
+    console.log("productdata", productData);
+    setProductData({ ...productData, [e.target.name]: e.target.value });
+    console.log("productdata1", productData);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    props.updateItem(productData, name);
   };
 
   return (
     <>
-      <StyledForm onSubmit={(e) => e.preventDefault()}>
+      <StyledForm onSubmit={handleSubmit}>
         <StyledLabel htmlFor="title">
           <Header>Title:</Header>
           <InputSize
-            name="title"
+            name="itemName"
             onChange={handleChange}
-            value={productData.title}
+            value={productData.itemName}
           />
         </StyledLabel>
         <StyledLabel
           htmlFor="description"
           style={{ marginLeft: "-60px", width: "510px" }}
-        >
-          <Header style={{ marginLeft: "-19px" }}>Description:</Header>
-          <InputSize
-            name="description"
-            onChange={handleChange}
-            value={productData.description}
-          />
-        </StyledLabel>
+        ></StyledLabel>
         <StyledInput htmlFor="price">
           <Header style={{ marginLeft: "-11px" }}>Price:</Header>
           <InputSize
-            name="price"
+            name="itemCost"
             type="number"
-            value={productData.price}
+            value={productData.itemCost}
             onChange={handleChange}
             style={{ paddingLeft: "17px" }}
           />
@@ -106,17 +115,18 @@ const ProductData = ({ imageName }) => {
         <StyledInput htmlFor="sale">
           <Header>Sale:</Header>
           <InputSize
-            name="sale"
+            name="saleCost"
             type="number"
-            value={productData.sale}
+            value={productData.saleCost}
             onChange={handleChange}
             style={{ paddingLeft: "17px" }}
           />
         </StyledInput>
+
         <Submit>OK</Submit>
       </StyledForm>
     </>
   );
 };
 
-export default ProductData;
+export default connect(null, { updateItem })(ProductData);

@@ -3,6 +3,8 @@ import styled from "styled-components";
 import ProductData from "./ProductData";
 import { Carousel } from "merch_components";
 import Axios from "axios";
+import { connect } from "react-redux";
+import { scalableReducer } from "../../store/reducers/scalableConnection/scalalbleReducer";
 import {
   Bag,
   Cap,
@@ -75,7 +77,7 @@ const CarouselContainer = styled.div`
   }
 `;
 
-const SelectProducts = ({ select }) => {
+const SelectProducts = ({ name }) => {
   const [selected, setSelected] = useState(false);
   const [productName, setProductName] = useState("short-sleeve-shirts");
   const [products, setProducts] = useState([]);
@@ -83,29 +85,57 @@ const SelectProducts = ({ select }) => {
   const [productId, setProductId] = useState([]);
   const [count, setCount] = useState(0);
 
+  let productIdArray = [];
+
+  const productCall = `https://api.scalablepress.com/v2/categories/${productName}`;
+  const idCall = `https://api.scalablepress.com/v2/products/${productId}`;
+
   useEffect(() => {
     Axios.get(
       `https://api.scalablepress.com/v2/categories/${productName}`
     ).then((data) => {
       console.log(data);
-      setProducts(
-        data.data.products.filter((p, i) => {
-          if (!p.image) {
-            p[i++];
-          } else if (i + 1 < iterator * 5 + 1) {
-            setProductId([p.id]);
-            return p.name;
-          } else {
-            return null;
-          }
-        })
-      );
+      const ids = [];
+      const promiseArray = [];
+      const results = data.data.products.filter((p, i) => {
+        if (!p.image) {
+          p[i++];
+        } else if (i + 1 < iterator * 5 + 1) {
+          console.log("id", [p.id]);
+
+          ids.push(p.id);
+
+          return p.name;
+        } else {
+          return null;
+        }
+      });
+      setProducts(results);
+
+      console.log("count", count);
+      console.log("productcount", productId[count]);
+
+      ids.forEach((id) => {
+        promiseArray.push(
+          Axios.get(`https://api.scalablepress.com/v2/products/${id}`)
+        );
+      });
+
+      Axios.all([...promiseArray])
+        .then(
+          Axios.spread((...response) => {
+            console.log("response", response);
+          })
+        )
+        .catch((err) => console.log(err));
     });
   }, [productName]);
+  console.log("products", products);
+  console.log("products", products);
+  console.log("sp productID", productId);
 
   const images = [];
   const pnames = [];
-
   const getImages = () => {
     products.map((ps, i) => {
       images.push(ps.image.url);
@@ -114,22 +144,18 @@ const SelectProducts = ({ select }) => {
   };
   getImages();
 
-  const names = products.values();
-
-  const imageName = [];
-  for (let name of names) {
-    imageName.push(name.name);
-  }
-
   let imageTitle = "";
+
   const callback = (e) => {
     for (let i = 0; i < images.length; i++) {
       if (count === i) {
         imageTitle += pnames[i];
+        productIdArray.push(productId[i]);
       }
     }
   };
-
+  console.log("sp ProductIdArray", productIdArray);
+  console.log("productid[count]", productId[count]);
   const handleClick = (e) => {
     setProductName(e.target.value);
   };
@@ -149,6 +175,8 @@ const SelectProducts = ({ select }) => {
       setCount(count - 1);
     }
   };
+
+  console.log("images", images);
 
   return (
     <div>
@@ -207,9 +235,15 @@ const SelectProducts = ({ select }) => {
           decrementCB={decrement}
         />
       </CarouselContainer>
-      <ProductData />
+      <ProductData image={images} name={name} />
     </div>
   );
 };
 
-export default SelectProducts;
+const mapStateToProps = (state) => {
+  return {
+    state: scalableReducer,
+  };
+};
+
+export default connect(mapStateToProps, {})(SelectProducts);

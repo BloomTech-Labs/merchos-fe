@@ -7,6 +7,7 @@ export const RESIZE_STOP = "RESIZE_STOP";
 export const DELETE_ACTION = "DELETE_ACTION";
 export const SET_IMAGE_ACTION = "SET_IMAGE_ACTION";
 export const SET_CAROUSEL_ACTION = "SET_CAROUSEL_ACTION";
+export const UPDATE_ITEM = "UPDATE_ITEM";
 
 export const selectLayoutAction = (layoutType) => (dispatch) => {
   dispatch({ type: SELECT_LAYOUT, payload: { layoutType } });
@@ -53,4 +54,8 @@ export const setCarouselAction = (imageArr, gridItemLocation) => (dispatch) => {
     type: SET_CAROUSEL_ACTION,
     payload: { imageArr, gridItemLocation },
   });
+};
+
+export const updateItem = (item, name) => (dispatch) => {
+  dispatch({ type: UPDATE_ITEM, payload: { item, name } });
 };

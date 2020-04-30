@@ -72,7 +72,7 @@ const ModalComponents = (props) => {
       case "product-container":
         return (
           <div onClick={(e) => e.stopPropagation()}>
-            <CreateProducts />;
+            <CreateProducts name={Number(props.editId)} />;
           </div>
         );
       default:

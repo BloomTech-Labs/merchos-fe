@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import SelectProducts from "./SelectProducts";
 
-const CreateProducts = () => {
+const CreateProducts = ({ name }) => {
   const ProductContainer = styled.div`
     width: 100%;
     height: 100vh;
@@ -28,7 +28,7 @@ const CreateProducts = () => {
     <div>
       <ProductContainer>
         <CreationModal>
-          <SelectProducts />
+          <SelectProducts name={name} />
         </CreationModal>
       </ProductContainer>
     </div>
