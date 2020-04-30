@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+
 import styled from "styled-components";
 import { connect } from "react-redux";
 import { updateItem } from "../../store/actions/ShopBuilderActions";
@@ -67,19 +67,20 @@ const ProductData = (props) => {
 
   const { image, name } = props;
 
-  console.log("image", image);
   const [productData, setProductData] = useState({
     itemName: "",
     itemCost: 0.0,
     saleCost: 0.0,
     onSale: false,
-    imageSrc: image,
+    imageSrc: "",
   });
 
   const handleChange = (e) => {
-    console.log("productdata", productData);
-    setProductData({ ...productData, [e.target.name]: e.target.value });
-    console.log("productdata1", productData);
+    setProductData({
+      ...productData,
+      imageSrc: image,
+      [e.target.name]: e.target.value,
+    });
   };
 
   const handleSubmit = (e) => {
