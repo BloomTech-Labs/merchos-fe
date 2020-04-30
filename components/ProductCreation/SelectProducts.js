@@ -3,8 +3,6 @@ import styled from "styled-components";
 import ProductData from "./ProductData";
 import { Carousel } from "merch_components";
 import Axios from "axios";
-import { connect } from "react-redux";
-import { scalableReducer } from "../../store/reducers/scalableConnection/scalalbleReducer";
 import {
   Bag,
   Cap,
@@ -94,15 +92,12 @@ const SelectProducts = ({ name }) => {
     Axios.get(
       `https://api.scalablepress.com/v2/categories/${productName}`
     ).then((data) => {
-      console.log(data);
       const ids = [];
       const promiseArray = [];
       const results = data.data.products.filter((p, i) => {
         if (!p.image) {
           p[i++];
         } else if (i + 1 < iterator * 5 + 1) {
-          console.log("id", [p.id]);
-
           ids.push(p.id);
 
           return p.name;
@@ -112,9 +107,6 @@ const SelectProducts = ({ name }) => {
       });
       setProducts(results);
 
-      console.log("count", count);
-      console.log("productcount", productId[count]);
-
       ids.forEach((id) => {
         promiseArray.push(
           Axios.get(`https://api.scalablepress.com/v2/products/${id}`)
@@ -122,17 +114,10 @@ const SelectProducts = ({ name }) => {
       });
 
       Axios.all([...promiseArray])
-        .then(
-          Axios.spread((...response) => {
-            console.log("response", response);
-          })
-        )
+        .then(Axios.spread((...response) => {}))
         .catch((err) => console.log(err));
     });
   }, [productName]);
-  console.log("products", products);
-  console.log("products", products);
-  console.log("sp productID", productId);
 
   const images = [];
   const pnames = [];
@@ -154,8 +139,7 @@ const SelectProducts = ({ name }) => {
       }
     }
   };
-  console.log("sp ProductIdArray", productIdArray);
-  console.log("productid[count]", productId[count]);
+
   const handleClick = (e) => {
     setProductName(e.target.value);
   };
@@ -175,8 +159,6 @@ const SelectProducts = ({ name }) => {
       setCount(count - 1);
     }
   };
-
-  console.log("images", images);
 
   return (
     <div>
@@ -235,15 +217,9 @@ const SelectProducts = ({ name }) => {
           decrementCB={decrement}
         />
       </CarouselContainer>
-      <ProductData image={images} name={name} />
+      <ProductData image={images[count]} name={name} />
     </div>
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    state: scalableReducer,
-  };
-};
-
-export default connect(mapStateToProps, {})(SelectProducts);
+export default SelectProducts;
