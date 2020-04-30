@@ -56,7 +56,6 @@ const TotalWrapper = styled.div`
 
 const Totals = () => {
   const { checkout } = useSelector((state) => state.cartCheckoutReducer)
-  console.log(checkout)
   return (
     <CheckoutPrice>
       <SubTotalWrapper>
