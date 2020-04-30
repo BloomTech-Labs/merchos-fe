@@ -47,6 +47,10 @@ const TotalWrapper = styled.div`
   .final-total {
     font-weight: bold;
     padding-bottom: 15px;
+
+    span {
+      color: blue;
+    }
   }
 `
 
