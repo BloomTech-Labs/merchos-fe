@@ -90,16 +90,21 @@ const MenuItems = styled.div`
 
 export default function StoreData(data) {
   const dispatch = useDispatch()
+
   function deleteStore() {
     const bool = confirm(
       'Are you sure that you would like to delete your store?'
     )
     if (bool == true) {
-      console.log(data.props.id)
       axiosWithAuth()
         .delete(`/store/${data.props.store_url}`)
+        .then(() => {
+          const newStores = data.allStores.filter(
+            (store) => store.store_url !== data.props.store_url
+          )
+          data.setStore(newStores)
+        })
         .catch((error) => {
-          console.log(error)
         })
     } else {
       return null

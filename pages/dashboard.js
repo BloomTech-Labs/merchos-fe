@@ -8,6 +8,7 @@ import styled from 'styled-components'
 import { IoIosAddCircle } from 'react-icons/io'
 import { useDispatch } from 'react-redux'
 import { createStore } from '../store/actions/storeActions'
+import Router from 'next/router'
 
 const Dashlayout = styled.section`
   display: flex;
@@ -57,6 +58,7 @@ const AddNewBtn = styled.button`
 const StoresContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
 `
 
 export default function dashboard() {
@@ -89,7 +91,14 @@ export default function dashboard() {
             {!store
               ? null
               : store.map((data) => {
-                  return <Store key={data.id} props={data} />
+                  return (
+                    <Store
+                      key={data.id}
+                      props={data}
+                      setStore={setStore}
+                      allStores={store}
+                    />
+                  )
                 })}
             <AddNewBtn onClick={addStore}>
               <IoIosAddCircle cursor='pointer' size='4rem' color='#0047FF' />
