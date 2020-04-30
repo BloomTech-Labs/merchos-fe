@@ -20,9 +20,9 @@ const Side = styled.div`
 
 const SideBar = props => (
   <Side>
-    {props.navButtons.map(button => (
+    {/* {props.navButtons.map(button => (
       <SideNav key={button.path} path={button.path} label={button.label} />
-    ))}
+    ))} */}
   </Side>
 );
 

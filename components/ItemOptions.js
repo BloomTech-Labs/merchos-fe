@@ -91,7 +91,7 @@ const ItemOptions = props => {
       <div>
         <QtyOption>
           <QtyLabel>
-            <label for="quantity">Qty:</label>
+            <label htmlFor="quantity">Qty:</label>
 
             <select
               id="quantity"
@@ -115,7 +115,7 @@ const ItemOptions = props => {
       <div>
         <SizeOption>
           <SizeLabel>
-            <label for="size">Size:</label>
+            <label htmlFor="size">Size:</label>
 
             <select id="size" value={form.size} onChange={changeHandler}>
               <option value="XS">SM</option>
@@ -131,7 +131,7 @@ const ItemOptions = props => {
       <div>
         <ColorOption>
           <ColorLabel>
-            <label for="color">Color:</label>
+            <label htmlFor="color">Color:</label>
             <select id="color" value={form.color} onChange={changeHandler}>
               <option value="White">White</option>
               <option value="Black">Black</option>

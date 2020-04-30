@@ -9,7 +9,7 @@ const TotalContainer = styled.div`
   align-items: flex-end;
 `;
 
-const OriginalPrice = styled.text`
+const OriginalPrice = styled.p`
   color: #73be6d;
   font-size: 2.5rem;
 `;
@@ -22,7 +22,6 @@ const RemoveItem = styled.button`
 `;
 
 const ItemTotal = props => {
-  console.log({ props });
 
   return (
     <div>
