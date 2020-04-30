@@ -20,8 +20,6 @@ const Wrapper = styled.section`
   padding-right: 6%;
 
   background: #f3f3ff;
-  box-shadow: inset 5px 5px 13px rgba(0, 0, 0, 0.2),
-    inset -9px -9px 3.37829px rgba(255, 255, 255, 0.65);
 
   .log {
     display: none;
