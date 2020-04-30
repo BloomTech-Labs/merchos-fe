@@ -89,7 +89,7 @@ const AuthForm = ({ activeTab, submitHandler }) => {
         />
       ) : null}
       <ErrorHandling activeTab={activeTab} />
-      <SubmitButton type='submit'>
+      <SubmitButton type='submit' id='auth-submit'>
         {activeTab === 'Sign In' ? 'Sign In' : 'Sign Up'}
       </SubmitButton>
     </Form>

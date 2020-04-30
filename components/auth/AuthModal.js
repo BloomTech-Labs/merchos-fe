@@ -85,7 +85,7 @@ const AuthModal = () => {
     return (
       <ModalContainer>
         <Modal>
-          <XButton type='button' onClick={modalCloser}>
+          <XButton type='button' onClick={modalCloser} id='auth-modal-x'>
             x
           </XButton>
           <TabBar>
