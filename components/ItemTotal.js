@@ -26,7 +26,7 @@ const ItemTotal = props => {
   return (
     <div>
       <TotalContainer>
-        <OriginalPrice>$13.99</OriginalPrice>
+        <OriginalPrice>$19.99</OriginalPrice>
         <RemoveItem onClick={props.deleteItem}>Remove</RemoveItem>
       </TotalContainer>
     </div>
