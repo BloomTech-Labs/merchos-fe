@@ -15,16 +15,17 @@ const Dashlayout = styled.section`
   flex-direction: row;
 
   width: 100%;
+  padding-bottom: 150px;
 `
 
 const Container = styled.div`
   width: 85%;
   padding-right: 3%;
   margin-right: 5%;
-
   background: #f3f3ff;
   box-shadow: inset -2px -2px 6px 2px #fff, inset 2px 2px 6px 2px #787878;
-  border-radius: 75px 75px 0px 0px;
+  border-radius: 75px 75px 75px 75px;
+  padding-bottom: 150px;
 `
 
 const Title = styled.h1`
