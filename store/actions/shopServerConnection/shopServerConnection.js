@@ -21,7 +21,6 @@ export const saveStore = (data) => async (dispatch) => {
 };
 
 function storeSanitizer(data) {
-  console.log(data);
   const { storeName, storeUrl, Page } = data;
   const { layout, content } = Page;
 

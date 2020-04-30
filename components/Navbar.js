@@ -20,8 +20,6 @@ const Wrapper = styled.section`
   padding-right: 6%;
 
   background: #f3f3ff;
-  box-shadow: inset 5px 5px 13px rgba(0, 0, 0, 0.2),
-    inset -9px -9px 3.37829px rgba(255, 255, 255, 0.65);
 
   .log {
     display: none;
@@ -99,6 +97,7 @@ const DropLogout = styled.h1`
   align-items: center;
   text-align: center;
   justify-content: center;
+  cursor: pointer;
 
   color: #871a04;
 
@@ -142,7 +141,7 @@ const Navbar = props => {
         <li>
           <ProfileBtn>
             {" "}
-            Alberta
+            Account
             <IoMdContact size="4rem" color="#565656" />
           </ProfileBtn>
         </li>
