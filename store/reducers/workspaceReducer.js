@@ -8,6 +8,7 @@ import { DELETE_ACTION } from "../actions/ShopBuilderActions";
 import { STATIC_ACTION } from "../actions/ShopBuilderActions";
 import { SET_IMAGE_ACTION } from "../actions/ShopBuilderActions";
 import { SET_CAROUSEL_ACTION } from "../actions/ShopBuilderActions";
+import { UPDATE_ITEM } from "../actions/ShopBuilderActions";
 import {
   BasicLayout,
   BlankLayout,
@@ -98,6 +99,8 @@ const workspaceReducer = (state = initialState, action) => {
     storeUrl,
     imageSrc,
     imageArr,
+    item,
+    name,
   } = action.payload || {};
 
   const tempArray = Array.from(state.Page.layout);
@@ -278,6 +281,16 @@ const workspaceReducer = (state = initialState, action) => {
 
     case SET_CAROUSEL_ACTION:
       contentArray[gridItemLocation].content.imageArray = imageArr;
+      return {
+        ...state,
+        Page: {
+          ...state.Page,
+          content: contentArray,
+        },
+      };
+    case UPDATE_ITEM:
+      console.log("content", contentArray[name]);
+      contentArray[name].content = item;
       return {
         ...state,
         Page: {
