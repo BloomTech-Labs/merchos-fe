@@ -27,7 +27,6 @@ const Modal = styled.div`
 `;
 
 const ModalComponents = (props) => {
-  console.log("props", props);
   function handleImage(e) {
     props.setImageAction(
       URL.createObjectURL(e.target.files[0]),
